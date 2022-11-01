@@ -6,4 +6,4 @@ Täällä on vain *todella* tärkeitä asioita.
 - Täällä ovat [git-logit](laskarit/viikko1/gitlog.txt)
 
 ## Tänne tulis sitte lisätietoa ##
-Tässä se ois
+Tässä se ois TAAS
