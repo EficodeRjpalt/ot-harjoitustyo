@@ -55,6 +55,8 @@ class TestKassapaate(unittest.TestCase):
 
         self.assertEqual(self.kassapaate.kassassa_rahaa, 100000)
 
+        self.assertEqual(self.kassapaate.edulliset, 1)
+
     def test_onnistunut_korttiosto_kasvattaa_edullisten_myyntia(self):
         self.assertEqual(self.kassapaate.syo_edullisesti_kortilla(self.kortti), True)
 
@@ -70,9 +72,40 @@ class TestKassapaate(unittest.TestCase):
         self.assertEqual(self.kassapaate.edulliset, 0)
 
         self.assertEqual(self.kassapaate.kassassa_rahaa, 100000)
-#Korttiosto toimii sekä edullisten että maukkaiden lounaiden osalta
-## Jos kortilla on tarpeeksi rahaa, veloitetaan summa kortilta ja palautetaan True
-## Jos kortilla on tarpeeksi rahaa, myytyjen lounaiden määrä kasvaa
-## Jos kortilla ei ole tarpeeksi rahaa, kortin rahamäärä ei muutu, myytyjen lounaiden määrä muuttumaton ja palautetaan False
-#Kassassa oleva rahamäärä ei muutu kortilla ostettaessa
-#Kortille rahaa ladattaessa kortin saldo muuttuu ja kassassa oleva rahamäärä kasvaa ladatulla summalla
+
+    def test_voi_ostaa_kortilla_maukkaan(self):
+        self.assertEqual(self.kassapaate.syo_maukkaasti_kortilla(self.kortti), True)
+
+        self.assertEqual(self.kortti.saldo, 1000 - 400)
+
+        self.assertEqual(self.kassapaate.kassassa_rahaa, 100000)
+
+
+    def test_onnistunut_korttiosto_kasvattaa_maukkaitten_myyntia(self):
+        self.assertEqual(self.kassapaate.syo_maukkaasti_kortilla(self.kortti), True)
+
+        self.assertEqual(self.kassapaate.maukkaat, 1)
+
+        self.assertEqual(self.kassapaate.kassassa_rahaa, 100000)
+
+    def test_liian_pienella_saldolla_ei_maukasta(self):
+        self.assertEqual(self.kassapaate.syo_maukkaasti_kortilla(self.huono_kortti), False)
+
+        self.assertEqual(self.huono_kortti.saldo, 100)
+
+        self.assertEqual(self.kassapaate.maukkaat, 0)
+
+        self.assertEqual(self.kassapaate.kassassa_rahaa, 100000)
+
+
+    def test_korttia_voi_ladata(self):
+        self.kassapaate.lataa_rahaa_kortille(self.kortti, 500)
+
+        self.assertEqual(self.kortti.saldo, 1500)
+        self.assertEqual(self.kassapaate.kassassa_rahaa, 100000 + 500)
+
+    def test_korttia_ei_voi_ladata_anti_rahalla(self):
+        self.kassapaate.lataa_rahaa_kortille(self.kortti, -100)
+
+        self.assertEqual(self.kortti.saldo, 1000)
+        self.assertEqual(self.kassapaate.kassassa_rahaa, 100000)
