@@ -1,0 +1,105 @@
+Rasmuss-MBP:temp rasmuspaltschik$ git log --stat | cat
+commit 2c94289c842088013935d00f3deb98dd14b297a6
+Author: Rasmus Paltschik <rjpalt@gmail.com>
+Date:   Tue Nov 1 06:28:50 2022 +0200
+
+    Final edits
+
+ tiedostoja/file2.txt                 | 0
+ tiedostoja/{file1.txt => file22.txt} | 0
+ 2 files changed, 0 insertions(+), 0 deletions(-)
+
+commit ef7b32e1aa808413c19574cc182d5399a0b72607
+Author: Rasmus Paltschik <rjpalt@gmail.com>
+Date:   Tue Nov 1 06:26:33 2022 +0200
+
+    Lisää tiedostoja
+
+ tiedostoja/file1.txt | 0
+ tiedostoja/file2.txt | 0
+ tiedostoja/file3.txt | 0
+ 3 files changed, 0 insertions(+), 0 deletions(-)
+
+commit 695eb54dfd0286109c80bcd6b5748d713a969903
+Author: Rasmus Paltschik <rjpalt@gmail.com>
+Date:   Tue Nov 1 06:16:18 2022 +0200
+
+    Muutoksia eka ja kolmas
+
+ eka.txt    | 2 --
+ kolmas.txt | 1 +
+ 2 files changed, 1 insertion(+), 2 deletions(-)
+
+commit 1d39e7238c3259de46694ce440b73fe6acc6a619
+Author: Rasmus Paltschik <rjpalt@gmail.com>
+Date:   Tue Nov 1 06:15:13 2022 +0200
+
+    Teidosto.txt > eka.txt
+
+ tiedosto.txt => eka.txt | 0
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+
+commit 623301c2b1989c9dc4461a657d48a5f8b16c65ac
+Author: Rasmus Paltschik <rjpalt@gmail.com>
+Date:   Tue Nov 1 06:14:06 2022 +0200
+
+    Toinen poistettu
+
+ toinen.txt | 0
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+
+commit b17abac6cc0c03249d57051954b5e8ef2eff590c
+Author: Rasmus Paltschik <rjpalt@gmail.com>
+Date:   Tue Nov 1 06:13:04 2022 +0200
+
+    Muutoksia
+
+ tiedosto.txt | 22 ++++++++++++++++------
+ 1 file changed, 16 insertions(+), 6 deletions(-)
+
+commit aee803befc1899ff409a9c1cb54b860998a23520
+Author: Rasmus Paltschik <rjpalt@gmail.com>
+Date:   Tue Nov 1 06:11:35 2022 +0200
+
+    Lisätty tekstiä
+
+ tiedosto.txt | 72 
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 72 insertions(+)
+
+commit cf1ec62c741fbec510d86a504dd8e6ceb289e071
+Author: Rasmus Paltschik <rjpalt@gmail.com>
+Date:   Tue Nov 1 05:49:34 2022 +0200
+
+    Neljäs tiedosto lisätty
+
+ stuff/neljas.txt | 0
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+
+commit c560a0f991e9c502343b857fe79da38adc66271e
+Author: Rasmus Paltschik <rjpalt@gmail.com>
+Date:   Tue Nov 1 05:48:38 2022 +0200
+
+    Kolmas tiedosto
+
+ kolmas.txt | 0
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+
+commit e76c34f314830e3791c34853ff092b038c1e65e9
+Author: Rasmus Paltschik <rjpalt@gmail.com>
+Date:   Tue Nov 1 05:43:26 2022 +0200
+
+    Muutoksia tiedosto.txt ja lisätty  tiedosto
+
+ tiedosto.txt | 1 +
+ toinen.txt   | 0
+ 2 files changed, 1 insertion(+)
+
+commit a54e40757409a4a0fddb24fd46f184927b121e3c
+Author: Rasmus Paltschik <rjpalt@gmail.com>
+Date:   Tue Nov 1 05:41:57 2022 +0200
+
+    Luotu tiedosto.txt
+
+ tiedosto.txt | 0
+ 1 file changed, 0 insertions(+), 0 deletions(-)
