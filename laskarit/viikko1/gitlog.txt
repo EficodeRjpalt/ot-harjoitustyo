@@ -1,4 +1,7 @@
 Rasmuss-MBP:temp rasmuspaltschik$ git log --stat | cat
+
+-------------------------------------------------------
+
 commit 2c94289c842088013935d00f3deb98dd14b297a6
 Author: Rasmus Paltschik <rjpalt@gmail.com>
 Date:   Tue Nov 1 06:28:50 2022 +0200
