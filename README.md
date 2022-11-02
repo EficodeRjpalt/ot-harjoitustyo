@@ -6,7 +6,7 @@ Projektin tuntikirjanpito löytyy [täältä](/dokumentaatio/tuntikirjanpito.md)
 
 ## Projektin dokumentaatio ##
 
-
+Projektin [vaatimusmäärittely](/dokumentaatio/vaatimukset.md)
 
 ## Linkit viikon 1 tehtäväpalautuksiin ##
 
