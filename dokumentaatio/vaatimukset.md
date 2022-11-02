@@ -12,6 +12,8 @@ Sovellus toteutetaan pääson Pythonilla, joskin markdown-formaattia Jiran marku
 
 - Issueiden description-kentän ja kommenttien teksti-kentän tulee olla muutettu markdown-formaatista Jiran omaan markup-syntaksiin.
 
+- Kun ohjelma on suorittanut eksportaation/importaation, ohjelma luo Google Sheetsiin raportin siirretystä datasta. Raportin tarkoitus on toimia projektin lokina, josta voidaan nopeasti tarkastaa mitä dataa kullakin operaatiolla on siirretty.
+
 ## Siirrettävä data ##
 
 - Asiakkaan kanssa on sovittava mikä data on siirrettävä ja kuinka se mäpätään Jiran päässä. Ohessa lista siirrettävistä kentistä ja niiden vastikekappaleista Jirassa.
