@@ -21,4 +21,4 @@ Täällä on vain *todella* tärkeitä asioita.
 ## Viikon 3 ##
 
 ### Ohjelmistotyön Backlog ###
-Ohjelmistotyön [backlogi](https://github.com/EficodeRjpalt/ot-harjoitustyo/milestone/1)
+Ohjelmistotyön [backlogi](https://github.com/EficodeRjpalt/ot-harjoitustyo/milestone/1) viikolle 3. Viikon 3 tavoitteena on saada MVP-tason toiminnallisuus, jolla GitLabin issuet voidaan muuntaa CSV-tiedostoksi, joka voidaan importata helposti Jiraan. Lisäksi tavoitteena on, että importattujen tiedostojen Description-kenttä formatoidaan käyttämään Jiran markup languagea.
