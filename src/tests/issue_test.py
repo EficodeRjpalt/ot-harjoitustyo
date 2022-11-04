@@ -11,7 +11,5 @@ class TestIssue(unittest.TestCase):
             'Pormestari Kontiainen',
             '[2022-07-20T03:45:02Z]',
             '[2022-07-25T05:23:02Z]',
-            ['tests', 'mock'],
+            ['tests', 'mock']
         )
-
-    
