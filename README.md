@@ -20,5 +20,10 @@ Täällä on vain *todella* tärkeitä asioita.
 
 ## Viikon 3 Backlogi ##
 <!-- issueTable -->
-
+#1
+#2
+#3
+#4
+#5
+#6
 <!-- issueTable -->
