@@ -7,8 +7,7 @@ on:
     - cron: '00 08 * * *'
 
 jobs:
-  analyze:
-    name: Fetch issues
+  build:
     runs-on: ubuntu-latest
 
     steps:
