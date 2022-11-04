@@ -18,12 +18,7 @@ Täällä on vain *todella* tärkeitä asioita.
 ## Viikko 2 ##
 
 
-## Viikon 3 Backlogi ##
-<!-- issueTable -->
-#1
-#2
-#3
-#4
-#5
-#6
-<!-- issueTable -->
+## Viikon 3 ##
+
+### Ohjelmistotyön Backlog ###
+Ohjelmistotyön [backlogi](https://github.com/EficodeRjpalt/ot-harjoitustyo/milestones)
