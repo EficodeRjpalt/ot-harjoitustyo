@@ -21,4 +21,4 @@ Täällä on vain *todella* tärkeitä asioita.
 ## Viikon 3 ##
 
 ### Ohjelmistotyön Backlog ###
-Ohjelmistotyön [backlogi](https://github.com/EficodeRjpalt/ot-harjoitustyo/milestones)
+Ohjelmistotyön [backlogi](https://github.com/EficodeRjpalt/ot-harjoitustyo/milestone/1)
