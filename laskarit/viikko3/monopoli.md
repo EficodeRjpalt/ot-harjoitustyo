@@ -5,11 +5,11 @@
 ### Vaatimukset ##
 Monopolia pelataan käyttäen kahta noppaa. Pelaajia on vähintään 2 ja enintään 8. Peliä pelataan pelilaudalla joita on yksi. Pelilauta sisältää 40 ruutua. Kukin ruutu tietää, mikä on sitä seuraava ruutu pelilaudalla. Kullakin pelaajalla on yksi pelinappula. Pelinappula sijaitsee aina yhdessä ruudussa.
 
-[x] Noppa x2
-[x] Pelaajia 2 - 8
-[x] 40 ruutua
-[x] Jokainen ruutu tietää mikä on sitä seuraava ruutu (Katso huomiot tehtävän alla)
-[x] Pelinappula, yksi per pelaaja, pelinappula on aina ruudussa
+- [x] Noppa x2
+- [x] Pelaajia 2 - 8
+- [x] 40 ruutua
+- [x] Jokainen ruutu tietää mikä on sitä seuraava ruutu (Katso huomiot tehtävän alla)
+- [x] Pelinappula, yksi per pelaaja, pelinappula on aina ruudussa
 
 ```mermaid
  classDiagram
