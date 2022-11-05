@@ -47,3 +47,25 @@ Monopolia pelataan käyttäen kahta noppaa. Pelaajia on vähintään 2 ja enint�
 ## Tehtävä 2 ##
 
 ### Vaatimukset ###
+
+Aloitusruutu
+Vankila
+Sattuma ja yhteismaa
+Asemat ja laitokset
+Normaalit kadut (joihin liittyy nimi)
+Monopolipelin täytyy tuntea sekä aloitusruudun että vankilan sijainti.
+
+Jokaiseen ruutuun liittyy jokin toiminto.
+
+Sattuma- ja yhteismaaruutuihin liittyy kortteja, joihin kuhunkin liittyy joku toiminto.
+
+Toimintoja on useanlaisia. Ei ole vielä tarvetta tarkentaa toiminnon laatua.
+
+Normaaleille kaduille voi rakentaa korkeintaan 4 taloa tai yhden hotellin. Kadun voi omistaa joku pelaajista. Pelaajilla on rahaa.
+
+- [] Tee luokasta ruutu abstrakti ruutu, jonka ominaisuudet periytyvät ym. listalle ruutuja (perintäsuhde)
+- [] Tee luokka Kortti, jolla on aina attribuuttina luokan Toiminto instanssi
+- [] Tee luokat Talo ja  Hotelli
+- [] Kadulla voi olla 4 taloa TAI 1 hotelli
+- [] Kadun VOI omistaa joku pelaaja
+- [] Pelaaja-luokka on tilallinen: sillä on aina tietty määrä rahaa taskussa
