@@ -36,11 +36,6 @@ Monopolia pelataan käyttäen kahta noppaa. Pelaajia on vähintään 2 ja enint�
 	}
 ```
 
-***
-
-**Huomioita**
-- Ruutujen välinen suhde (ne tietävät aina mikä on seuraava ruutu), kuuluisi oikeasti ilmaista UML:n syntaksilla 'self association', mutta mermaid ei tällä hetkellä tue kyseistä syntaksia, jonka takia tässä kaaviossa olen käyttänyt ns. huonoa käytänneettä, eli mallintanut luokan instanssien suhdetta luomalla käsitteen 'SeuraavaRuutu'. Tosiasiassa luokat saisivat luotaessa aina referenssin siihen ruutuun, joka tulee niiden jälkeen.
-
 ## Tehtävä 2 ##
 
 ### Vaatimukset ###
