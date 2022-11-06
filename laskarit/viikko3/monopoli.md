@@ -13,27 +13,27 @@ Monopolia pelataan käyttäen kahta noppaa. Pelaajia on vähintään 2 ja enint�
 
 ```mermaid
  classDiagram
-	  	 Pelaaja "2..8" <.. "2" Noppa
-		  Pelilauta "1" -- "40" Ruutu
-		  Pelaaja "2..8" -- "1" Pelinappula
-		  Pelilauta "1" -- "2..8" Pelinappula
-		  Ruutu "1" <-- "2..8" Pelinappula
-      class Noppa {
-          silmäluku
-      }
-      class Pelaaja {
-	  	   nimi
-      }
-	    class Pelilauta{
+		Pelaaja "2..8" <.. "2" Noppa
+		Pelilauta "1" -- "40" Ruutu
+		Pelaaja "2..8" -- "1" Pelinappula
+		Pelilauta "1" -- "2..8" Pelinappula
+		Ruutu "1" <-- "2..8" Pelinappula
+	class Noppa {
+		silmäluku
+	}
+	class Pelaaja {
+		nimi
+	}
+	class Pelilauta {
 		      
-		  }
-		  class Ruutu{
-		    Järjestysluku
-			Seuraavan järjestysluku
-		  }
-		  class Pelinappula{
-		    väri
-		  }
+	}
+	class Ruutu {
+		Järjestysluku
+		Seuraavan järjestysluku
+	}
+	class Pelinappula {
+		väri
+	}
 ```
 
 ***
@@ -62,11 +62,11 @@ Toimintoja on useanlaisia. Ei ole vielä tarvetta tarkentaa toiminnon laatua.
 Normaaleille kaduille voi rakentaa korkeintaan 4 taloa tai yhden hotellin. Kadun voi omistaa joku pelaajista. Pelaajilla on rahaa.
 
 - [x] Tee luokasta ruutu abstrakti ruutu, jonka ominaisuudet periytyvät ym. listalle ruutuja (perintäsuhde)
+- [x] Ruudulla on oltava toiminto, järjestysluku, tieto seuraavan ruudun luvusta
 - [x] Tee luokka Kortti, jolla on aina attribuuttina luokan Toiminto instanssi
-- [] Tee luokat Talo ja  Hotelli
-- [] Kadulla voi olla 4 taloa TAI 1 hotelli
-- [] Kadun VOI omistaa joku pelaaja
-- [] Pelaaja-luokka on tilallinen: sillä on aina tietty määrä rahaa taskussa
+- [x] Kadun voi omistaa joku pelaaja
+- [x] Kadulla sijaitsee 0 - 4 taloa tai yksi hotelli
+- [x] Pelaaja-luokka on tilallinen: sillä on aina tietty määrä rahaa taskussa
 
 ```mermaid
  classDiagram
