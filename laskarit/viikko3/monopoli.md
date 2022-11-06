@@ -14,11 +14,10 @@ Monopolia pelataan käyttäen kahta noppaa. Pelaajia on vähintään 2 ja enint�
 ```mermaid
  classDiagram
 	  	 Pelaaja "2..8" <.. "2" Noppa
-		  Pelilauta "1" <-- "40" Ruutu
-		  Pelaaja "2..8" <-- "1" Pelinappula
-		  Pelilauta "1" <-- "2..8" Pelinappula
+		  Pelilauta "1" -- "40" Ruutu
+		  Pelaaja "2..8" -- "1" Pelinappula
+		  Pelilauta "1" -- "2..8" Pelinappula
 		  Ruutu "1" <-- "2..8" Pelinappula
-		  Ruutu "1" <-- "1" SeuraavaRuutu
       class Noppa {
           silmäluku
       }
@@ -29,13 +28,11 @@ Monopolia pelataan käyttäen kahta noppaa. Pelaajia on vähintään 2 ja enint�
 		      
 		  }
 		  class Ruutu{
-		    
+		    Järjestysluku
+			Seuraavan järjestysluku
 		  }
 		  class Pelinappula{
 		    väri
-		  }
-		  class SeuraavaRuutu{
-		  
 		  }
 ```
 
@@ -48,11 +45,12 @@ Monopolia pelataan käyttäen kahta noppaa. Pelaajia on vähintään 2 ja enint�
 
 ### Vaatimukset ###
 
-Aloitusruutu
-Vankila
-Sattuma ja yhteismaa
-Asemat ja laitokset
-Normaalit kadut (joihin liittyy nimi)
+Aloitusruutu 1
+Vankila 1
+Sattuma ja yhteismaa 6
+Asemat ja laitokset 6
+Normaalit kadut (joihin liittyy nimi) 22
+Muut (2x ver, vapaa pysäköinti, mene vankilaan) 4
 Monopolipelin täytyy tuntea sekä aloitusruudun että vankilan sijainti.
 
 Jokaiseen ruutuun liittyy jokin toiminto.
@@ -63,9 +61,79 @@ Toimintoja on useanlaisia. Ei ole vielä tarvetta tarkentaa toiminnon laatua.
 
 Normaaleille kaduille voi rakentaa korkeintaan 4 taloa tai yhden hotellin. Kadun voi omistaa joku pelaajista. Pelaajilla on rahaa.
 
-- [] Tee luokasta ruutu abstrakti ruutu, jonka ominaisuudet periytyvät ym. listalle ruutuja (perintäsuhde)
-- [] Tee luokka Kortti, jolla on aina attribuuttina luokan Toiminto instanssi
+- [x] Tee luokasta ruutu abstrakti ruutu, jonka ominaisuudet periytyvät ym. listalle ruutuja (perintäsuhde)
+- [x] Tee luokka Kortti, jolla on aina attribuuttina luokan Toiminto instanssi
 - [] Tee luokat Talo ja  Hotelli
 - [] Kadulla voi olla 4 taloa TAI 1 hotelli
 - [] Kadun VOI omistaa joku pelaaja
 - [] Pelaaja-luokka on tilallinen: sillä on aina tietty määrä rahaa taskussa
+
+```mermaid
+ classDiagram
+		Pelaaja "2..8" <.. "2" Noppa
+		Pelaaja "2..8" -- "1" Pelinappula
+		Pelilauta "1" -- "2..8" Pelinappula
+		Aloitsuruutu --|> Ruutu
+		Vankila --|> Ruutu
+		Sattuma ja Yhteismaa --|> Ruutu
+		Asemat ja laitokset --|> Ruutu
+		Katu --|> Ruutu
+		Muu --|> Ruutu
+		Sattuma ja Yhteismaa "1" -- "*" Kortti
+		Pelilauta "1" -- "1" Aloitusruutu
+		Pelilauta "1" -- "1" Vankila
+		Pelilauta "1" -- "6" Sattuma ja yhteismaa
+		Pelilauta "1" -- "6" Asemat ja laitokset
+		Pelilauta "1" -- "22" Katu
+		Pelilauta "1" -- "4" Muu
+		Kortti "1" -- "1" Toiminto
+	class Noppa {
+		+ silmäluku
+	}
+	class Pelaaja {
+		+ nimi: string
+		+ balanssi: int
+		+ kayta_rahaa(summa: int)
+		+ tienaa_rahaa(summa: int)
+	}
+	class Pelilauta{
+		+ aloitusruudun järj.nro.: int
+		+ vankilan järj.nro: int
+	}
+	class Ruutu{
+		+ Järjestysluku: int
+		+ Seuraavan ruudun järjestysluku: int
+		+ toiminto()
+	}
+	class Aloitusruutu {
+		  
+	}
+	class Vankila{
+		  
+	}
+	class Sattuma ja Yhteismaa {
+		  
+	}
+	class Asemat ja laitokset{
+		  
+	}
+	class Katu {
+		+ omistaja: Pelaaja
+		+ talojen_lkm: int
+		+ hotellien_lkm: int
+		+ aseta_omistaja(pelaaja: Pelaaja)
+	}
+	class Muu {
+		  
+	}
+	class Pelinappula{
+		+ väri: string
+		+ sijainti: int
+	}
+	class Kortti {
+
+	}
+	class Toiminto {
+		+ toiminto()
+	}
+```
