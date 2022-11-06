@@ -132,3 +132,53 @@ Normaaleille kaduille voi rakentaa korkeintaan 4 taloa tai yhden hotellin. Kadun
 		+ toiminto()
 	}
 ```
+
+# Sekvenssikaaviot #
+
+## Tehtävä 3 ##
+
+- [x] 1: Main-metodi luo Machine-instanssin
+- [x] 2: Machine-instanssin konstruktori luo FuelTankin
+- [x] 3: Kutsutaan luodun FuelTankin metodia fill arvolla 40
+- [x] 4: Luodaan Engine-instanssi, jolle annetaan äsken luotu ja täytetty tankki
+- [x] 5: Kutsutaan Machinen metodia drive()
+- [x] 6: Tämä trigeröi consumen Fuel Tankille arvolla 5 
+- [x] 7: Tämä triggeröi kutsun enginen metodille is_running (palauttaa boolean)
+- [x] 8: Tarkastetaan FuelTankilta bensamäärä
+- [x] 9: Evaluaoidaan onko tankissa yli 0l. Jos ehto on true: kutsutaan enginen metodia use_energy()
+- [x] 10: Tästä seuraa kutsu fueltankin metodiin consume arvolla 10
+
+```mermaid
+sequenceDiagram
+	autonumber
+	participant main
+	main ->> Machine: init
+	activate Machine
+	Machine ->> FuelTank: init
+	Machine ->> FuelTank: fill(40)
+	Machine ->> Engine: init(self._tank)
+	Machine -->> main: 
+	deactivate Machine
+	main ->> Machine: drive()
+	activate Machine
+	Machine ->> Engine: start()
+	activate Engine
+	Engine ->> FuelTank: consume(5)
+	Engine -->> Machine: 
+	deactivate Engine
+	Machine ->> Engine: is_running()
+	activate Engine
+	Engine ->> FuelTank: fuel_contents
+	activate FuelTank
+	FuelTank -->> Engine: int
+	deactivate FuelTank
+	Engine -->> Machine: true
+	deactivate Engine
+	Machine ->> Engine: use_energy()
+	activate Engine
+	Engine ->> FuelTank: consume(10)
+	Engine -->> Machine: 
+	deactivate Engine
+	Machine -->> main: 
+	deactivate Machine
+```
