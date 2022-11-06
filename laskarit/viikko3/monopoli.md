@@ -141,12 +141,19 @@ Normaaleille kaduille voi rakentaa korkeintaan 4 taloa tai yhden hotellin. Kadun
 - [x] 2: Machine-instanssin konstruktori luo FuelTankin
 - [x] 3: Kutsutaan luodun FuelTankin metodia fill arvolla 40
 - [x] 4: Luodaan Engine-instanssi, jolle annetaan äsken luotu ja täytetty tankki
-- [x] 5: Kutsutaan Machinen metodia drive()
-- [x] 6: Tämä trigeröi consumen Fuel Tankille arvolla 5 
-- [x] 7: Tämä triggeröi kutsun enginen metodille is_running (palauttaa boolean)
-- [x] 8: Tarkastetaan FuelTankilta bensamäärä
-- [x] 9: Evaluaoidaan onko tankissa yli 0l. Jos ehto on true: kutsutaan enginen metodia use_energy()
-- [x] 10: Tästä seuraa kutsu fueltankin metodiin consume arvolla 10
+- [x] 5: Palautetaan kontrolli main-metodiin
+- [x] 6: Kutsutaan Machinen metodia drive()
+- [x] 7: Machine kutsuu luokan Engine metodia start() 
+- [x] 8: Tämä trigeröi consumen FuelTankille arvolla 5
+- [x] 9: Palautetaan kontrolli Machine-luokalle
+- [x] 10: Machine kutsuu Engine-luokan metodia s_running()
+- [x] 11: Engine tarkastaa FuelTankilta bensamäärän (fuel_contents)
+- [x] 12: FuelTank palauttaa attribuutin fuel_contents arvon kokonaislukuna
+- [x] 13: Engine evaluoi palautuksesta onko tankissa yli 0l. Jos (ja tässä tapauksessa kun) ehto on tosi, palautetaan arvo true
+- [x] 14: Machine kutsuu Enginen metodia use_energy()
+- [x] 15: Engine kutsuu FuelTankin metodia consume arvolla 10
+- [x] 16: Engine palauttaa kontrollin Machinelle
+- [x] 17: Machine palauttaa kontrollin main-metodille, johon ohjelma päättyy
 
 ```mermaid
 sequenceDiagram
