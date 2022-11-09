@@ -197,7 +197,7 @@ sequenceDiagram
 	autonumber
 	participant main
 	activate main
-	main ->> laitehallinto: Lataajalaite()
+	main ->> laitehallinto: HKLLaitehallinto()
 	main ->> rautatietori: Lataajalaite()
 	main ->> ratikka6: Lukijalaite()
 	main ->> bussi244: Lukijalaite()
@@ -205,31 +205,59 @@ sequenceDiagram
 	laitehallinto ->> ratikka6: lisaa_lukija(ratikka6)
 	laitehallinto ->> bussi244: lisaa_lukija(bussi244)
 	main ->> lippu_luukku: Kioski()
-	activate lippu_luukku
-	kallen_kortti ->> lippu_luukku: osta_matkakortti("Kalle")
+	main ->> lippu_luukku: osta_matkakortti("Kalle")
+		activate lippu_luukku
 	lippu_luukku -> Matkakortti: Matkakortti("Kalle")
-	Matkakortti --> lippu_luukku: uusi_kortti
-	lippu_luukku --> kallen_kortti: uusi_kortti
+	Matkakortti -->> lippu_luukku: uusi_kortti
+	lippu_luukku -->> kallen_kortti: uusi_kortti
 	deactivate lippu_luukku
-	lippu_luukku --> main: 
-	activate rautatietori
-	main --> rautatietori: lataa_arvoa(kallen_kortti, 3)
-	rautatietori --> kallen_kortti: kasvata_arvoa(3)
-	kallen_kortti --> rautatietori: 
-	rautatietori --> main: 
+	lippu_luukku -->> main: 
+	main ->> rautatietori: lataa_arvoa(kallen_kortti, 3)
+		activate rautatietori
+	rautatietori -->> kallen_kortti: kasvata_arvoa(3)
+	kallen_kortti -->> rautatietori: 
+	rautatietori -->> main: 
 	deactivate rautatietori
-	activate ratikka6
 	main ->> ratikka6: osta_lippu(kallen_kortti, 0)
+		activate ratikka6
 	ratikka6 ->> kallen_kortti: arvo
-	kallen_kortti --> ratikka6: 3
+	kallen_kortti -->> ratikka6: 3
 	ratikka6 ->> kallen_kortti: vahenna_arvoa(1.5)
-	ratikka6 --> main: True
+	kallen_kortti --> ratikka6: 
+	ratikka6 -->> main: True
 	deactivate ratikka6
-	activate bussi244
 	main ->> bussi244: osta_lippu(kallen_kortti, 2)
+		activate bussi244
 	bussi244 ->> kallen_kortti: arvo
-	kallen_kortti --> bussi244: 1.5
-	bussi244 --> main: False
+	kallen_kortti -->> bussi244: 1.5
+	bussi244 -->> main: False
 	deactivate bussi244
 	deactivate main
 ```
+- [x] 1: Luodaan HKLLaitehallinto-olio nimellä 'laitehallinto' 
+- [x] 2: Luodaan Lataajalaite-olio nimellä 'rautatietori'
+- [x] 3: Luodaan Lukijalaite-olio nimellä 'ratikka6'
+- [x] 4: Luodaan Lukijalaite-olio nimellä 'bussi244'
+- [x] 5: Lisätään rautatietori laitehallintoon metodilla lisaa_lataaja
+- [x] 6: Lisätään lukija ratikka6 laitehallintoon metodilla lisaa_lukija()
+- [x] 7: Lisätään lukija bussi244 laitehallintoon metodilla lisaa_lukija()
+- [x] 8: Luodaan Kioski-olio nimellä lippu_luukku
+- [x] 9: Main-metodista kutsutaan lippu_luukun metodia osta_matkakortti arvolla "Kalle"
+- [x] 10: lippu_luukku kutsuu oliota Matkakortti luodakseen uuden instanssin oliosta nimellä uusi_kortti ja omistajana "Kalle"
+- [x] 11: Matkakortti-luokka palauttaa uuden olion, "uusi_kortti"
+- [x] 12: lippu_luukku palauttaa uuden Matkakortti-instanssin muuttujaan 'kallen_kortti'
+- [x] 13: Kontrolli palautetaan main-metodiin
+- [x] 14: main-metodi kutsuu rautatietorin metodia lataa_arvoa antaen parametreiksi kallen_kortin ja kokonaisluvun 3
+- [x] 15: rautatietori kutsuu kallen_kortin metodia kasvata_arvoa arvonaan kokonaisluku 3
+- [x] 16: kallen_kortti ei palauta mitään arvoa, vain kontrollin
+- [x] 17: Kontrolli palautetaan main-metodiin
+- [x] 18: main-metodi kutsuu ratikka6:n metodia osta_lippu antaen parametreinä kallen kortin ja kokonaisluvun 0
+- [x] 19: ratikka6 hakee kallen_kortin attribuutin 'arvo'
+- [x] 20: kallen_kortti palauttaa arvonsa (3)
+- [x] 21: (Arvo evaluoituu lipun hintaa suuremmaksi) ratikka6 kutsuu kallen_kortin metodia vahenna_arvoa arvolla 1.5
+- [x] 22: kallen_kortti ei palauta mitään, mutta vähentää arvo-attribuutistansa 1.5
+- [x] 23: ratikka6 palauttaa kontrollin ja arvon True main-metodille
+- [x] 24: main-metodi kutsuu bussi244:n metodia osta_lippu parametreinään kallen_kortti ja 2
+- [x] 25: bussi244 hakee kallen_kortin attribuutin arvo
+- [x] 26: kallen_kortti palauttaa arvon 1.5.
+- [x] 27: Arvo evaluoituu pienemmäksi kuin lipun hinta, jolloin kontrolli ja arvo False palautetaan main-metodille
