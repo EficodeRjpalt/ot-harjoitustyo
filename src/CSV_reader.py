@@ -1,5 +1,6 @@
 import csv
 
+
 class CSVReader():
 
     def __init__(self) -> None:
@@ -31,6 +32,7 @@ class CSVReader():
             print(error)
 
         return return_dict
+
 
 cssv = CSVReader()
 cssv.readCSVToDict('./test/sample.csv')

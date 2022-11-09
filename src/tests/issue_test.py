@@ -1,6 +1,7 @@
 import unittest
 from issue import Issue
 
+
 class TestIssue(unittest.TestCase):
     def setUp(self):
         self.issue = Issue(
@@ -17,7 +18,8 @@ class TestIssue(unittest.TestCase):
     def test_issue_attributes(self):
 
         self.assertEqual(self.issue.title, 'Test title')
-        self.assertEqual(self.issue.description, 'This issue is meant to test the Issue class')
+        self.assertEqual(self.issue.description,
+                         'This issue is meant to test the Issue class')
         self.assertEqual(self.issue.state, 'Open')
         self.assertEqual(self.issue.assignee, 'Pormestari Kontiainen')
         self.assertEqual(self.issue.author, 'Herra Sitti-Sonniainen')

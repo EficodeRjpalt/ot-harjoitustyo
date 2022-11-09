@@ -1,0 +1,17 @@
+{
+    "Title": "Summary",
+    "Description": "Description",
+    "Issue ID": "GitLab ID",
+    "URL": "GitLab Issue URL",
+    "State": "Status",
+    "Author": "Reporter",
+    "Author Username": "GitLab Username",
+    "Assignee": "Assignee",
+    "Due Date": "Due Date",
+    "Created At (UTC)": "Created",
+    "Closed At (UTC)": "Closed",
+    "Milestone": "Epic Link",
+    "Labels": "Labels",
+    "Time Estimate": "Estimate",
+    "Time Spent": "Time Spent"
+}
