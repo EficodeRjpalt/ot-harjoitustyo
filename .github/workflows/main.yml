@@ -27,6 +27,6 @@ jobs:
     - name: Lint with Pylint
       run: |
         poetry run pylint src/
-#    - name: Test with pytest
-#      run: |
-#        python3 -m pytest tests/
+    - name: Test with pytest
+      run: |
+        poetry run pytest src/
