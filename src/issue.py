@@ -9,23 +9,13 @@ class Issue():
     have been chosen as salient.
     """
 
-    def __init__(
-        self,
-        title: str,
-        description: str,
-        state: str,
-        author: str,
-        assignee: str,
-        created: str,
-        closed: str,
-        labels: list,
-    ):
+    def __init__(self, attributes: dict):
 
-        self.title = title
-        self.description = description
-        self.state = state
-        self.author = author
-        self.assignee = assignee
-        self.created = created
-        self.closed = closed
-        self.labels = labels
+        self.title = attributes['title']
+        self.description = attributes['description']
+        self.state = attributes['state']
+        self.author = attributes['author']
+        self.assignee = attributes['assignee']
+        self.created = attributes['created']
+        self.closed = attributes['closed']
+        self.labels = attributes['labels']

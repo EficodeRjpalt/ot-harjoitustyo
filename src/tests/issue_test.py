@@ -4,16 +4,19 @@ from issue import Issue
 
 class TestIssue(unittest.TestCase):
     def setUp(self):
-        self.issue = Issue(
-            'Test title',
-            'This issue is meant to test the Issue class',
-            'Open',
-            'Herra Sitti-Sonniainen',
-            'Pormestari Kontiainen',
-            '[2022-07-20T03:45:02Z]',
-            '[2022-07-25T05:23:02Z]',
-            ['tests', 'mock']
-        )
+
+        issue_dict = {
+            'title': 'Test title',
+            'description': 'This issue is meant to test the Issue class',
+            'state': 'Open',
+            'author': 'Herra Sitti-Sonniainen',
+            'assignee': 'Pormestari Kontiainen',
+            'created': '[2022-07-20T03:45:02Z]',
+            'closed': '[2022-07-25T05:23:02Z]',
+            'labels': ['tests', 'mock']
+        }
+
+        self.issue = Issue(issue_dict)
 
     def test_issue_attributes(self):
 
@@ -26,3 +29,4 @@ class TestIssue(unittest.TestCase):
         self.assertEqual(self.issue.created, '[2022-07-20T03:45:02Z]')
         self.assertEqual(self.issue.closed, '[2022-07-25T05:23:02Z]')
         self.assertListEqual(self.issue.labels, ['tests', 'mock'])
+
