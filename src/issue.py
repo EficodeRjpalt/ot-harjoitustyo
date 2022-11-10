@@ -19,7 +19,6 @@ class Issue():
         created: str,
         closed: str,
         labels: list,
-        comments=[]
     ):
 
         self.title = title
@@ -30,4 +29,3 @@ class Issue():
         self.created = created
         self.closed = closed
         self.labels = labels
-        self.comments = comments

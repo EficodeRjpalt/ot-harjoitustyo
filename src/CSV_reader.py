@@ -6,7 +6,7 @@ class CSVReader():
     def __init__(self) -> None:
         pass
 
-    def readCSVToDict(self, pathToCSV: str) -> dict:
+    def read_csv_to_dict(self, csv_path: str) -> dict:
         """
         Reads a CSV file at the path provided in arguments and
         returns the parsed file as a dictionary.
@@ -24,7 +24,7 @@ class CSVReader():
         return_dict = {}
 
         try:
-            with open(pathToCSV, newline='', encoding='UTF-8') as csvfile:
+            with open(csv_path, newline='', encoding='UTF-8') as csvfile:
                 reader = csv.DictReader(csvfile)
                 for row in reader:
                     print(row['Issue ID'])
@@ -35,4 +35,4 @@ class CSVReader():
 
 
 cssv = CSVReader()
-cssv.readCSVToDict('./test/sample.csv')
+cssv.read_csv_to_dict('./test/sample.csv')

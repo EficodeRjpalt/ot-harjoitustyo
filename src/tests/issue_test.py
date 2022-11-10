@@ -26,4 +26,3 @@ class TestIssue(unittest.TestCase):
         self.assertEqual(self.issue.created, '[2022-07-20T03:45:02Z]')
         self.assertEqual(self.issue.closed, '[2022-07-25T05:23:02Z]')
         self.assertListEqual(self.issue.labels, ['tests', 'mock'])
-        self.assertListEqual(self.issue.comments, [])
