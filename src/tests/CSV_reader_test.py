@@ -1,5 +1,5 @@
 import unittest
-from csv_reader import CSVReader
+from services.csv_reader import CSVReader
 
 
 class TestCSVReader(unittest.TestCase):
