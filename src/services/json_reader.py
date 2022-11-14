@@ -1,5 +1,6 @@
 import json
 
+
 class JSONReader():
 
     def __init__(self):
@@ -15,7 +16,7 @@ class JSONReader():
         """
 
         file = open(filepath, encoding='UTF-8')
-       
+
         data = json.load(file)
 
         file.close()

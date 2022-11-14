@@ -1,5 +1,5 @@
 import unittest
-from issue import Issue
+from entities.issue import Issue
 
 
 class TestIssue(unittest.TestCase):
