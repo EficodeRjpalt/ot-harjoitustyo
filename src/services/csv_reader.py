@@ -37,11 +37,11 @@ class CSVReader():
 
         return_list = []
 
-        with open(self.__export_csv_filepath, encoding='UTF-8', newline='') as csvfile:
+        with open(self._export_csv_filepath, encoding='UTF-8', newline='') as csvfile:
             reader = csv.DictReader(csvfile)
             for row in reader:
                 temp_dict = {value: row[key] for (
-                    key, value) in self.__header_mapping.items()}
+                    key, value) in self._header_mapping.items()}
                 return_list.append(temp_dict)
 
         return return_list
@@ -59,8 +59,8 @@ class CSVReader():
 
     def write_dict_into_csv(self, issue_dict_list: dict) -> None:
 
-        with open(self.__output_filepath, 'w', encoding='UTF-8') as file:
-            writer = csv.DictWriter(file, self.__header_mapping.values())
+        with open(self._output_filepath, 'w', encoding='UTF-8') as file:
+            writer = csv.DictWriter(file, self._header_mapping.values())
             writer.writeheader()
             for issue_dictionary in issue_dict_list:
                 writer.writerow(issue_dictionary)
@@ -70,4 +70,3 @@ class CSVReader():
         self.write_dict_into_csv(
             self.read_csv_to_dict()
         )
-

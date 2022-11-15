@@ -50,14 +50,21 @@ class TestIssue(unittest.TestCase):
         self.assertEqual(self.issue.attributes['Description'],
                          'This issue is meant to test the Issue class')
         self.assertEqual(self.issue.attributes['GitLab ID'], 1)
-        self.assertEqual(self.issue.attributes['GitLab Issue URL'], 'www.gitlab.com/example_project/-/1')
+        self.assertEqual(
+            self.issue.attributes['GitLab Issue URL'], 'www.gitlab.com/example_project/-/1')
         self.assertEqual(self.issue.attributes['Status'], 'Open')
-        self.assertEqual(self.issue.attributes['Assignee'], 'Pormestari Kontiainen')
-        self.assertEqual(self.issue.attributes['GitLab Username'], 'Pormestari')
-        self.assertEqual(self.issue.attributes['Reporter'], 'Herra Sitti-Sonniainen')
-        self.assertEqual(self.issue.attributes['Created'], '2022-07-20 03:45:02')
-        self.assertEqual(self.issue.attributes['Closed'], '2022-07-25 05:23:02')
-        self.assertEqual(self.issue.attributes['Due Date'], '2022-07-26 12:00:02')
+        self.assertEqual(
+            self.issue.attributes['Assignee'], 'Pormestari Kontiainen')
+        self.assertEqual(
+            self.issue.attributes['GitLab Username'], 'Pormestari')
+        self.assertEqual(
+            self.issue.attributes['Reporter'], 'Herra Sitti-Sonniainen')
+        self.assertEqual(
+            self.issue.attributes['Created'], '2022-07-20 03:45:02')
+        self.assertEqual(
+            self.issue.attributes['Closed'], '2022-07-25 05:23:02')
+        self.assertEqual(
+            self.issue.attributes['Due Date'], '2022-07-26 12:00:02')
         self.assertEqual(self.issue.attributes['Epic Link'], 'Epic 1')
         self.assertEqual(self.issue.attributes['Labels'], 'tests,mock')
         self.assertEqual(self.issue.attributes['Estimate'], 0)
