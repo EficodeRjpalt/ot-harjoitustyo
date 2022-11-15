@@ -29,4 +29,4 @@ jobs:
         poetry run pylint src/
     - name: Test with pytest and Coverage
       run: |
-        poetry run invoke test
+        poetry run pytest src/
