@@ -25,5 +25,5 @@ if __name__ == "__main__":
 
 ####
 # 2 Do
-# - Koodin refaktorointi
 # - Testit koko tähän mennessä luodulle koodille
+# - Docstringit
