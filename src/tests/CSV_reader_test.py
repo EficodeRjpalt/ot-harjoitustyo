@@ -1,7 +1,8 @@
-import unittest
 import configparser
-from services.csv_reader import CSVReader
+import unittest
+
 from entities.issue import Issue
+from services.csv_reader import CSVReader
 
 
 class TestCSVReader(unittest.TestCase):
@@ -26,7 +27,7 @@ class TestCSVReader(unittest.TestCase):
             'GitLab Username': 'rjpalt',
             'Assignee': 'Rasmus Paltschik',
             'Due Date': '',
-            'Created': '2022-07-20 03:37:45', 
+            'Created': '2022-07-20 03:37:45',
             'Closed': '',
             'Epic Link': '',
             'Labels': '',

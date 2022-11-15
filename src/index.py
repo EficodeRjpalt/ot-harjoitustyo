@@ -26,4 +26,6 @@ if __name__ == "__main__":
 ####
 # 2 Do
 # - Testit koko tähän mennessä luodulle koodille
+# - CSV:n kirjoittaminen:
+# https://stackoverflow.com/questions/57097257/whats-the-best-way-to-unit-test-functions-that-handle-csv-files
 # - Docstringit
