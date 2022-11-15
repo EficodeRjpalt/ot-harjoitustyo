@@ -27,6 +27,6 @@ jobs:
     - name: Lint with Pylint
       run: |
         poetry run pylint src/
-    - name: Test with pytest
+    - name: Test with pytest and Coverage
       run: |
-        poetry run pytest src/
+        poetry run invoke test
