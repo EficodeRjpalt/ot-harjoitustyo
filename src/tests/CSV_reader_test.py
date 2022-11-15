@@ -1,6 +1,7 @@
 import unittest
 import configparser
 from services.csv_reader import CSVReader
+from entities.issue import Issue
 
 
 class TestCSVReader(unittest.TestCase):
@@ -14,6 +15,24 @@ class TestCSVReader(unittest.TestCase):
         mapping_filepath = config['FILEPATHS']['mapping']
 
         self.csv = CSVReader(mapping_filepath, input_filepath)
+
+        self.target_dict = {
+            'Summary': 'Update renewal analyzer to handle more multiple exception cases',
+            'Description': "At the moment the renewal_analyzer.py only handles 'VARATTU' exceptions. Other exception cases can occur and should be handled.",
+            'GitLab ID': '16',
+            'GitLab Issue URL': 'https://gitlab.com/rasse-posse/helmet-lainojen-uusija/-/issues/16',
+            'Status': 'Open',
+            'Reporter': 'Rasmus Paltschik',
+            'GitLab Username': 'rjpalt',
+            'Assignee': 'Rasmus Paltschik',
+            'Due Date': '',
+            'Created': '2022-07-20 03:37:45', 
+            'Closed': '',
+            'Epic Link': '',
+            'Labels': '',
+            'Estimate': '0',
+            'Time Spent': '0'
+        }
 
     def test_init_method(self):
 
@@ -59,25 +78,35 @@ class TestCSVReader(unittest.TestCase):
 
         issue_dict = return_list[0]
 
-        target_dict = {
-            'Summary': 'Update renewal analyzer to handle more multiple exception cases',
-            'Description': "At the moment the renewal_analyzer.py only handles 'VARATTU' exceptions. Other exception cases can occur and should be handled.",
-            'GitLab ID': '16',
-            'GitLab Issue URL': 'https://gitlab.com/rasse-posse/helmet-lainojen-uusija/-/issues/16',
-            'Status': 'Open',
-            'Reporter': 'Rasmus Paltschik',
-            'GitLab Username': 'rjpalt',
-            'Assignee': 'Rasmus Paltschik',
-            'Due Date': '',
-            'Created': '2022-07-20 03:37:45', 
-            'Closed': '',
-            'Epic Link': '',
-            'Labels': '',
-            'Estimate': '0',
-            'Time Spent': '0'
-        }
-
         self.assertDictEqual(
             issue_dict,
-            target_dict
+            self.target_dict
+        )
+
+    def test_transform_dict_items_into_issues(self):
+
+        issue_list = [
+            self.target_dict
+        ]
+
+        return_list = self.csv.transform_dict_items_into_issues(
+            issue_list
+        )
+
+        self.assertIsInstance(
+            return_list, list
+        )
+
+        self.assertTrue(
+            len(return_list) == 1
+        )
+
+        self.assertIsInstance(
+            return_list[0],
+            Issue
+        )
+
+        self.assertDictEqual(
+            return_list[0].attributes,
+            self.target_dict
         )
