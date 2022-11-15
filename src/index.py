@@ -7,10 +7,10 @@ def main():
     config = configparser.ConfigParser()
     config.read('src/config.cfg')
 
-    input_file = config['FILEPATHS']['input']
-    mapping_file = config['FILEPATHS']['mapping']
+    input_filepath = config['FILEPATHS']['input']
+    mapping_filepath = config['FILEPATHS']['mapping']
 
-    lukija = CSVReader(mapping_file, input_file)
+    lukija = CSVReader(mapping_filepath, input_filepath)
 
     dicts = lukija.read_csv_to_dict()
     lista = lukija.transform_dict_items_into_issues(dicts)
@@ -27,5 +27,3 @@ if __name__ == "__main__":
 # 2 Do
 # - Koodin refaktorointi
 # - Testit koko tähän mennessä luodulle koodille
-#
-#

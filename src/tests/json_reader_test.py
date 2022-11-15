@@ -1,22 +1,20 @@
 import unittest
 import configparser
-from services.csv_reader import CSVReader
+from services.json_reader import JSONReader
 
 
 class TestCSVReader(unittest.TestCase):
     def setUp(self):
+        self.csv = JSONReader()
 
         config = configparser.ConfigParser()
         config.read('src/config.cfg')
 
-        input_filepath = config['FILEPATHS']['input']
-        mapping_filepath = config['FILEPATHS']['mapping']
+        self.mapping_filepath = config['FILEPATHS']['mapping']
 
-        self.csv = CSVReader(mapping_filepath, input_filepath)
+    def test_read_json_to_dict(self):
 
-    def test_init_method(self):
-
-        header_mapping = {
+        target_dict = {
             "Title": "Summary",
             "Description": "Description",
             "Issue ID": "GitLab ID",
@@ -34,12 +32,8 @@ class TestCSVReader(unittest.TestCase):
             "Time Spent": "Time Spent"
         }
 
-        self.assertEqual(
-            self.csv._filepath_headers,
-            'src/resources/mapping.json'
-        )
+        return_dict = JSONReader.read_json_to_dict(self.mapping_filepath)
 
-        self.assertEqual(
-            self.csv._header_mapping,
-            header_mapping
-        )
+        self.assertTrue(isinstance(return_dict, dict))
+
+        self.assertDictEqual(target_dict, return_dict)

@@ -5,16 +5,20 @@ from entities.issue import Issue
 
 class CSVReader():
 
-    def __init__(self, filepath_headers: str, filepath_export_csv: str, output_filepath='src/resources/output.csv') -> None:
-        self.__filepath_headers = filepath_headers
-        self.__header_mapping = self.get_header_mapping(
-            self.__filepath_headers)
-        self.__export_csv_filepath = filepath_export_csv
-        self.__output_filepath = output_filepath
+    def __init__(self, filepath_headers: str,
+                 filepath_export_csv: str,
+                 output_filepath='src/resources/output.csv'
+                 ) -> None:
+
+        self._filepath_headers = filepath_headers
+        self._header_mapping = self.get_header_mapping(
+            self._filepath_headers)
+        self._export_csv_filepath = filepath_export_csv
+        self._output_filepath = output_filepath
 
     def get_header_mapping(self, filepath: str) -> dict:
 
-        return JSONReader.read_JSON_to_dict(filepath)
+        return JSONReader.read_json_to_dict(filepath)
 
     def read_csv_to_dict(self) -> dict:
         """
@@ -67,6 +71,3 @@ class CSVReader():
             self.read_csv_to_dict()
         )
 
-
-#cssv = CSVReader('src/resources/mapping.json', 'src/resources/sample.csv')
-# print(cssv.read_csv_to_dict())

@@ -7,7 +7,7 @@ class JSONReader():
         pass
 
     @classmethod
-    def read_JSON_to_dict(cls, filepath: str) -> dict:
+    def read_json_to_dict(cls, filepath: str) -> dict:
         """Reads a JSON file located in the filepath passed as an argument
         nd returns it as a python dict.
 
@@ -15,10 +15,12 @@ class JSONReader():
            _type_: dict
         """
 
-        file = open(filepath, encoding='UTF-8')
+        data = {}
 
-        data = json.load(file)
+        with open(filepath, encoding='UTF-8') as file:
 
-        file.close()
+            data = json.load(file)
+
+            file.close()
 
         return data
