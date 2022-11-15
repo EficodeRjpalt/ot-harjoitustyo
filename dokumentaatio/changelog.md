@@ -24,3 +24,10 @@
     - Lisätty JSON-reader, joka hakee mäppäyksen GitLabin ja Jiran kenttien välillä
     - CSVReader muutettu tilalliseksi objektiksi, joka luomishetkellä ottaa attribuuteikseen CSV-tiedostojen sijainnit ja mäppäystiedoston sijainnin.
     - CSVReader suorittaa yhdellä käskyllä halutun GitLabista otetun eksport-tiedoston muutpksen Jiraan sopivaksi import CSV:ksi.
+
+- 14.11. & 15.11.
+    - Koodin refaktorointia: issue.py:n konstruktori muutettu käyttämään dictionarya, ettei lintteri herjaa
+    - Lisätty lyhyt sample-csv testejä varten
+    - Uudelleenkirjoitettu testit kaikille luokille
+    - Lisätty json_reader.py käyttämään with'iä.
+    - Lisätty varmistukset issue.py -luokkaan, etteivät instanssit koeta editoida tyhjiä käyttäjäkenttiä tai timestampeja
