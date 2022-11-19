@@ -21,7 +21,7 @@ Projekti on testattu Python-versiolla 3.10. Tukea vanhempien versioiden kanssa e
 - Vaatimusmäärittely
 - Arkkitehtuurikuvaus
 - Testausdokumentti
-- Työaikakirjanpito
+- [Työaikakirjanpito](dokumentaatio/tuntikirjanpito.md)
 - [Changelog](dokumentaatio/changelog.md)
 
 ## Viikko 2 ##
