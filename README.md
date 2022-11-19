@@ -24,9 +24,27 @@ Projekti on testattu Python-versiolla 3.10. Tukea vanhempien versioiden kanssa e
 - [Työaikakirjanpito](dokumentaatio/tuntikirjanpito.md)
 - [Changelog](dokumentaatio/changelog.md)
 
-## Asennus ##
+# Asennus #
 
-1. Riippuvuudet asenetaan komennolla
-```poetry install```
-2. Ohjelma suoritetaan komennolla
-```
+1. Riippuvuudet asenetaan komennolla `poetry install`
+2. Ohjelma suoritetaan komennolla `poetry run invoke start`
+
+# Komentorivitoiminnot #
+
+## Ohjelman. suorittaminen ##
+Ohjelma suoritetaan komennolla:
+`poetry run invoke start`
+
+## Testaus ##
+Testit suoritetaan komennolla:
+`poetry run invoke test`
+
+## Autopep ja Pylint ##
+Autopep ja pylint ajetaan samalla komennolla:
+`poetry run invoke lint`
+
+Ajatuksena on, että turha lintata, jos ei ole autopep ajettuna.
+
+## Testikattavuus ##
+Testit ja testikattavuusraportti ajetaan komennolla:
+`poetry run invoke coverage`
