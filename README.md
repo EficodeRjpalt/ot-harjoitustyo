@@ -1,19 +1,28 @@
-# Tää ois niinqs README.md #
+# Issueiden GitLabist Jiraan Siirtäjä #
+Yksinkertaisen CLI-sovelluksen avulla käyttäjän on mahdollista siirtää issuensa GitLabista Jiraan käyttämällä Jiran tarjoamaa Import Wizardia.
 
-## Tuntikirjanpito ##
+Toistaiseksi ohjelma on toteutettu niin, että issuet haetaan projekti- tai ryhmäkohtaisesti ottamalla issueista CSV-eksportti GitLabin graafisesta käyttöliittymstä. Pidemmällä aikavälillä ohjelman on tarkoitus lukea projekti- tai ryhmäkohtainen data suoraan GitLabin API:sta.
 
-Projektin tuntikirjanpito löytyy [täältä](/dokumentaatio/tuntikirjanpito.md)
+Noudettu data formatoidaan sellaiseen muotoon, jossa se voidaan saumattomasti importoida haluttuun Jira-instanssiin.
 
-## Projektin dokumentaatio ##
+## Huomioita Toteutuksestsa ##
 
-Projektin [vaatimusmäärittely](/dokumentaatio/vaatimukset.md)
+Ideaalitapauksessa ohjelma lukisi datan GitLabin rajapinnasta ja kirjottaisi tiedon suoraan Jiran REST API:n kautta. On kuitenkin muutamia asiakasvaatimuksiin littyviä syitä, minkä takia CSV import on kannattavampi keino. Ohessa listattuna syitä:
+- Kommentteja on mahdotonta migratoida REST API:n kautta. Kommentteja voi lisätä REST API:n kautta, mutta ne eivät säilytä alkuperäistä aikaleimaansa ja alkuperäistä kommentoijaansa. Sen sijaan niihin tulee kommentin luontiajan aikaleima ja kommentin luoneen henkilön nimi.
+- Monilla tiimeillä on eri määritelmät eri kentissä käyttämilleen arvoille, josta johtuen CSV importterin tarjoama mäppäyvaihe tuo lisaa joustoa migraatioprosessiin. Ts. migraatiota suorittava henkilö voi vielä importaatiohetkellä suorittaa uudelleenmäppäyksiä asiakasvaatimusten mukaisesti koskematta ohjelman koodiin.
 
-## Linkit viikon 1 tehtäväpalautuksiin ##
+# Python -versiosta #
 
-Täällä on vain *todella* tärkeitä asioita.
+Projekti on testattu Python-versiolla 3.10. Tukea vanhempien versioiden kanssa ei taata.
 
-- Täällä ovat [tiedostorakenteet](laskarit/viikko1/komentorivi.txt)
-- Täällä ovat [git-logit](laskarit/viikko1/gitlog.txt)
+# Dokumentaatio #
+
+- Käyttöohje
+- Vaatimusmäärittely
+- Arkkitehtuurikuvaus
+- Testausdokumentti
+- Työaikakirjanpito
+- [Changelog](dokumentaatio/changelog.md)
 
 ## Viikko 2 ##
 
