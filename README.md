@@ -1,4 +1,4 @@
-# Issueiden GitLabist Jiraan Siirtäjä #
+# Issueiden GitLabista Jiraan Siirtäjä #
 Yksinkertaisen CLI-sovelluksen avulla käyttäjän on mahdollista siirtää issuensa GitLabista Jiraan käyttämällä Jiran tarjoamaa Import Wizardia.
 
 Toistaiseksi ohjelma on toteutettu niin, että issuet haetaan projekti- tai ryhmäkohtaisesti ottamalla issueista CSV-eksportti GitLabin graafisesta käyttöliittymstä. Pidemmällä aikavälillä ohjelman on tarkoitus lukea projekti- tai ryhmäkohtainen data suoraan GitLabin API:sta.
@@ -18,16 +18,15 @@ Projekti on testattu Python-versiolla 3.10. Tukea vanhempien versioiden kanssa e
 # Dokumentaatio #
 
 - Käyttöohje
-- Vaatimusmäärittely
+- [Vaatimusmäärittely](dokumentaatio/vaatimukset.md)
 - Arkkitehtuurikuvaus
 - Testausdokumentti
 - [Työaikakirjanpito](dokumentaatio/tuntikirjanpito.md)
 - [Changelog](dokumentaatio/changelog.md)
 
-## Viikko 2 ##
+## Asennus ##
 
-
-## Viikon 3 ##
-
-### Ohjelmistotyön Backlog ###
-Ohjelmistotyön [backlogi](https://github.com/EficodeRjpalt/ot-harjoitustyo/milestone/1) viikolle 3. Viikon 3 tavoitteena on saada MVP-tason toiminnallisuus, jolla GitLabin issuet voidaan muuntaa CSV-tiedostoksi, joka voidaan importata helposti Jiraan. Lisäksi tavoitteena on, että importattujen tiedostojen Description-kenttä formatoidaan käyttämään Jiran markup languagea.
+1. Riippuvuudet asenetaan komennolla
+```poetry install```
+2. Ohjelma suoritetaan komennolla
+```
