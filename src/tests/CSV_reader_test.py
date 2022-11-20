@@ -1,5 +1,7 @@
 import configparser
 import unittest
+import os
+import csv
 
 from entities.issue import Issue
 from services.csv_reader import CSVReader
@@ -15,7 +17,11 @@ class TestCSVReader(unittest.TestCase):
         input_filepath = config['FILEPATHS']['input_short']
         mapping_filepath = config['FILEPATHS']['mapping']
 
-        self.csv = CSVReader(mapping_filepath, input_filepath)
+        self.csv = CSVReader(
+            mapping_filepath,
+            input_filepath,
+            output_filepath='./src/tests/test_output.csv'
+        )
 
         self.target_dict = {
             'Summary': 'Update renewal analyzer to handle more multiple exception cases',
@@ -111,3 +117,64 @@ class TestCSVReader(unittest.TestCase):
             return_list[0].attributes,
             self.target_dict
         )
+
+    def test_write_dict_into_csv(self):
+
+        target_rows = [
+            [
+                'Summary',
+                'Description',
+                'GitLab ID',
+                'GitLab Issue URL',
+                'Status', 'Reporter',
+                'GitLab Username',
+                'Assignee',
+                'Due Date',
+                'Created',
+                'Closed',
+                'Epic Link',
+                'Labels',
+                'Estimate',
+                'Time Spent'
+            ],
+            [
+                'Update renewal analyzer to handle more multiple exception cases',
+                "At the moment the renewal_analyzer.py only handles 'VARATTU' exceptions. Other exception cases can occur and should be handled.",
+                '16',
+                'https://gitlab.com/rasse-posse/helmet-lainojen-uusija/-/issues/16',
+                'Open',
+                'Rasmus Paltschik',
+                'rjpalt',
+                'Rasmus Paltschik',
+                '',
+                '2022-07-20 03:37:45',
+                '',
+                '',
+                '',
+                '0',
+                '0'
+            ]
+        ]
+
+        self.csv.write_dict_into_csv([self.target_dict])
+
+        self.assertTrue(os.path.isfile('./src/tests/test_output.csv'))
+
+        with open('./src/tests/test_output.csv', 'r', encoding='UTF-8', newline='') as test_csv:
+            reader = csv.reader(test_csv, dialect='excel')
+            self.assertEqual(next(reader), target_rows[0])
+            self.assertEqual(next(reader), target_rows[1])
+
+        os.remove('./src/tests/test_output.csv')
+
+        self.assertFalse(os.path.isfile('./src/tests/test_output.csv'))
+
+    def test_transform_export_csv_to_import_csv(self):
+
+        self.assertFalse(os.path.isfile('./src/tests/test_output.csv'))
+
+        self.csv.transform_export_csv_to_import_csv()
+
+        os.remove('./src/tests/test_output.csv')
+
+        self.assertFalse(os.path.isfile('./src/tests/test_output.csv'))
