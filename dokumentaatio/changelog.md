@@ -31,3 +31,7 @@
     - Uudelleenkirjoitettu testit kaikille luokille
     - Lisätty json_reader.py käyttämään with'iä.
     - Lisätty varmistukset issue.py -luokkaan, etteivät instanssit koeta editoida tyhjiä käyttäjäkenttiä tai timestampeja
+
+- 19.11. & 20.11.
+    - Dokumentaatio kuntoon
+    - Koodit CSV-lukijalle, koodikattavuus 100%
