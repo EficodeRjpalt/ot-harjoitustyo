@@ -31,6 +31,22 @@ Projekti on testattu Python-versiolla 3.10. Tukea vanhempien versioiden kanssa e
 
 # Käyttöohjeet #
 
+## Asetukset##
+Ohjelman asetukset löytyvät osoitteesta `/src/config.cfg`:
+```
+[FILEPATHS]
+input=src/resources/sample.csv
+input_short=src/resources/sample_short.csv
+output=src/resources/
+mapping=src/resources/mapping.json
+```
+`input` määrittää mistä ohjelam lähtee etsimään sille annettacaa CSV-tiedostoa, joka muunnetaan.
+`input_short` on yksikkötestien käyttämä kohde, jossa on lyhennetty datamäärä käytössä.output
+`output` määrittää minne lopputulos kirjoitetaan. Oletusarvoisesti kirjoitetun CSV-tiedoston nimi on `output.csv`.
+`mapping.json` sisältää kartoituksen siitä miten GitLabin issue fieldit mäpätään Jiran kenttiin.
+
+## Datan hakeminen GitLabista ##
+Tällä hetkellä ohjelma tukee GitLabin graafisen käyttöliittymän kautta haetun export-tiedoston lukemista. Voit hakea uuden tiedoston mistä tahansa GitLabin groupsita tai projektista ja korvata sillä nykyisen `sample.csv` -tiedoston. Ohjeet exportin ottamiseen löytyvät [täältä](https://docs.gitlab.com/ee/user/project/issues/csv_export.html).
 
 # Komentorivitoiminnot #
 
