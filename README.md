@@ -29,9 +29,12 @@ Projekti on testattu Python-versiolla 3.10. Tukea vanhempien versioiden kanssa e
 1. Riippuvuudet asenetaan komennolla `poetry install`
 2. Ohjelma suoritetaan komennolla `poetry run invoke start`
 
+# Käyttöohjeet #
+
+
 # Komentorivitoiminnot #
 
-## Ohjelman. suorittaminen ##
+## Ohjelman suorittaminen ##
 Ohjelma suoritetaan komennolla:
 `poetry run invoke start`
 
