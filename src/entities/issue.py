@@ -57,3 +57,6 @@ class Issue():
             return jira_date + ' ' + jira_time
 
         return None
+
+    def __repr__(self):
+        return str(self.attributes)

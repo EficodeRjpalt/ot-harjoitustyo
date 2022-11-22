@@ -1,6 +1,7 @@
 import csv
 from services.json_reader import JSONReader
 from entities.issue import Issue
+from pprint import pprint
 
 
 class CSVReader():
@@ -70,3 +71,19 @@ class CSVReader():
         self.write_dict_into_csv(
             self.read_csv_to_dict()
         )
+
+    @classmethod
+    def write_issues_to_csv(cls, issue_list, output_filepath, header_mappings: dict):
+
+        #print(header_mappings.values())
+
+        with open(output_filepath, 'w', encoding='UTF-8') as file:
+            writer = csv.DictWriter(file, header_mappings.values())
+            writer.writeheader()
+            for issue in issue_list:
+                
+               writer.writerow(
+                    {
+                        jira_fieldname:issue.attributes[gl_fieldname] for (gl_fieldname,jira_fieldname) in header_mappings.items()
+                    }
+                )

@@ -1,8 +1,11 @@
 import configparser
-from dotenv import load_dotenv
+from pprint import pprint
 from os import getenv
-from services.csv_reader import CSVReader
+from dotenv import load_dotenv
+from services.csv_services import CSVReader as csvtool
 from services.data_fetcher import DataFetcher as DF
+from services.formatter import Formatter as f
+from services.json_reader import JSONReader as jreader
 
 
 def main():
@@ -10,17 +13,19 @@ def main():
     config = configparser.ConfigParser()
     config.read('src/config.cfg')
     load_dotenv()
+    mappings = jreader.read_json_to_dict(config['FILEPATHS']['mapping'])
 
-    input_filepath = config['FILEPATHS']['input']
-    mapping_filepath = config['FILEPATHS']['mapping']
+    #input_filepath = config['FILEPATHS']['input']
     gl_fetch_settings = config['GITLAB']
     gl_fetch_settings['pat'] = getenv('GL_PAT')
 
-    DF.fetch_data(gl_fetch_settings)
+    scope_data = DF.fetch_data(gl_fetch_settings)
 
-    lukija = CSVReader(mapping_filepath, input_filepath)
+    filtered_scope_data = f.format_response_data_to_dict(scope_data)
 
-    lukija.transform_export_csv_to_import_csv()
+    issue_dict = f.transform_dict_items_into_issues(filtered_scope_data)
+
+    csvtool.write_issues_to_csv(issue_dict, 'api_output.csv', mappings)
 
 
 if __name__ == "__main__":

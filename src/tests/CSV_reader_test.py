@@ -4,7 +4,7 @@ import os
 import csv
 
 from entities.issue import Issue
-from services.csv_reader import CSVReader
+from services.csv_services import CSVReader
 
 
 class TestCSVReader(unittest.TestCase):

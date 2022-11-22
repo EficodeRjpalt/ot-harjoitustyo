@@ -1,12 +1,9 @@
-import requests
-
-#from paginator import Paginator
+from services.paginator import Paginator
 
 
 class DataFetcher():
 
-    def __init__(self):
-        pass
+    pager = Paginator()
 
     @classmethod
     def fetch_data(cls, settings: dict) -> dict:
@@ -20,20 +17,15 @@ class DataFetcher():
             'per_page': settings['per_page']
         }
 
-        print(headers)
-        print(params)
+        scope_id = settings['scope_id']
 
-        groupname = settings['groupname']
-        projectname = settings['projectname']
+        endpoint = settings['baseURL'] + \
+            f'api/v4/groups/{scope_id}/issues'
 
-        if projectname not in (None, ''):
-            endpoint = settings['baseURL'] + \
-                f'api/v4/groups/{groupname}/{projectname}/issues'
-        else:
-            endpoint = settings['baseURL'] + \
-                f'api/v4/groups/{groupname}/issues'
+        scope_data = cls.pager.get_paginated_results(
+            endpoint=endpoint,
+            params=params,
+            headers=headers
+        )
 
-        print(endpoint)
-
-# 2-do
-# - settings-toiminnallisuus haulle -> lue configista -> anna datan haulle dictinä
+        return scope_data
