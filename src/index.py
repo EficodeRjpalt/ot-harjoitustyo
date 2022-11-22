@@ -17,14 +17,19 @@ def main():
     #input_filepath = config['FILEPATHS']['input']
     gl_fetch_settings = config['GITLAB']
     gl_fetch_settings['pat'] = getenv('GL_PAT')
+    gl_note_fetch_settings = config['NOTES']
+    gl_note_fetch_settings['pat'] = getenv('GL_PAT')
 
-    scope_data = DF.fetch_data(gl_fetch_settings)
+    scope_data = DF.fetch_data(gl_fetch_settings, data_type='issue')
 
     filtered_scope_data = f.format_response_data_to_dict(scope_data)
 
-    issue_dict = f.transform_dict_items_into_issues(filtered_scope_data)
+    issue_dict_list = f.transform_dict_items_into_issues(filtered_scope_data)
 
-    csvtool.write_issues_to_csv(issue_dict, 'api_output.csv', mappings)
+    ## Tähän jäi! -> Tulokset tulee API:sta, nyt ne pitää saada issuelle.
+    f.add_comments_to_all_issues(issue_dict_list, gl_note_fetch_settings)
+
+    csvtool.write_issues_to_csv(issue_dict_list, 'api_output.csv', mappings)
 
 
 if __name__ == "__main__":

@@ -35,3 +35,9 @@
 - 19.11. & 20.11.
     - Dokumentaatio kuntoon
     - Koodit CSV-lukijalle, koodikattavuus 100%
+
+- 22.11.
+    - Toiminnallisuus, jolla kaikki data haetaan GitLabin tarjoaman REST APIn kautta
+    - Konfiguraatioiden siirtäminen config.cfg ja .env
+    - Comment-entiteetin luominen kuvaamaan kommenttia
+    - Päivitetty mapping.json -tiedostoon uudet kentät (UID, URL ja muuta)

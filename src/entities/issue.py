@@ -58,5 +58,10 @@ class Issue():
 
         return None
 
+    @property
+    def set_comments(self, comment_list: list):
+
+        self.comments = comment_list
+
     def __repr__(self):
         return str(self.attributes)

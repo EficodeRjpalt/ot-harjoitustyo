@@ -1,5 +1,5 @@
 from entities.issue import Issue
-
+from services.data_fetcher import DataFetcher as DF
 
 class Formatter():
 
@@ -56,3 +56,12 @@ class Formatter():
             )
 
         return issue_list
+
+    @classmethod
+    def add_comments_to_all_issues(cls, issue_dict_list: list, note_settings: dict):
+
+        for issue in issue_dict_list:
+            comment_endpoint = issue.attributes['Comment Link']
+            return_data = DF.fetch_data(note_settings, comment_endpoint, data_type='comment')
+            ## Tähän jäi! --> Kaikki data tulee, nyt se pitää koota jokaiseen issueen listana!
+            print(return_data)
