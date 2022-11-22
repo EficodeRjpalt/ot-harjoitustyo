@@ -1,5 +1,6 @@
 from entities.issue import Issue
 
+
 class Formatter():
 
     @classmethod

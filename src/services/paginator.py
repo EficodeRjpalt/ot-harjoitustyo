@@ -1,5 +1,6 @@
 import requests
 
+
 class Paginator():
 
     def __init__(self):
@@ -29,10 +30,11 @@ class Paginator():
                 aggregate_response_data += response.json()
                 next_page = False
             else:
-                pagination_params['page'] = str(int(pagination_params['page']) + 1)
+                pagination_params['page'] = str(
+                    int(pagination_params['page']) + 1)
                 aggregate_response_data += response.json()
 
-
         return aggregate_response_data
+
 
 pagery = Paginator()

@@ -1,5 +1,4 @@
 import configparser
-from pprint import pprint
 from os import getenv
 from dotenv import load_dotenv
 from services.csv_services import CSVReader as csvtool
