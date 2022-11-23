@@ -12,7 +12,6 @@ class Issue():
     def __init__(self, attributes: dict):
 
         self.attributes = attributes
-        self.comments = []
 
     def issue_to_dict(self):
         return self.attributes
@@ -57,11 +56,6 @@ class Issue():
             return jira_date + ' ' + jira_time
 
         return None
-
-    @property
-    def set_comments(self, comment_list: list):
-
-        self.comments = comment_list
 
     def __repr__(self):
         return str(self.attributes)

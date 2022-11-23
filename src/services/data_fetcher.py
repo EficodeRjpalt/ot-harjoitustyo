@@ -12,7 +12,6 @@ class DataFetcher():
             'PRIVATE-TOKEN': settings['pat']
         }
 
-
         if data_type == 'issue':
             params = {
                 'state': settings['state'],
@@ -23,15 +22,13 @@ class DataFetcher():
 
             endpoint = settings['baseURL'] + \
                 f'api/v4/groups/{scope_id}/issues'
-                
+
         elif data_type == 'comment':
             params = {
                 'per_page': settings['per_page']
             }
 
             endpoint = comment_endpoint
-            
-        
 
         scope_data = cls.pager.get_paginated_results(
             endpoint=endpoint,

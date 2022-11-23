@@ -1,7 +1,7 @@
 import configparser
 from os import getenv
 from dotenv import load_dotenv
-from services.csv_services import CSVReader as csvtool
+from services.csv_services import CSVTool as csvtool
 from services.data_fetcher import DataFetcher as DF
 from services.formatter import Formatter as f
 from services.json_reader import JSONReader as jreader
@@ -26,11 +26,16 @@ def main():
 
     issue_dict_list = f.transform_dict_items_into_issues(filtered_scope_data)
 
-    ## Tähän jäi! -> Tulokset tulee API:sta, nyt ne pitää saada issuelle.
     f.add_comments_to_all_issues(issue_dict_list, gl_note_fetch_settings)
 
-    csvtool.write_issues_to_csv(issue_dict_list, 'api_output.csv', mappings)
+    csvtool.write_issues_to_csv(issue_dict_list, 'pandas_output.csv', mappings)
 
 
 if __name__ == "__main__":
     main()
+
+# 2-do
+# Siisti CSV-lukijan rakenne: sen ei tarvitse olla tilallinen.
+# Linttaus 100%
+# Testit kuntoon kaikelle
+# Docstringit

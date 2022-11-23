@@ -17,11 +17,9 @@ class TestCSVReader(unittest.TestCase):
         target_dict = {
             "Title": "Summary",
             "Description": "Description",
-            "Issue ID": "GitLab ID",
             "URL": "GitLab Issue URL",
             "State": "Status",
             "Author": "Reporter",
-            "Author Username": "GitLab Username",
             "Assignee": "Assignee",
             "Due Date": "Due Date",
             "Created At (UTC)": "Created",
@@ -29,7 +27,10 @@ class TestCSVReader(unittest.TestCase):
             "Milestone": "Epic Link",
             "Labels": "Labels",
             "Time Estimate": "Estimate",
-            "Time Spent": "Time Spent"
+            "Time Spent": "Time Spent",
+            "GitLab UID": "GitLab UID",
+            "GitLab Issue URL": "GitLab Issue URL",
+            "Comments": "Comments"
         }
 
         return_dict = JSONReader.read_json_to_dict(self.mapping_filepath)

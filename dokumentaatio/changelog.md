@@ -41,3 +41,8 @@
     - Konfiguraatioiden siirtäminen config.cfg ja .env
     - Comment-entiteetin luominen kuvaamaan kommenttia
     - Päivitetty mapping.json -tiedostoon uudet kentät (UID, URL ja muuta)
+
+- 23.11.
+    - Tuotetun CSV-tiedoston kirjoittaminen muutettu pandasilla tehtäväksi.
+    - Tuotettu CSV sisältää nyt myös kaikki issueen liitetyt kommentit formaatissa "aika; tekijä; sisältö". Kaikki kommentit ovat flat listinä.
+    - Linttaus 100%

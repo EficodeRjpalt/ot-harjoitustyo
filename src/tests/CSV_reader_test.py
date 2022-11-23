@@ -1,32 +1,31 @@
-import configparser
 import unittest
 import os
 import csv
 
 from entities.issue import Issue
-from services.csv_services import CSVReader
+from services.csv_services import CSVTool
+from services.json_reader import JSONReader
 
 
 class TestCSVReader(unittest.TestCase):
     def setUp(self):
 
-        config = configparser.ConfigParser()
-        config.read('src/config.cfg')
+        # Remove possible test_output.csv if left from failed tests
+        try:
+            os.remove('./src/tests/test_output.csv')
+        except FileNotFoundError:
+            pass
 
-        # Using short version of CSV (only 1 entry)
-        input_filepath = config['FILEPATHS']['input_short']
-        mapping_filepath = config['FILEPATHS']['mapping']
+        self.csv = CSVTool()
 
-        self.csv = CSVReader(
-            mapping_filepath,
-            input_filepath,
-            output_filepath='./src/tests/test_output.csv'
-        )
+        self.tmp_output_filepath = './src/tests/test_output.csv'
+
+        self.header_mappings = JSONReader.read_json_to_dict('src/resources/mapping.json')
 
         self.target_dict = {
             'Summary': 'Update renewal analyzer to handle more multiple exception cases',
             'Description': "At the moment the renewal_analyzer.py only handles 'VARATTU' exceptions. Other exception cases can occur and should be handled.",
-            'GitLab ID': '16',
+            'GitLab UID': '16',
             'GitLab Issue URL': 'https://gitlab.com/rasse-posse/helmet-lainojen-uusija/-/issues/16',
             'Status': 'Open',
             'Reporter': 'Rasmus Paltschik',
@@ -41,93 +40,42 @@ class TestCSVReader(unittest.TestCase):
             'Time Spent': '0'
         }
 
-    def test_init_method(self):
-
-        header_mapping = {
-            "Title": "Summary",
-            "Description": "Description",
-            "Issue ID": "GitLab ID",
-            "URL": "GitLab Issue URL",
-            "State": "Status",
-            "Author": "Reporter",
-            "Author Username": "GitLab Username",
-            "Assignee": "Assignee",
-            "Due Date": "Due Date",
-            "Created At (UTC)": "Created",
-            "Closed At (UTC)": "Closed",
-            "Milestone": "Epic Link",
-            "Labels": "Labels",
-            "Time Estimate": "Estimate",
-            "Time Spent": "Time Spent"
+        sample_issue_attributes = {
+            'Title': 'Refactor pipeline',
+            'Description': "Pipeline should be in three stages.",
+            'GitLab UID': 112096571,
+            'GitLab Issue URL': 'https://gitlab.com/rasse-posse/helmet-lainojen-uusija/-/issues/30',
+            'URL': 'https://gitlab.com/rasse-posse/helmet-lainojen-uusija/-/issues/30',
+            'State': 'closed',
+            'Author': 'Rasmus Paltschik',
+            'Assignee': 'Rasmus Paltschik',
+            'Due Date': None,
+            'Created At (UTC)':
+            '2022-07-24T03:28:38.280Z',
+            'Closed At (UTC)': '2022-07-27T12:47:35.930Z',
+            'Labels': ["Test"],
+            'Time Estimate': 0,
+            'Time Spent': 0,
+            'Milestone': 'The issue was not tied to a milestone',
+            'Comments': ["2022-07-24T03:28:38.348Z; Rasmus Paltschik; assigned to @rjpalt"]
         }
 
-        self.assertEqual(
-            self.csv._filepath_headers,
-            'src/resources/mapping.json'
-        )
-
-        self.assertEqual(
-            self.csv._header_mapping,
-            header_mapping
-        )
-
-    def test_csv_to_dict(self):
-
-        return_list = self.csv.read_csv_to_dict()
-
-        self.assertIsInstance(
-            return_list, list
-        )
-
-        self.assertTrue(
-            len(return_list) == 1
-        )
-
-        issue_dict = return_list[0]
-
-        self.assertDictEqual(
-            issue_dict,
-            self.target_dict
-        )
-
-    def test_transform_dict_items_into_issues(self):
-
-        issue_list = [
-            self.target_dict
+        self.issue_list = [
+            Issue(
+                sample_issue_attributes
+            )
         ]
 
-        return_list = self.csv.transform_dict_items_into_issues(
-            issue_list
-        )
 
-        self.assertIsInstance(
-            return_list, list
-        )
-
-        self.assertTrue(
-            len(return_list) == 1
-        )
-
-        self.assertIsInstance(
-            return_list[0],
-            Issue
-        )
-
-        self.assertDictEqual(
-            return_list[0].attributes,
-            self.target_dict
-        )
-
-    def test_write_dict_into_csv(self):
+    def test_write_issues_to_csv(self):
 
         target_rows = [
             [
                 'Summary',
                 'Description',
-                'GitLab ID',
                 'GitLab Issue URL',
-                'Status', 'Reporter',
-                'GitLab Username',
+                'Status',
+                'Reporter',
                 'Assignee',
                 'Due Date',
                 'Created',
@@ -135,46 +83,52 @@ class TestCSVReader(unittest.TestCase):
                 'Epic Link',
                 'Labels',
                 'Estimate',
-                'Time Spent'
+                'Time Spent',
+                'GitLab UID',
+                'GitLab Issue URL',
+                'Comments'
             ],
             [
-                'Update renewal analyzer to handle more multiple exception cases',
-                "At the moment the renewal_analyzer.py only handles 'VARATTU' exceptions. Other exception cases can occur and should be handled.",
-                '16',
-                'https://gitlab.com/rasse-posse/helmet-lainojen-uusija/-/issues/16',
-                'Open',
+                'Refactor pipeline',
+                'Pipeline should be in three stages.',
+                'https://gitlab.com/rasse-posse/helmet-lainojen-uusija/-/issues/30',
+                'closed',
                 'Rasmus Paltschik',
-                'rjpalt',
                 'Rasmus Paltschik',
                 '',
-                '2022-07-20 03:37:45',
-                '',
-                '',
-                '',
+                '2022-07-24T03:28:38.280Z',
+                '2022-07-27T12:47:35.930Z',
+                'The issue was not tied to a milestone',
+                str(["Test"]),
                 '0',
-                '0'
+                '0',
+                '112096571',
+                'https://gitlab.com/rasse-posse/helmet-lainojen-uusija/-/issues/30',
+                str(["2022-07-24T03:28:38.348Z; Rasmus Paltschik; assigned to @rjpalt"])
             ]
         ]
 
-        self.csv.write_dict_into_csv([self.target_dict])
+        # Check that the temp file does not exist already
+        self.assertFalse(os.path.isfile('./src/tests/test_output.csv'))
 
+        # Test the method
+        self.csv.write_issues_to_csv(
+            self.issue_list,
+            self.tmp_output_filepath,
+            self.header_mappings
+        )
+
+        # Ascertain that the expectedfile was created
         self.assertTrue(os.path.isfile('./src/tests/test_output.csv'))
 
+        # Test CSV outpt line-by-line
         with open('./src/tests/test_output.csv', 'r', encoding='UTF-8', newline='') as test_csv:
             reader = csv.reader(test_csv, dialect='excel')
             self.assertEqual(next(reader), target_rows[0])
             self.assertEqual(next(reader), target_rows[1])
 
+        # Remove the temp csv
         os.remove('./src/tests/test_output.csv')
 
-        self.assertFalse(os.path.isfile('./src/tests/test_output.csv'))
-
-    def test_transform_export_csv_to_import_csv(self):
-
-        self.assertFalse(os.path.isfile('./src/tests/test_output.csv'))
-
-        self.csv.transform_export_csv_to_import_csv()
-
-        os.remove('./src/tests/test_output.csv')
-
+        # Ascertain the file was removed
         self.assertFalse(os.path.isfile('./src/tests/test_output.csv'))

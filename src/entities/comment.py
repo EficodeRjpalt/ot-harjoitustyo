@@ -6,7 +6,17 @@ class Comment():
         self.body = body
 
     def __str__(self) -> str:
-        
+
+        return '; '.join(
+            [
+                self.timestamp,
+                self.actor,
+                self.body
+            ]
+        )
+
+    def __repr__(self) -> str:
+
         return '; '.join(
             [
                 self.timestamp,
