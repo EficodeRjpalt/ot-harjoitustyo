@@ -46,3 +46,5 @@
     - Tuotetun CSV-tiedoston kirjoittaminen muutettu pandasilla tehtäväksi.
     - Tuotettu CSV sisältää nyt myös kaikki issueen liitetyt kommentit formaatissa "aika; tekijä; sisältö". Kaikki kommentit ovat flat listinä.
     - Linttaus 100%
+    - Refaktoroitu pois GUI:sta haettavan eksportin lukemiseen tarkoitetut toiminnot
+    - Korjattu testit refaktoroinnin jäljiltä.

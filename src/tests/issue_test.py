@@ -135,3 +135,7 @@ class TestIssue(unittest.TestCase):
         self.assertIsNone(
             self.no_names_issue.attributes['Due Date']
         )
+
+# Testattava, että tulee oikeat attribuutit
+# Päivitä testi-issuet oikealla datalla
+# __repr__ testattava
