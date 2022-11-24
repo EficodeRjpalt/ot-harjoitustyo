@@ -15,7 +15,6 @@ def main():
     load_dotenv()
     mappings = jreader.read_json_to_dict(config['FILEPATHS']['mapping'])
 
-
     datafetch = DataFetcher(
         Paginator()
     )
@@ -32,7 +31,8 @@ def main():
 
     scope_data = datafetch.fetch_data(settings, data_type='issue')
     filtered_scope_data = formatter.format_response_data_to_dict(scope_data)
-    issue_dict_list = formatter.transform_dict_items_into_issues(filtered_scope_data)
+    issue_dict_list = formatter.transform_dict_items_into_issues(
+        filtered_scope_data)
     formatter.add_comments_to_all_issues(issue_dict_list, settings)
     csvtool.write_issues_to_csv(issue_dict_list, 'pandas_output.csv', mappings)
 

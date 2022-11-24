@@ -136,7 +136,6 @@ class TestIssue(unittest.TestCase):
             self.no_names_issue.attributes['Due Date']
         )
 
-
     def test_repr(self):
 
         self.assertEqual(

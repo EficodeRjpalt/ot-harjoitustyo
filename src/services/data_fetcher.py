@@ -6,7 +6,6 @@ class DataFetcher():
     def __init__(self, pager: Paginator):
         self.pager = pager
 
-    
     def fetch_data(self, settings: dict, comment_endpoint='', data_type='issue') -> dict:
 
         headers = {
@@ -25,7 +24,7 @@ class DataFetcher():
                 f'api/v4/groups/{scope_id}/issues'
 
         else:
-            
+
             if comment_endpoint == '':
                 raise Exception('No comment end point provided!')
 

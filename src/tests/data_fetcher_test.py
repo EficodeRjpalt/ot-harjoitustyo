@@ -2,12 +2,13 @@ import unittest
 from unittest.mock import MagicMock
 from services.data_fetcher import DataFetcher
 
+
 class TestDataFetcher(unittest.TestCase):
 
     def setUp(self) -> None:
 
         self.mock_pager = MagicMock()
-        self.mock_pager.get_paginated_results = MagicMock(return_value = None)
+        self.mock_pager.get_paginated_results = MagicMock(return_value=None)
 
         self.datafetch = DataFetcher(self.mock_pager)
         self.settings = {
@@ -60,7 +61,6 @@ class TestDataFetcher(unittest.TestCase):
         )
 
     def test_fetch_data_with_no_comment_endpoint(self):
-
 
         with self.assertRaises(Exception) as context:
             self.datafetch.fetch_data(

@@ -61,7 +61,6 @@ class Formatter():
 
         return issue_list
 
-    
     def add_comments_to_all_issues(self, issue_dict_list: list, settings: dict):
 
         for issue in issue_dict_list:

@@ -1,6 +1,7 @@
 import unittest
 from entities.comment import Comment
 
+
 class TestComment(unittest.TestCase):
 
     def setUp(self):

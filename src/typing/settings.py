@@ -1,11 +1,13 @@
 from typing import TypedDict
 from strongtyping.strong_typing import match_class_typing
 
+
 @match_class_typing
 class Settings(TypedDict):
     pat: str
     issue: dict
     comment: dict
+
 
 @match_class_typing
 class Issue(TypedDict):
@@ -13,9 +15,11 @@ class Issue(TypedDict):
     per_page: str
     scope_id: str
 
+
 @match_class_typing
 class Comment(TypedDict):
     per_page: str
+
 
 class SettingsValidator():
 
@@ -38,19 +42,19 @@ class SettingsValidator():
             raise TypeError('Comment settings mistyped!') from exc
 
 
-settings = {
+test_settings = {
     'pat': 'bleh',
     'issue': {
         'state': 'opened',
         'per_page': '100',
         'scope_id': '235236'
     },
-    'comment' : {
+    'comment': {
         'per_page': '20'
     }
 }
 
-## To-do
+# To-do
 # Assertoi, että arvot ovat oikeata tyyppiä (3xint ja opened/all/closed)
 
-SettingsValidator.validate_settings(settings)
+SettingsValidator.validate_settings(test_settings)
