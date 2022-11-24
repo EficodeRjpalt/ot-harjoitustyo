@@ -20,7 +20,8 @@ class TestCSVReader(unittest.TestCase):
 
         self.tmp_output_filepath = './src/tests/test_output.csv'
 
-        self.header_mappings = JSONReader.read_json_to_dict('src/resources/mapping.json')
+        self.header_mappings = JSONReader.read_json_to_dict(
+            'src/resources/mapping.json')
 
         self.target_dict = {
             'Summary': 'Update renewal analyzer to handle more multiple exception cases',
@@ -65,7 +66,6 @@ class TestCSVReader(unittest.TestCase):
                 sample_issue_attributes
             )
         ]
-
 
     def test_write_issues_to_csv(self):
 

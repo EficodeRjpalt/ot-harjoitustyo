@@ -48,3 +48,7 @@
     - Linttaus 100%
     - Refaktoroitu pois GUI:sta haettavan eksportin lukemiseen tarkoitetut toiminnot
     - Korjattu testit refaktoroinnin jäljiltä.
+
+- 24.11.
+    - Yksikkötestit comment.py, issue.py ja paginator.py
+    - Asetuksen tyypityksen validaation perusta luotu kansioon typing -> settings.py

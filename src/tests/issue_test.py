@@ -136,6 +136,10 @@ class TestIssue(unittest.TestCase):
             self.no_names_issue.attributes['Due Date']
         )
 
-# Testattava, että tulee oikeat attribuutit
-# Päivitä testi-issuet oikealla datalla
-# __repr__ testattava
+
+    def test_repr(self):
+
+        self.assertEqual(
+            str(self.issue_dict),
+            repr(self.issue)
+        )

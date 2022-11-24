@@ -1,9 +1,9 @@
 class Comment():
 
     def __init__(self, timestamp: str, actor: str, body: str):
-        self.timestamp = timestamp
-        self.actor = actor
-        self.body = body
+        self._timestamp = timestamp
+        self._actor = actor
+        self._body = body
 
     def __str__(self) -> str:
 
@@ -24,3 +24,15 @@ class Comment():
                 self.body
             ]
         )
+
+    @property
+    def timestamp(self) -> str:
+        return self._timestamp
+
+    @property
+    def actor(self) -> str:
+        return self._actor
+
+    @property
+    def body(self) -> str:
+        return self._body

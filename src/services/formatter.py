@@ -1,12 +1,14 @@
 from entities.issue import Issue
 from entities.comment import Comment
-from services.data_fetcher import DataFetcher as DF
+from services.data_fetcher import DataFetcher
 
 
 class Formatter():
 
-    @classmethod
-    def format_response_data_to_dict(cls, response_data: list):
+    def __init__(self, datafetcher: DataFetcher):
+        self.datafetch = datafetcher
+
+    def format_response_data_to_dict(self, response_data: list):
 
         return_issue_dict_list = []
 
@@ -59,8 +61,8 @@ class Formatter():
 
         return issue_list
 
-    @classmethod
-    def add_comments_to_all_issues(cls, issue_dict_list: list, note_settings: dict):
+    
+    def add_comments_to_all_issues(self, issue_dict_list: list, settings: dict):
 
         for issue in issue_dict_list:
             comment_list = [
@@ -69,8 +71,8 @@ class Formatter():
                     comment['author']['name'],
                     comment['body']
                 )
-                for comment in DF.fetch_data(
-                    note_settings,
+                for comment in self.datafetch.fetch_data(
+                    settings,
                     issue.attributes['Comment Link'],
                     data_type='comment'
                 )
