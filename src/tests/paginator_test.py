@@ -2,85 +2,70 @@ import unittest
 from unittest import mock
 from services.paginator import Paginator
 
-def mocked_requests_get(*args, **kwargs):
-    class MockResponse:
-        def __init__(self, headers, json_data, status_code):
-            self.headers = headers
-            self.status_code = status_code
-            self.json_data = json_data
-
-            print(json_data)
-
-            if json_data['Two Page'] == '3':
-                self.headers ['X-Next-Page'] = ''
-
-        def json(self):
-            return self.json_data
-
-    single_page_headers = {
-        'X-Next-Page': ''
-    }
-
-    single_page_data = {
-        'First Page': 'Single Page Data'
-    }
-
-    two_page_headers = {
-            'X-Next-Page': '2'
-    }
-
-    two_page_data = {
-        'Two Page': 'Two Page Data'
-    }
-
-    third_page_data = {
-        'Third Page': 'Three Page Data'
-    }
-
-    print(args)
-
-    if args[0] == 'https://gitlab.com/example-group':
-        return MockResponse(single_page_headers, single_page_data, 200)
-    elif args[0] == 'https://gitlab.com/example-group/projekti-x':
-        return MockResponse(two_page_headers, two_page_data, 200)
-
-    return MockResponse(single_page_headers, None, 404)
-
 class TestPaginator(unittest.TestCase):
 
     def setUp(self) -> None:
         self.pager = Paginator()
         self.single_endpoint = 'https://gitlab.com/example-group'
         self.two_endpoint = 'https://gitlab.com/example-group/projekti-x'
-        self.paramms = {'per_page': '20'}
+        self.params_single = {'per_page': '20', 'total': '1'}
+        self.params_double = {'per_page': '20', 'total': '2'}
         self.headers = {'pat': 'gl-example-pat'}
 
-    @mock.patch('requests.get', side_effect=mocked_requests_get)
+
+    def mock_request(self, **kwargs):
+
+        Object = lambda **kwargs: type("Object", (), kwargs)
+
+        def json(): return ['Datadata']
+
+        response_obj1 = Object(
+            headers = {
+                'X-Next-Page': ''
+            },
+            json = json
+        )
+
+        response_obj2 = Object(
+            headers = {
+                'X-Next-Page': ''
+            },
+            json = json
+        )
+
+        if kwargs['params']['page'] == '1':
+            print(kwargs['params']['total'])
+            return response_obj1
+        elif kwargs['params']['page'] == '2':
+            print(kwargs)
+            return response_obj2
+            
+
+
+    @mock.patch('requests.get', side_effect=mock_request)
     def test_get_paginated_results_sinlge_page(self, mock_get):
 
         results = self.pager.get_paginated_results(
             self.single_endpoint,
-            params=self.paramms,
+            params=self.params_single,
             headers=self.headers
         )
 
         self.assertListEqual(
             results,
-            ['First Page']
+            ['Datadata']
         )
 
-    @mock.patch('requests.get', side_effect=mocked_requests_get)
+    @mock.patch('requests.get', side_effect=mock_request)
     def test_get_paginated_results_double_page(self, mock_get):
 
         results = self.pager.get_paginated_results(
             self.two_endpoint,
-            params=self.paramms,
+            params=self.params_double,
             headers=self.headers
         )
 
-        print(results)
-
         self.assertListEqual(
             results,
-            ['Two Page']
+            ['Datadata', 'Datadata']
         )
