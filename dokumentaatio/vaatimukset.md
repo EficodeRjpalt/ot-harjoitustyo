@@ -4,7 +4,7 @@
 
 Sovellus toteutetaan pääosin Pythonilla, joskin markdown-formaattia Jiran markup-formaattiin muuttava kirjasto löytyy vain Javascriptille. Vaadittua skriptaa voidaan kutsua Python-ohjelman sisältä.
 
-Ohjelma tuottaa artefaktina CSV-tiedoston, joka voidaan importoida Jiraan Jiran Import Wizardilla. [x]
+- [x] Ohjelma tuottaa artefaktina CSV-tiedoston, joka voidaan importoida Jiraan Jiran Import Wizardilla.
 
 ## Toiminnalliisuudet ##
 
