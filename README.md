@@ -104,8 +104,6 @@ Suoritusaikaiset salaisuudet löytyvät `.env`-tiedostosta. Tiedoston skeema lö
 
 `GL_PAT`: sisältää käyttäjän Personal Access Tokenin. Ks. ennakkovaatimukset kys. tokenin hankkimiseksi.
 
-## Datan hakeminen GitLabista ##
-Tällä hetkellä ohjelma tukee GitLabin graafisen käyttöliittymän kautta haetun export-tiedoston lukemista. Voit hakea uuden tiedoston mistä tahansa GitLabin groupsita tai projektista ja korvata sillä nykyisen `sample.csv` -tiedoston. Ohjeet exportin ottamiseen löytyvät [täältä](https://docs.gitlab.com/ee/user/project/issues/csv_export.html).
 
 # Komentorivitoiminnot #
 
