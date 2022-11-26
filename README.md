@@ -19,7 +19,7 @@ Projekti on testattu Python-versiolla 3.10. Tukea vanhempien versioiden kanssa e
 
 - Käyttöohje
 - [Vaatimusmäärittely](dokumentaatio/vaatimukset.md)
-- Arkkitehtuurikuvaus
+- [Arkkitehtuurikuvaus](dokumentaatio/arkkitehtuuri.md)
 - Testausdokumentti
 - [Työaikakirjanpito](dokumentaatio/tuntikirjanpito.md)
 - [Changelog](dokumentaatio/changelog.md)
@@ -39,11 +39,30 @@ input=src/resources/sample.csv
 input_short=src/resources/sample_short.csv
 output=src/resources/
 mapping=src/resources/mapping.json
+
+[COMMON]
+baseURL=https://gitlab.com/
+
+[ISSUE]
+state=all
+per_page=100
+scope_id=55156717
+
+[COMMENT]
+per_page=20
 ```
-`input` määrittää mistä ohjelam lähtee etsimään sille annettacaa CSV-tiedostoa, joka muunnetaan.
-`input_short` on yksikkötestien käyttämä kohde, jossa on lyhennetty datamäärä käytössä.output
-`output` määrittää minne lopputulos kirjoitetaan. Oletusarvoisesti kirjoitetun CSV-tiedoston nimi on `output.csv`.
-`mapping.json` sisältää kartoituksen siitä miten GitLabin issue fieldit mäpätään Jiran kenttiin.
+**FILEPATHS**
+`input`: määrittää mistä ohjelam lähtee etsimään sille annettacaa CSV-tiedostoa, joka muunnetaan.
+`input_short`: on yksikkötestien käyttämä kohde, jossa on lyhennetty datamäärä käytössä.output
+`output`: määrittää minne lopputulos kirjoitetaan. Oletusarvoisesti kirjoitetun CSV-tiedoston nimi on `output.csv`.
+`mapping.json`: sisältää kartoituksen siitä miten GitLabin issue fieldit mäpätään Jiran kenttiin.
+
+**COMMON**
+Sektiot COMMON, ISSUE ja COMMENT määrittävät issueiden ja kommenttien hakemiseen liittyvät HTTP-kyselyn parametrit.
+`baseURL`: Määrittää GitLab-instanssin baseURL:n.
+
+**ISSUE**
+`state`:
 
 ## Datan hakeminen GitLabista ##
 Tällä hetkellä ohjelma tukee GitLabin graafisen käyttöliittymän kautta haetun export-tiedoston lukemista. Voit hakea uuden tiedoston mistä tahansa GitLabin groupsita tai projektista ja korvata sillä nykyisen `sample.csv` -tiedoston. Ohjeet exportin ottamiseen löytyvät [täältä](https://docs.gitlab.com/ee/user/project/issues/csv_export.html).
