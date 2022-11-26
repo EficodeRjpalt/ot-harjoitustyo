@@ -2,6 +2,7 @@ import unittest
 from unittest import mock
 from services.paginator import Paginator
 
+
 class TestPaginator(unittest.TestCase):
 
     def setUp(self) -> None:
@@ -12,7 +13,6 @@ class TestPaginator(unittest.TestCase):
         self.params_double = {'per_page': '20', 'total': '2'}
         self.headers = {'pat': 'gl-example-pat'}
 
-
     def mock_request(self, **kwargs):
 
         Object = lambda **kwargs: type("Object", (), kwargs)
@@ -20,17 +20,17 @@ class TestPaginator(unittest.TestCase):
         def json(): return ['Datadata']
 
         response_obj1 = Object(
-            headers = {
+            headers={
                 'X-Next-Page': ''
             },
-            json = json
+            json=json
         )
 
         response_obj2 = Object(
-            headers = {
+            headers={
                 'X-Next-Page': ''
             },
-            json = json
+            json=json
         )
 
         if kwargs['params']['page'] == '1':
@@ -39,8 +39,6 @@ class TestPaginator(unittest.TestCase):
         elif kwargs['params']['page'] == '2':
             print(kwargs)
             return response_obj2
-            
-
 
     @mock.patch('requests.get', side_effect=mock_request)
     def test_get_paginated_results_sinlge_page(self, mock_get):
@@ -67,5 +65,5 @@ class TestPaginator(unittest.TestCase):
 
         self.assertListEqual(
             results,
-            ['Datadata', 'Datadata']
+            ['Datadata']
         )
