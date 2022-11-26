@@ -50,7 +50,7 @@ class Formatter():
         return return_issue_dict_list
 
     @classmethod
-    def transform_dict_items_into_issues(cls, dict_list):
+    def transform_dict_items_into_issues(cls, dict_list: list) -> list:
 
         issue_list = []
 

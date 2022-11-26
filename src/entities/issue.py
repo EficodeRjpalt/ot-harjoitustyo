@@ -33,7 +33,7 @@ class Issue():
             self.attributes['Closed'])
 
     @classmethod
-    def transform_name_to_email(cls, name: str, domain_name: str):
+    def transform_name_to_email(cls, name: str, domain_name: str) -> str:
 
         if name != '':
             return name.lower().replace(' ', '.') + '@' + domain_name
@@ -41,7 +41,7 @@ class Issue():
         return None
 
     @classmethod
-    def transform_timestamp_to_jira(cls, timestamp):
+    def transform_timestamp_to_jira(cls, timestamp: str) -> str:
 
         if timestamp != '':
 

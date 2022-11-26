@@ -7,7 +7,7 @@ class Paginator():
         pass
 
     @classmethod
-    def get_paginated_results(cls, endpoint, params, headers):
+    def get_paginated_results(cls, endpoint: str, params: dict, headers: dict):
 
         aggregate_response_data = []
 
