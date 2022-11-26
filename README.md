@@ -59,7 +59,7 @@ Projekti on testattu Python-versiolla 3.10. Tukea vanhempien versioiden kanssa e
 
 # Käyttöohjeet #
 
-## Asetukset##
+## Asetukset ##
 Ohjelman asetukset löytyvät osoitteesta `/src/config.cfg`:
 ```
 [FILEPATHS]
