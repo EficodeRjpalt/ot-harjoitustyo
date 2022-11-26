@@ -1,9 +1,28 @@
 # Issueiden GitLabista Jiraan Siirtäjä #
 Yksinkertaisen CLI-sovelluksen avulla käyttäjän on mahdollista siirtää issuensa GitLabista Jiraan käyttämällä Jiran tarjoamaa Import Wizardia.
 
-Toistaiseksi ohjelma on toteutettu niin, että issuet haetaan projekti- tai ryhmäkohtaisesti ottamalla issueista CSV-eksportti GitLabin graafisesta käyttöliittymstä. Pidemmällä aikavälillä ohjelman on tarkoitus lukea projekti- tai ryhmäkohtainen data suoraan GitLabin API:sta.
+Ohjelma noutaa GitLabin REST API:sta haluttujen parametrien mukaisesti kaikki groupin tai projektin alle sijoittuvat issuet ja kirjoittaa ne CSV-tiedostoon muodossa, jossa Jira:n Import Wizard pysty lukemaan datan ja luomaan sen pohjalta uudet issuet Jiraan.
 
 Noudettu data formatoidaan sellaiseen muotoon, jossa se voidaan saumattomasti importoida haluttuun Jira-instanssiin.
+
+## Mitä dataa siirretään ##
+
+Ohjelma siirtää tällä hetkellä GitLabin issueista seuraavat kentät:
+- Title
+- Description
+- State
+- Author
+- Assigne (vain yksi, koska Jirassa vastaava kenttä sallii vain yhden käyttäjän)
+- Due Date
+- Created At
+- Closed At
+- Milestone
+- Labels
+- Time Estimate
+- Time Spent
+- Issue ID
+
+Lisäksi issueen liittyvät kommentit liitetään mukaan listana. Mukana tuelvat kentät ja niiden mäppäykset löytyvät [mapping.json](src/resources/mapping.json)-tiedostosta.
 
 ## Huomioita Toteutuksestsa ##
 
