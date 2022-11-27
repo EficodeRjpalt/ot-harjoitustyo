@@ -79,3 +79,17 @@ class Formatter():
 
             issue.attributes['Comments'] = comment_list
             issue.attributes.pop('Comment Link')
+
+    @classmethod
+    def fix_issue_attribute_names(cls, list_of_issues: list, header_mappings: dict):
+
+        for issue in list_of_issues:
+            new_attributes = {
+                jira_fieldname: issue.attributes[gl_fieldname]
+                for (gl_fieldname, jira_fieldname)
+                in header_mappings.items()
+            }
+
+            issue.attributes = new_attributes
+
+
