@@ -12,14 +12,7 @@ class CSVTool():
         # Set issue fields from GitLab fieldnames to Jira fieldnames as designated
         # in mapping.json.
 
-        fixed_issues = [
-            {
-                jira_fieldname: issue.attributes[gl_fieldname]
-                for (gl_fieldname, jira_fieldname)
-                in head_mappings.items()
-            }
-            for issue in issue_list
-        ]
+        fixed_issues = [issue.attributes for issue in issue_list]
 
         dataf = pd.DataFrame(data=fixed_issues, columns=head_mappings.values())
 

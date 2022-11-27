@@ -59,3 +59,6 @@
     - Arkkitehtuuri.md
     - Vaatimusmäärittelyn päivitys
     - README.md:n päivitys
+
+- 27.11.
+    - Refactor: created reconstructor.py to deconstruct label data and write each label into a separate colun in a csv
