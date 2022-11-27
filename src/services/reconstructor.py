@@ -4,31 +4,38 @@ class Reconstructor():
         pass
 
     @classmethod
-    def reconstruct_issue_dict_attribute(cls, header_mappings: dict, issue_dict_list: list, deconst_attribute: str) -> tuple:
+    def reconstruct_all_issue_dict_attributes(
+            cls, header_mappings: dict,
+            issue_dict_list: list,
+            deconst_attributes: list) -> list:
 
-        reconstructed_issues = []
+        reconstruct_list = issue_dict_list.copy()
 
-        header_appendix = cls.generate_list_appendix(
-            cls.get_max_count(issue_dict_list, deconst_attribute),
-            deconst_attribute
-        )
+        for attribute in deconst_attributes:
+            header_appendix = cls.generate_list_appendix(
+                cls.get_max_count(issue_dict_list, attribute),
+                attribute
+            )
 
-        cls.update_headers(header_mappings, header_appendix)
+            cls.update_headers(header_mappings, header_appendix)
 
-        for issue in issue_dict_list:
-            tmp_issue = issue.copy()
-            attribute_list = tmp_issue.attributes[deconst_attribute]
-            if len(attribute_list) > 0:
-                for i, attribute in enumerate(attribute_list):
-                    tmp_issue.attributes[deconst_attribute + str(i + 1)] = cls.check_spaces_from_attribute(
-                        deconst_attribute, attribute)
+            for issue in issue_dict_list:
+                tmp_issue = issue.copy()
+                cls.reformat_tmp_issue(tmp_issue, attribute)
+                reconstruct_list.append(tmp_issue)
 
-            # Needs fixing
-            #tmp_issue.attributes.pop(deconst_attribute)
-            #header_mappings.pop(deconst_attribute)
-            reconstructed_issues.append(tmp_issue)
+        return reconstruct_list
 
-        return reconstructed_issues
+    @classmethod
+    def reformat_tmp_issue(cls, issue_dict: dict, deconst_attribute: str):
+
+        attribute_list = issue_dict.attributes[deconst_attribute]
+
+        if len(attribute_list) > 0:
+            for i, num_attribute in enumerate(attribute_list):
+                issue_dict.attributes[deconst_attribute + str(i + 1)] = cls.check_spaces_from_attribute(
+                    deconst_attribute, num_attribute
+                )
 
     @classmethod
     def get_max_count(cls, list_of_issues: list, attribue_name: str) -> int:
@@ -45,6 +52,7 @@ class Reconstructor():
             int: Returns the maximum amount of attributes that a single issue in the
             list holds.
         """
+
         if not cls.validate_attribute(attribue_name):
             raise TypeError('Invalid attribute name provided!')
 
