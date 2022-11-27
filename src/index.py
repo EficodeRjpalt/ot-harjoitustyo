@@ -53,7 +53,8 @@ def main():
         deconst_attrs
     )
 
-    csvtool.write_issues_to_csv(reconst_list, 'pandas_output.csv', mappings, deconst_attrs)
+    csvtool.write_issues_to_csv(
+        reconst_list, 'pandas_output.csv', mappings, deconst_attrs)
 
 
 if __name__ == "__main__":
