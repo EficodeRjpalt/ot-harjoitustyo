@@ -91,5 +91,3 @@ class Formatter():
             }
 
             issue.attributes = new_attributes
-
-
