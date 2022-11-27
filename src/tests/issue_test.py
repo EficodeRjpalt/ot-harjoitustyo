@@ -135,3 +135,10 @@ class TestIssue(unittest.TestCase):
         self.assertIsNone(
             self.no_names_issue.attributes['Due Date']
         )
+
+    def test_repr(self):
+
+        self.assertEqual(
+            str(self.issue_dict),
+            repr(self.issue)
+        )
