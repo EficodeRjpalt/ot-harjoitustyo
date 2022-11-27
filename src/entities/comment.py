@@ -33,6 +33,10 @@ class Comment():
     def actor(self) -> str:
         return self._actor
 
+    @actor.setter
+    def actor(self, value) -> None:
+        self._actor = value
+
     @property
     def body(self) -> str:
         return self._body

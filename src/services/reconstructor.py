@@ -8,6 +8,16 @@ class Reconstructor():
             cls, header_mappings: dict,
             issue_dict_list: list,
             deconst_attributes: list) -> list:
+        """_summary_
+
+        Args:
+            header_mappings (dict): _description_
+            issue_dict_list (list): _description_
+            deconst_attributes (list): _description_
+
+        Returns:
+            list: _description_
+        """
 
         reconstruct_list = issue_dict_list.copy()
 
@@ -28,6 +38,12 @@ class Reconstructor():
 
     @classmethod
     def reformat_tmp_issue(cls, issue_dict: dict, deconst_attribute: str):
+        """_summary_
+
+        Args:
+            issue_dict (dict): _description_
+            deconst_attribute (str): _description_
+        """
 
         attribute_list = issue_dict.attributes[deconst_attribute]
 
@@ -52,9 +68,6 @@ class Reconstructor():
             int: Returns the maximum amount of attributes that a single issue in the
             list holds.
         """
-
-        if not cls.validate_attribute(attribue_name):
-            raise TypeError('Invalid attribute name provided!')
 
         max_count = 0
 
@@ -81,38 +94,19 @@ class Reconstructor():
             list: _description_
         """
 
-        if not cls.validate_attribute(attribute_type):
-            raise TypeError('Invalid attribute name provided!')
-
         return [attribute_type + str(i) for i in range(1, max_labels + 1)]
 
     @classmethod
-    def validate_attribute(cls, attribute: str) -> bool:
-        """Validator method to check that correct attribute names are being passed
-        to Reconstructor functions.
+    def check_spaces_from_attribute(cls, check_type: str, attribute: str) -> str:
+        """_summary_
 
         Args:
-            attribute (str): The attributane name that needs to be tested for validation.
-            Acceptable values: 'Comment', 'Label' or 'Wathcer'.
+            check_type (str): _description_
+            attribute (str): _description_
 
         Returns:
-            bool: Function returns True if the argument attribute is on whitelisted
-            list. Otherwise returns False.
+            str: _description_
         """
-
-        valid_values = [
-            'Comments',
-            'Labels',
-            'Watchers'
-        ]
-
-        if attribute not in valid_values:
-            return False
-
-        return True
-
-    @classmethod
-    def check_spaces_from_attribute(cls, check_type: str, attribute: str) -> str:
 
         if check_type == 'Labels':
             return attribute.strip().replace(' ', '_')
@@ -121,6 +115,12 @@ class Reconstructor():
 
     @classmethod
     def update_headers(cls, header_mappings: dict, header_appendix: list) -> None:
+        """_summary_
+
+        Args:
+            header_mappings (dict): _description_
+            header_appendix (list): _description_
+        """
 
         for appendix in header_appendix:
             header_mappings[appendix] = appendix
