@@ -17,7 +17,8 @@ class TestPaginator(unittest.TestCase):
 
         Object = lambda **kwargs: type("Object", (), kwargs)
 
-        def json(): return ['Datadata']
+        def json():
+            return ['Datadata']
 
         response_obj1 = Object(
             headers={
