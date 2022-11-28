@@ -46,3 +46,30 @@ class TestComment(unittest.TestCase):
             '25/11/2022 13:37; rjpalt@gmail.com; This issue is total nonsense!',
             repr(self.test_comment)
         )
+
+    def test_timestamp_setter(self):
+
+        self.test_comment.timestamp = '01-07-1975 21:56:07'
+
+        self. assertEqual(
+            self.test_comment.timestamp,
+            '01-07-1975 21:56:07'
+        )
+
+    def test_actor_setter(self):
+
+        self.test_comment.actor = 'Pormestari Kontiainen'
+
+        self. assertEqual(
+            self.test_comment.actor,
+            'Pormestari Kontiainen'
+        )
+
+    def test_body_setter(self):
+
+        self.test_comment.body = 'This is a value given by a setter!'
+
+        self. assertEqual(
+            self.test_comment.body,
+            'This is a value given by a setter!'
+        )

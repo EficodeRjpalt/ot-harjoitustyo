@@ -49,7 +49,7 @@ class Reconstructor():
 
         if len(attribute_list) > 0:
             for i, num_attribute in enumerate(attribute_list):
-                issue_dict.attributes[deconst_attribute + str(i + 1)] = cls.check_spaces_from_attribute(
+                issue_dict.attributes[deconst_attribute + str(i + 1)] = cls.check_spaces_from_attr(
                     deconst_attribute, num_attribute
                 )
 
@@ -97,7 +97,7 @@ class Reconstructor():
         return [attribute_type + str(i) for i in range(1, max_labels + 1)]
 
     @classmethod
-    def check_spaces_from_attribute(cls, check_type: str, attribute: str) -> str:
+    def check_spaces_from_attr(cls, check_type: str, attribute: str) -> str:
         """_summary_
 
         Args:

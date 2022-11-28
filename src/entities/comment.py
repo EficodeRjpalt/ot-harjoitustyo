@@ -9,9 +9,9 @@ class Comment():
 
         return '; '.join(
             [
-                self.timestamp,
-                self.actor,
-                self.body
+                self._timestamp,
+                self._actor,
+                self._body
             ]
         )
 
@@ -19,9 +19,9 @@ class Comment():
 
         return '; '.join(
             [
-                self.timestamp,
-                self.actor,
-                self.body
+                self._timestamp,
+                self._actor,
+                self._body
             ]
         )
 
@@ -29,14 +29,22 @@ class Comment():
     def timestamp(self) -> str:
         return self._timestamp
 
+    @timestamp.setter
+    def timestamp(self, new_value) -> None:
+        self._timestamp = new_value
+
     @property
     def actor(self) -> str:
         return self._actor
 
     @actor.setter
-    def actor(self, value) -> None:
-        self._actor = value
+    def actor(self, new_value) -> None:
+        self._actor = new_value
 
     @property
     def body(self) -> str:
         return self._body
+
+    @body.setter
+    def body(self, new_value) -> None:
+        self._body = new_value

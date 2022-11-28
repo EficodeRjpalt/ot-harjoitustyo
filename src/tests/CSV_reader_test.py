@@ -108,7 +108,6 @@ class TestCSVReader(unittest.TestCase):
 
     def test_write_issues_to_csv(self):
 
-
         # Check that the temp file does not exist already
         self.assertFalse(os.path.isfile('./src/tests/test_output.csv'))
 
