@@ -67,9 +67,7 @@ class TestCSVReader(unittest.TestCase):
             )
         ]
 
-    def test_write_issues_to_csv(self):
-
-        target_rows = [
+        self.target_rows = [
             [
                 'Summary',
                 'Description',
@@ -81,32 +79,35 @@ class TestCSVReader(unittest.TestCase):
                 'Created',
                 'Closed',
                 'Epic Link',
-                'Labels',
                 'Estimate',
                 'Time Spent',
                 'GitLab UID',
                 'GitLab Issue URL',
-                'Comments'
             ],
             [
-                'Refactor pipeline',
+                '',
                 'Pipeline should be in three stages.',
                 'https://gitlab.com/rasse-posse/helmet-lainojen-uusija/-/issues/30',
-                'closed',
-                'Rasmus Paltschik',
+                '',
+                '',
                 'Rasmus Paltschik',
                 '',
-                '2022-07-24T03:28:38.280Z',
-                '2022-07-27T12:47:35.930Z',
-                'The issue was not tied to a milestone',
-                str(["Test"]),
-                '0',
+                '',
+                '',
+                '',
+                '',
                 '0',
                 '112096571',
-                'https://gitlab.com/rasse-posse/helmet-lainojen-uusija/-/issues/30',
-                str(["2022-07-24T03:28:38.348Z; Rasmus Paltschik; assigned to @rjpalt"])
-            ]
+                'https://gitlab.com/rasse-posse/helmet-lainojen-uusija/-/issues/30']
         ]
+
+        self.deconstr_attrs = [
+            'Labels',
+            'Comments',
+        ]
+
+    def test_write_issues_to_csv(self):
+
 
         # Check that the temp file does not exist already
         self.assertFalse(os.path.isfile('./src/tests/test_output.csv'))
@@ -115,7 +116,8 @@ class TestCSVReader(unittest.TestCase):
         self.csv.write_issues_to_csv(
             self.issue_list,
             self.tmp_output_filepath,
-            self.header_mappings
+            self.header_mappings,
+            self.deconstr_attrs
         )
 
         # Ascertain that the expectedfile was created
@@ -124,11 +126,28 @@ class TestCSVReader(unittest.TestCase):
         # Test CSV outpt line-by-line
         with open('./src/tests/test_output.csv', 'r', encoding='UTF-8', newline='') as test_csv:
             reader = csv.reader(test_csv, dialect='excel')
-            self.assertEqual(next(reader), target_rows[0])
-            self.assertEqual(next(reader), target_rows[1])
+            self.assertEqual(next(reader), self.target_rows[0])
+            self.assertEqual(next(reader), self.target_rows[1])
 
         # Remove the temp csv
         os.remove('./src/tests/test_output.csv')
 
         # Ascertain the file was removed
         self.assertFalse(os.path.isfile('./src/tests/test_output.csv'))
+
+    def test_issue_with_false_attributes(self):
+
+        fake_deconstr_attrs = [
+            'Branches'
+        ]
+
+        # Check that the temp file does not exist already
+        self.assertFalse(os.path.isfile('./src/tests/test_output.csv'))
+
+        with self.assertRaises(KeyError) as context:
+            self.csv.write_issues_to_csv(
+                self.issue_list,
+                self.tmp_output_filepath,
+                self.header_mappings,
+                fake_deconstr_attrs
+            )
