@@ -62,3 +62,10 @@
 
 - 27.11.
     - Refactor: created reconstructor.py to deconstruct label data and write each label into a separate colun in a csv
+
+- 28.11.
+    - Täydennetty ja korjattu CSVServicesin testit vastaamaan uusia toiminnallisuuksia
+    - Refaktoroitu ja täydennetty luokkaa Comment ja päivitetty testit luokalle
+
+- 29.11.
+    - 

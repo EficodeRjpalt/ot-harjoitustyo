@@ -1,7 +1,6 @@
-class Reconstructor():
+from entities.issue import Issue
 
-    def __init__(self):
-        pass
+class Reconstructor():
 
     @classmethod
     def reconstruct_all_issue_dict_attributes(
@@ -37,7 +36,7 @@ class Reconstructor():
         return reconstruct_list
 
     @classmethod
-    def reformat_tmp_issue(cls, issue_dict: dict, deconst_attribute: str):
+    def reformat_tmp_issue(cls, tmp_issue: Issue, deconst_attribute: str):
         """_summary_
 
         Args:
@@ -45,11 +44,11 @@ class Reconstructor():
             deconst_attribute (str): _description_
         """
 
-        attribute_list = issue_dict.attributes[deconst_attribute]
+        attribute_list = tmp_issue.attributes[deconst_attribute]
 
         if len(attribute_list) > 0:
             for i, num_attribute in enumerate(attribute_list):
-                issue_dict.attributes[deconst_attribute + str(i + 1)] = cls.check_spaces_from_attr(
+                tmp_issue.attributes[deconst_attribute + str(i + 1)] = cls.check_spaces_from_attr(
                     deconst_attribute, num_attribute
                 )
 
@@ -94,6 +93,9 @@ class Reconstructor():
             list: _description_
         """
 
+        if not isinstance(max_labels, int):
+            return []
+
         return [attribute_type + str(i) for i in range(1, max_labels + 1)]
 
     @classmethod
@@ -109,7 +111,7 @@ class Reconstructor():
         """
 
         if check_type == 'Labels':
-            return attribute.strip().replace(' ', '_')
+            return " ".join(attribute.split()).replace(' ', '_')
 
         return attribute
 

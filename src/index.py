@@ -7,6 +7,7 @@ from services.paginator import Paginator
 from services.formatter import Formatter
 from services.json_reader import JSONReader as jreader
 from services.reconstructor import Reconstructor
+from pprint import pprint
 
 
 def main():
@@ -46,6 +47,10 @@ def main():
     formatter.add_comments_to_all_issues(issue_dict_list, settings)
     # Issue field names are changed from GitLab ones to Jira ones
     formatter.fix_issue_attribute_names(issue_dict_list, mappings)
+
+    for issue in issue_dict_list:
+        if len(issue.attributes['Comments']) > 0:
+            pprint(issue.attributes)
 
     reconst_list = Reconstructor.reconstruct_all_issue_dict_attributes(
         mappings,
