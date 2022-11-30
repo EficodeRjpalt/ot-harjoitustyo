@@ -1,4 +1,6 @@
 from entities.issue import Issue
+from copy import deepcopy
+
 
 class Reconstructor():
 
@@ -18,7 +20,7 @@ class Reconstructor():
             list: _description_
         """
 
-        reconstruct_list = issue_dict_list.copy()
+        reconstruct_list = []
 
         for attribute in deconst_attributes:
             header_appendix = cls.generate_list_appendix(
@@ -28,10 +30,13 @@ class Reconstructor():
 
             cls.update_headers(header_mappings, header_appendix)
 
-            for issue in issue_dict_list:
-                tmp_issue = issue.copy()
+        for issue in issue_dict_list:
+            tmp_issue = deepcopy(issue)
+            for attribute in deconst_attributes:
                 cls.reformat_tmp_issue(tmp_issue, attribute)
-                reconstruct_list.append(tmp_issue)
+            reconstruct_list.append(tmp_issue)
+
+            print(len(reconstruct_list))
 
         return reconstruct_list
 

@@ -68,4 +68,10 @@
     - Refaktoroitu ja täydennetty luokkaa Comment ja päivitetty testit luokalle
 
 - 29.11.
-    - 
+    - Refactored reconstructor.py
+    - Test coverage for reconstructor.py to 75%
+
+- 30.11.
+    - Test coverage for reconstructor.py to 100%
+    - Refactor reconstructor.py
+    - Replace .copy() with deepcopy()

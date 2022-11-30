@@ -35,7 +35,7 @@ class TestPaginator(unittest.TestCase):
         )
 
         if kwargs['params']['page'] == '1':
-            print(kwargs['params']['total'])
+            print('Kwargs here', kwargs['params']['total'])
             return response_obj1
         elif kwargs['params']['page'] == '2':
             print(kwargs)
@@ -57,6 +57,8 @@ class TestPaginator(unittest.TestCase):
 
     @mock.patch('requests.get', side_effect=mock_request)
     def test_get_paginated_results_double_page(self, mock_get):
+
+        print(self.params_double)
 
         results = self.pager.get_paginated_results(
             self.two_endpoint,
