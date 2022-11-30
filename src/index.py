@@ -25,18 +25,12 @@ def main():
 
     # Fetch data and foramt to readable dictioanries
     scope_data = datafetch.fetch_data(http_settings, data_type='issue')
-    filtered_scope_data = formatter.format_response_data_to_dict(scope_data)
 
-    # Transform dicts to issues
-    issue_dict_list = formatter.transform_dict_items_into_issues(
-        filtered_scope_data)
-
-    # Formatting of the issue dict list could be isolated to a separate function
-    # that aggregates all the formatting functions.
-    formatter.add_comments_to_all_issues(issue_dict_list, http_settings)
-    formatter.add_participants_to_all_issues(issue_dict_list, http_settings)
-    # Issue field names are changed from GitLab ones to Jira ones
-    formatter.fix_issue_attribute_names(issue_dict_list, mappings)
+    issue_dict_list = formatter.format_fetched_issue_data(
+        scope_data,
+        http_settings,
+        mappings
+    )
 
     reconst_list = Reconstructor.reconstruct_all_issue_dict_attributes(
         mappings,
