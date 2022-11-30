@@ -1,5 +1,5 @@
-from entities.issue import Issue
 from copy import deepcopy
+from entities.issue import Issue
 
 
 class Reconstructor():
@@ -35,8 +35,6 @@ class Reconstructor():
             for attribute in deconst_attributes:
                 cls.reformat_tmp_issue(tmp_issue, attribute)
             reconstruct_list.append(tmp_issue)
-
-            print(len(reconstruct_list))
 
         return reconstruct_list
 

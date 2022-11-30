@@ -29,6 +29,7 @@ def main():
     settings['pat'] = getenv('GL_PAT')
     settings['issue'] = dict(config['ISSUE'])
     settings['comment'] = dict(config['COMMENT'])
+    settings['watcher'] = dict(config['WATCHER'])
 
     # Parse deconstructable attributes
     deconst_attrs = config['DECONSTRUCT']['allowed'].split(',')
@@ -44,6 +45,7 @@ def main():
     # Formatting of the issue dict list could be isolated to a separate function
     # that aggregates all the formatting functions.
     formatter.add_comments_to_all_issues(issue_dict_list, settings)
+    formatter.add_participants_to_all_issues(issue_dict_list, settings)
     # Issue field names are changed from GitLab ones to Jira ones
     formatter.fix_issue_attribute_names(issue_dict_list, mappings)
 

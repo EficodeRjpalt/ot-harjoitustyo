@@ -43,6 +43,7 @@ class Formatter():
                     "Time Estimate": issue['time_stats']['time_estimate'],
                     "Time Spent": issue['time_stats']['total_time_spent'],
                     "Milestone": milestone,
+                    "Participant EP": issue['_links']['self'] + '/participants',
                     "Comment Link": issue['_links']['notes']
                 }
             )
@@ -79,6 +80,20 @@ class Formatter():
 
             issue.attributes['Comments'] = comment_list
             issue.attributes.pop('Comment Link')
+
+    def add_participants_to_all_issues(self, issue_dict_list: list, settings: dict):
+
+        for issue in issue_dict_list:
+            participant_list = [
+                participant['name']
+                for participant in
+                self.datafetch.fetch_data(
+                    settings,
+                    issue.attributes['Participant EP'],
+                    data_type='watcher')
+                ]
+
+            issue.attributes['Participants'] = participant_list
 
     @classmethod
     def fix_issue_attribute_names(cls, list_of_issues: list, header_mappings: dict):

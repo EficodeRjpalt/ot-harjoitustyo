@@ -14,5 +14,6 @@
     "Time Spent": "Time Spent",
     "GitLab UID": "GitLab UID",
     "GitLab Issue URL": "GitLab Issue URL",
-    "Comments": "Comments"
+    "Comments": "Comments",
+    "Participants": "Watchers"
 }

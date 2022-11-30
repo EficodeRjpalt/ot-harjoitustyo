@@ -20,7 +20,6 @@ class Paginator():
         pagination_params['page'] = '1'
 
         while next_page:
-            print(pagination_params)
             response = requests.get(
                 endpoint,
                 params=pagination_params,

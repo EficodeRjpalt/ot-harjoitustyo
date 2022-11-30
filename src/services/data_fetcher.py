@@ -29,7 +29,7 @@ class DataFetcher():
                 raise Exception('No comment end point provided!')
 
             params = {
-                'per_page': settings['comment']['per_page']
+                'per_page': settings['watcher']['per_page']
             }
 
             endpoint = comment_endpoint
