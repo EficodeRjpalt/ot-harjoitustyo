@@ -169,7 +169,8 @@ class TestComment(unittest.TestCase):
         test_issue = deepcopy(self.test_issue2)
 
         target_issue.attributes['Comments1'] = '2022-07-13T04:30:38.627Z; Rasmus Paltschik; mentioned in merge request !1'
-        target_issue.attributes['Comments2'] = '2022-07-13T04:30:08.486Z; Rasmus Paltschik; created branch [`4-moduuli-gmailin-lahettamista-varten`](/rasse-posse/helmet-lainojen-uusija/-/compare/master...4-moduuli-gmailin-lahettamista-varten) to address this issue'
+        target_issue.attributes[
+            'Comments2'] = '2022-07-13T04:30:08.486Z; Rasmus Paltschik; created branch [`4-moduuli-gmailin-lahettamista-varten`](/rasse-posse/helmet-lainojen-uusija/-/compare/master...4-moduuli-gmailin-lahettamista-varten) to address this issue'
         target_issue.attributes['Comments3'] = '2022-07-13T04:29:55.603Z; Rasmus Paltschik; assigned to @rjpalt'
 
         Reconstructor.reformat_tmp_issue(
@@ -397,27 +398,27 @@ class TestComment(unittest.TestCase):
             'Assignee': 'Evgenii Smirnov',
             'Closed': '2022-07-13T10:07:08.236Z',
             'Comments': ['2022-07-13T10:07:07.955Z; Evgenii Smirnov; mentioned in commit '
-                        '5561ce985f6dc93b476478ca6911436f0205316f',
-                        '2022-07-13T09:53:21.014Z; Evgenii Smirnov; mentioned in merge '
-                        'request !3',
-                        '2022-07-13T09:53:03.939Z; Evgenii Smirnov; created branch '
-                        '[`1-parempi-odotus-iframen-latautumiselle-2`](/rasse-posse/helmet-lainojen-uusija/-/compare/master...1-parempi-odotus-iframen-latautumiselle-2) '
-                        'to address this issue',
-                        '2022-07-13T09:37:45.384Z; Evgenii Smirnov; mentioned in merge '
-                        'request !2',
-                        '2022-07-11T12:09:01.867Z; Evgenii Smirnov; created branch '
-                        '[`1-parempi-odotus-iframen-latautumiselle`](/rasse-posse/helmet-lainojen-uusija/-/compare/master...1-parempi-odotus-iframen-latautumiselle) '
-                        'to address this issue',
-                        '2022-07-11T09:39:30.854Z; Rasmus Paltschik; assigned to '
-                        '@jevgenix and unassigned @anuvirtane',
-                        '2022-07-11T09:39:27.794Z; Rasmus Paltschik; assigned to '
-                        '@anuvirtane and unassigned @jevgenix',
-                        '2022-07-11T09:39:20.552Z; Rasmus Paltschik; assigned to '
-                        '@jevgenix and unassigned @anuvirtane',
-                        '2022-07-10T17:57:38.314Z; Rasmus Paltschik; changed the '
-                        'description',
-                        '2022-07-10T17:57:12.380Z; Rasmus Paltschik; assigned to '
-                        '@anuvirtane]'],
+                         '5561ce985f6dc93b476478ca6911436f0205316f',
+                         '2022-07-13T09:53:21.014Z; Evgenii Smirnov; mentioned in merge '
+                         'request !3',
+                         '2022-07-13T09:53:03.939Z; Evgenii Smirnov; created branch '
+                         '[`1-parempi-odotus-iframen-latautumiselle-2`](/rasse-posse/helmet-lainojen-uusija/-/compare/master...1-parempi-odotus-iframen-latautumiselle-2) '
+                         'to address this issue',
+                         '2022-07-13T09:37:45.384Z; Evgenii Smirnov; mentioned in merge '
+                         'request !2',
+                         '2022-07-11T12:09:01.867Z; Evgenii Smirnov; created branch '
+                         '[`1-parempi-odotus-iframen-latautumiselle`](/rasse-posse/helmet-lainojen-uusija/-/compare/master...1-parempi-odotus-iframen-latautumiselle) '
+                         'to address this issue',
+                         '2022-07-11T09:39:30.854Z; Rasmus Paltschik; assigned to '
+                         '@jevgenix and unassigned @anuvirtane',
+                         '2022-07-11T09:39:27.794Z; Rasmus Paltschik; assigned to '
+                         '@anuvirtane and unassigned @jevgenix',
+                         '2022-07-11T09:39:20.552Z; Rasmus Paltschik; assigned to '
+                         '@jevgenix and unassigned @anuvirtane',
+                         '2022-07-10T17:57:38.314Z; Rasmus Paltschik; changed the '
+                         'description',
+                         '2022-07-10T17:57:12.380Z; Rasmus Paltschik; assigned to '
+                         '@anuvirtane]'],
             'Comments1': '2022-07-13T10:07:07.955Z; Evgenii Smirnov; mentioned in commit '
                         '5561ce985f6dc93b476478ca6911436f0205316f',
             'Comments10': '2022-07-10T17:57:12.380Z; Rasmus Paltschik; assigned to '
@@ -442,22 +443,22 @@ class TestComment(unittest.TestCase):
                         'description',
             'Created': '2022-07-10T17:57:12.278Z',
             'Description': 'Tällä hetkellä main.py rivien 29 - 32 koodi on vähän kökkö; '
-                            'time.sleep() ei ole oikeasti järkevä tapa ratkaista '
-                            'odotusongelmaa, mutta yritykset fiksummalla tavalla meni '
-                            'multa puihin eikä toiminu.\n'
-                            '\n'
-                            'Koodi näyttää tältä:\n'
-                            '\n'
-                            '```\n'
-                            'time.sleep(10)\n'
-                            '\n'
-                            'driver.switch_to.frame(driver.find_element(By.XPATH, '
-                            "'//iFrame'))\n"
-                            "table_elem = driver.find_element(By.CLASS_NAME, 'patFunc')\n"
-                            '```\n'
-                            '\n'
-                            'Switch tarttee tehdä, mutta lataus olis fiksu tehdä '
-                            'odottamalla, että elementti on lautautunut.',
+            'time.sleep() ei ole oikeasti järkevä tapa ratkaista '
+            'odotusongelmaa, mutta yritykset fiksummalla tavalla meni '
+            'multa puihin eikä toiminu.\n'
+            '\n'
+            'Koodi näyttää tältä:\n'
+            '\n'
+            '```\n'
+            'time.sleep(10)\n'
+            '\n'
+            'driver.switch_to.frame(driver.find_element(By.XPATH, '
+            "'//iFrame'))\n"
+            "table_elem = driver.find_element(By.CLASS_NAME, 'patFunc')\n"
+            '```\n'
+            '\n'
+            'Switch tarttee tehdä, mutta lataus olis fiksu tehdä '
+            'odottamalla, että elementti on lautautunut.',
             'Due Date': None,
             'Epic Link': 'The issue was not tied to a milestone',
             'Estimate': 0,
@@ -470,7 +471,6 @@ class TestComment(unittest.TestCase):
             'Summary': 'Parempi odotus iFramen latautumiselle',
             'Time Spent': 0
         }
-        
 
         self.assertDictEqual(
             target_attrs1,

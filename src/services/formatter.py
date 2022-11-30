@@ -91,7 +91,7 @@ class Formatter():
                     settings,
                     issue.attributes['Participant EP'],
                     data_type='watcher')
-                ]
+            ]
 
             issue.attributes['Participants'] = participant_list
 

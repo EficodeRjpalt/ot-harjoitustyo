@@ -1,20 +1,12 @@
-import configparser
-from os import getenv
-from dotenv import load_dotenv
 from services.csv_services import CSVTool as csvtool
 from services.data_fetcher import DataFetcher
 from services.paginator import Paginator
 from services.formatter import Formatter
-from services.json_reader import JSONReader as jreader
 from services.reconstructor import Reconstructor
+from services.settings_getter import SettingsGetter
 
 
 def main():
-
-    config = configparser.ConfigParser()
-    config.read('src/config.cfg')
-    load_dotenv()
-    mappings = jreader.read_json_to_dict(config['FILEPATHS']['mapping'])
 
     datafetch = DataFetcher(
         Paginator()
@@ -24,18 +16,15 @@ def main():
         datafetch
     )
 
-    # Parse HTTP request configurations into settings
-    settings = dict(config['COMMON'])
-    settings['pat'] = getenv('GL_PAT')
-    settings['issue'] = dict(config['ISSUE'])
-    settings['comment'] = dict(config['COMMENT'])
-    settings['watcher'] = dict(config['WATCHER'])
-
-    # Parse deconstructable attributes
-    deconst_attrs = config['DECONSTRUCT']['allowed'].split(',')
+    # Get settings for http requests, column header mappings and
+    # deconstructable attributes' list
+    settings_getter = SettingsGetter('src/config.cfg')
+    http_settings = settings_getter.get_http_request_settings()
+    mappings = settings_getter.get_header_mappings()
+    deconst_attrs = settings_getter.get_deconstruction_attributes()
 
     # Fetch data and foramt to readable dictioanries
-    scope_data = datafetch.fetch_data(settings, data_type='issue')
+    scope_data = datafetch.fetch_data(http_settings, data_type='issue')
     filtered_scope_data = formatter.format_response_data_to_dict(scope_data)
 
     # Transform dicts to issues
@@ -44,8 +33,8 @@ def main():
 
     # Formatting of the issue dict list could be isolated to a separate function
     # that aggregates all the formatting functions.
-    formatter.add_comments_to_all_issues(issue_dict_list, settings)
-    formatter.add_participants_to_all_issues(issue_dict_list, settings)
+    formatter.add_comments_to_all_issues(issue_dict_list, http_settings)
+    formatter.add_participants_to_all_issues(issue_dict_list, http_settings)
     # Issue field names are changed from GitLab ones to Jira ones
     formatter.fix_issue_attribute_names(issue_dict_list, mappings)
 
