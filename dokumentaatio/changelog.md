@@ -68,10 +68,15 @@
     - Refaktoroitu ja täydennetty luokkaa Comment ja päivitetty testit luokalle
 
 - 29.11.
-    - Refactored reconstructor.py
-    - Test coverage for reconstructor.py to 75%
+    - Refaaktoroitu reconstructor.py
+    - Test coverage reconstructor.py ->s 75%
 
 - 30.11.
     - Test coverage for reconstructor.py to 100%
-    - Refactor reconstructor.py
-    - Replace .copy() with deepcopy()
+    - Refaktoroituy reconstructor.py
+    - Korvatty .copy() metodit deepcopylla
+    - Refaktoroitu asetusten noutaminen: delegoitu settings_getter.py -moduulille
+
+- 1.12.
+    - Lisätty tuki sille, että issuet voidaan hakea joko groupin tai projektin tasolla. Aiemmin ohjelmassa oli puute: pystyi hakemaan vain groupille.
+    - settings_getter.py -luokan testit

@@ -18,10 +18,7 @@ class DataFetcher():
                 'per_page': settings['issue']['per_page']
             }
 
-            scope_id = settings['issue']['scope_id']
-
-            endpoint = settings['baseurl'] + \
-                f'api/v4/groups/{scope_id}/issues'
+            endpoint = self.__get_endpoint(settings)
 
         else:
 
@@ -41,3 +38,10 @@ class DataFetcher():
         )
 
         return scope_data
+
+    def __get_endpoint(self, settings: dict):
+
+        if settings['scope_type'] == 'group':
+            return settings['endpoint']['group']
+
+        return settings['endpoint']['project']

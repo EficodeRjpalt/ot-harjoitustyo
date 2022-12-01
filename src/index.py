@@ -23,9 +23,10 @@ def main():
     mappings = settings_getter.get_header_mappings()
     deconst_attrs = settings_getter.get_deconstruction_attributes()
 
-    # Fetch data and foramt to readable dictioanries
+    # Fetch data from GitLab API
     scope_data = datafetch.fetch_data(http_settings, data_type='issue')
 
+    # Format the fetched data
     issue_dict_list = formatter.format_fetched_issue_data(
         scope_data,
         http_settings,

@@ -107,15 +107,19 @@ class Formatter():
 
             issue.attributes = new_attributes
 
-    def format_fetched_issue_data(self, retrieved_json_data: list, http_settings: dict, header_mappings: dict):
+    def format_fetched_issue_data(
+            self,
+            retrieved_json_data: list,
+            http_settings: dict,
+            header_mappings: dict) -> list:
 
-        ## This needs refactoring. Why should some be classmethods and soem instance?
+        # This needs refactoring. Why should some be classmethods and soem instance?
 
         issue_dict_list = Formatter.transform_dict_items_into_issues(
-                self.format_response_data_to_dict(
-                    retrieved_json_data
-                )
+            self.format_response_data_to_dict(
+                retrieved_json_data
             )
+        )
 
         self.add_comments_to_all_issues(issue_dict_list, http_settings)
         self.add_participants_to_all_issues(issue_dict_list, http_settings)
