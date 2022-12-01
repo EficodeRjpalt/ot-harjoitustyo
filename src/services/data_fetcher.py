@@ -31,8 +31,6 @@ class DataFetcher():
 
             endpoint = comment_endpoint
 
-        print(endpoint)
-
         scope_data = self.pager.get_paginated_results(
             endpoint=endpoint,
             params=params,

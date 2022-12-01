@@ -78,7 +78,7 @@ class TestComment(unittest.TestCase):
 
         return_endpoint = self.sett_get.create_endpoint('project')
 
-        target_endpoint ='https://gitlab.com/api/v4/projects/666/issues'
+        target_endpoint = 'https://gitlab.com/api/v4/projects/666/issues'
 
         self.assertEqual(
             target_endpoint,
@@ -89,7 +89,7 @@ class TestComment(unittest.TestCase):
 
         return_endpoint = self.sett_get.create_endpoint('group')
 
-        target_endpoint ='https://gitlab.com/api/v4/groups/666/issues'
+        target_endpoint = 'https://gitlab.com/api/v4/groups/666/issues'
 
         self.assertEqual(
             target_endpoint,
