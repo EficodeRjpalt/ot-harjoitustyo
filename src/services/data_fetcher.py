@@ -18,7 +18,7 @@ class DataFetcher():
                 'per_page': settings['issue']['per_page']
             }
 
-            endpoint = self.__get_endpoint(settings)
+            endpoint = self._get_endpoint(settings)
 
         else:
 
@@ -31,6 +31,8 @@ class DataFetcher():
 
             endpoint = comment_endpoint
 
+        print(endpoint)
+
         scope_data = self.pager.get_paginated_results(
             endpoint=endpoint,
             params=params,
@@ -39,7 +41,7 @@ class DataFetcher():
 
         return scope_data
 
-    def __get_endpoint(self, settings: dict):
+    def _get_endpoint(self, settings: dict):
 
         if settings['scope_type'] == 'group':
             return settings['endpoint']['group']

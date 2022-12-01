@@ -8,10 +8,9 @@ class SettingsGetter():
 
     load_dotenv()
 
-    def __init__(self, config_filepath: str):
-        self.config_filepath = config_filepath
-        self.config = configparser.ConfigParser()
-        self.config.read('src/config.cfg')
+    def __init__(self, config_filepath: str, config: configparser):
+        self.config = config
+        self.config.read(config_filepath)
 
     def get_http_request_settings(self):
         settings = dict(self.config['COMMON'])
@@ -40,9 +39,7 @@ class SettingsGetter():
 
             return base + self.config['ENDPOINTS']['project'] + scope_id + '/issues'
 
-
         return base + self.config['ENDPOINTS']['group'] + scope_id + '/issues'
-
 
     def get_deconstruction_attributes(self):
         deconst_attrs = self.config['DECONSTRUCT']['allowed'].split(',')

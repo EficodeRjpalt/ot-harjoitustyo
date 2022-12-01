@@ -58,7 +58,8 @@ class TestCSVReader(unittest.TestCase):
             'Time Estimate': 0,
             'Time Spent': 0,
             'Milestone': 'The issue was not tied to a milestone',
-            'Comments': ["2022-07-24T03:28:38.348Z; Rasmus Paltschik; assigned to @rjpalt"]
+            'Comments': ["2022-07-24T03:28:38.348Z; Rasmus Paltschik; assigned to @rjpalt"],
+            'Watchers': ['Rasmus Paltschik']
         }
 
         self.issue_list = [
@@ -98,12 +99,14 @@ class TestCSVReader(unittest.TestCase):
                 '',
                 '0',
                 '112096571',
-                'https://gitlab.com/rasse-posse/helmet-lainojen-uusija/-/issues/30']
+                'https://gitlab.com/rasse-posse/helmet-lainojen-uusija/-/issues/30',
+            ]
         ]
 
         self.deconstr_attrs = [
             'Labels',
             'Comments',
+            'Watchers'
         ]
 
     def test_write_issues_to_csv(self):
@@ -122,7 +125,7 @@ class TestCSVReader(unittest.TestCase):
         # Ascertain that the expectedfile was created
         self.assertTrue(os.path.isfile('./src/tests/test_output.csv'))
 
-        # Test CSV outpt line-by-line
+        # Test CSV output line-by-line
         with open('./src/tests/test_output.csv', 'r', encoding='UTF-8', newline='') as test_csv:
             reader = csv.reader(test_csv, dialect='excel')
             self.assertEqual(next(reader), self.target_rows[0])

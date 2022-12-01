@@ -1,3 +1,4 @@
+import configparser
 from services.csv_services import CSVTool as csvtool
 from services.data_fetcher import DataFetcher
 from services.paginator import Paginator
@@ -18,7 +19,11 @@ def main():
 
     # Get settings for http requests, column header mappings and
     # deconstructable attributes' list
-    settings_getter = SettingsGetter('src/config.cfg')
+    settings_getter = SettingsGetter(
+        'src/config.cfg',
+        configparser.ConfigParser()
+    )
+
     http_settings = settings_getter.get_http_request_settings()
     mappings = settings_getter.get_header_mappings()
     deconst_attrs = settings_getter.get_deconstruction_attributes()
