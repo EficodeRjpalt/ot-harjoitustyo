@@ -6,6 +6,8 @@ from services.formatter import Formatter
 from services.reconstructor import Reconstructor
 from services.settings_getter import SettingsGetter
 
+from pprint import pprint
+
 
 def main():
 
@@ -25,6 +27,7 @@ def main():
     )
 
     http_settings = settings_getter.get_http_request_settings()
+    pprint(http_settings)
     mappings = settings_getter.get_header_mappings()
     deconst_attrs = settings_getter.get_deconstruction_attributes()
 

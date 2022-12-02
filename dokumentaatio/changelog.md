@@ -84,4 +84,5 @@
     - CSV:n siistintä: Numeroidut kentät (Comments1, Comments2 jne.) muutetaan muotoon 'Comments'. Nopeuttaa CSV-tiedoston importtausta Jiraan huomattavasti.
 
 - 2.12.
-    - 
+    - CSV_reader.py testit loppuun
+    - Asetusten validaatio

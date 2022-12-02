@@ -115,7 +115,7 @@ class TestCSVReader(unittest.TestCase):
             'Comments1': 'It was done',
             'Created': '2022-11-22T13:27:56.554Z',
             'Description': 'issue numero yksi sisältö ja liite '
-                            '[liite8.txt](/uploads/05a314ad019c8b3592733a5802f6c36a/liite8.txt)',
+            '[liite8.txt](/uploads/05a314ad019c8b3592733a5802f6c36a/liite8.txt)',
             'Due Date': None,
             'Epic Link': 'The issue was not tied to a milestone',
             'Estimate': 0,
@@ -151,7 +151,7 @@ class TestCSVReader(unittest.TestCase):
             'Labels2',
             'Watchers1',
             'Watchers2'
-            ]
+        ]
 
     def test_write_issues_to_csv(self):
 
@@ -228,7 +228,7 @@ class TestCSVReader(unittest.TestCase):
             'Labels',
             'Labels',
             'Watchers',
-            'Watchers'  
+            'Watchers'
         ]
 
         self.assertListEqual(

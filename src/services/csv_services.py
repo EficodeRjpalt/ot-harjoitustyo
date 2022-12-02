@@ -1,6 +1,7 @@
 import pandas as pd
 from pandas import DataFrame
 
+
 class CSVTool():
 
     def __init__(self) -> None:

@@ -3,6 +3,7 @@ import configparser
 import os
 from unittest import mock
 from services.settings_getter import SettingsGetter
+from typing.settings import SettingsValidator
 from pprint import pprint
 
 
