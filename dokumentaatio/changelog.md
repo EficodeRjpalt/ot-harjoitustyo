@@ -80,3 +80,8 @@
 - 1.12.
     - Lisätty tuki sille, että issuet voidaan hakea joko groupin tai projektin tasolla. Aiemmin ohjelmassa oli puute: pystyi hakemaan vain groupille.
     - settings_getter.py -luokan testit
+    - Refaktoroitu testit
+    - CSV:n siistintä: Numeroidut kentät (Comments1, Comments2 jne.) muutetaan muotoon 'Comments'. Nopeuttaa CSV-tiedoston importtausta Jiraan huomattavasti.
+
+- 2.12.
+    - 

@@ -1,7 +1,7 @@
 import unittest
 import os
 import csv
-
+import pandas as pd
 from entities.issue import Issue
 from services.csv_services import CSVTool
 from services.json_reader import JSONReader
@@ -41,7 +41,7 @@ class TestCSVReader(unittest.TestCase):
             'Time Spent': '0'
         }
 
-        sample_issue_attributes = {
+        self.sample_issue_attributes = {
             'Title': 'Refactor pipeline',
             'Description': "Pipeline should be in three stages.",
             'GitLab UID': 112096571,
@@ -64,7 +64,7 @@ class TestCSVReader(unittest.TestCase):
 
         self.issue_list = [
             Issue(
-                sample_issue_attributes
+                self.sample_issue_attributes
             )
         ]
 
@@ -109,6 +109,50 @@ class TestCSVReader(unittest.TestCase):
             'Watchers'
         ]
 
+        self.reformatted_issue_attributes = {
+            'Assignee': None,
+            'Closed': None,
+            'Comments1': 'It was done',
+            'Created': '2022-11-22T13:27:56.554Z',
+            'Description': 'issue numero yksi sisältö ja liite '
+                            '[liite8.txt](/uploads/05a314ad019c8b3592733a5802f6c36a/liite8.txt)',
+            'Due Date': None,
+            'Epic Link': 'The issue was not tied to a milestone',
+            'Estimate': 0,
+            'GitLab Issue URL': 'https://gitlab.com/rasse-posse/scripting-testing-subgroup/second-scripting-testing-subgroup/scripting-testing-project-in-subgroup/-/issues/1',
+            'GitLab UID': 119188120,
+            'Labels1': 'To_do',
+            'Labels2': 'Undone',
+            'Reporter': 'Ilkka Väisänen',
+            'Status': 'opened',
+            'Summary': 'issue numero yksi',
+            'Time Spent': 0,
+            'Watchers1': 'Ilkka Väisänen',
+            'Watchers2': 'Rasmus Paltschik'
+        }
+
+        self.reformatted_columns = [
+            'Summary',
+            'Description',
+            'GitLab Issue URL',
+            'Status',
+            'Reporter',
+            'Assignee',
+            'Due Date',
+            'Created',
+            'Closed',
+            'Epic Link',
+            'Estimate',
+            'Time Spent',
+            'GitLab UID',
+            'GitLab Issue URL',
+            'Comments1',
+            'Labels1',
+            'Labels2',
+            'Watchers1',
+            'Watchers2'
+            ]
+
     def test_write_issues_to_csv(self):
 
         # Check that the temp file does not exist already
@@ -146,10 +190,74 @@ class TestCSVReader(unittest.TestCase):
         # Check that the temp file does not exist already
         self.assertFalse(os.path.isfile('./src/tests/test_output.csv'))
 
-        with self.assertRaises(KeyError) as context:
+        with self.assertRaises(KeyError):
             self.csv.write_issues_to_csv(
                 self.issue_list,
                 self.tmp_output_filepath,
                 self.header_mappings,
                 fake_deconstr_attrs
             )
+
+    def test_reformat_deconstructed_headers(self):
+
+        data = [self.reformatted_issue_attributes]
+
+        dataf = pd.DataFrame(data=data, columns=self.reformatted_columns)
+
+        reformed_dataf = self.csv.reformat_deconstructed_headers(
+            self.deconstr_attrs,
+            dataf
+        )
+
+        target_list = [
+            'Summary',
+            'Description',
+            'GitLab Issue URL',
+            'Status',
+            'Reporter',
+            'Assignee',
+            'Due Date',
+            'Created',
+            'Closed',
+            'Epic Link',
+            'Estimate',
+            'Time Spent',
+            'GitLab UID',
+            'GitLab Issue URL',
+            'Comments',
+            'Labels',
+            'Labels',
+            'Watchers',
+            'Watchers'  
+        ]
+
+        self.assertListEqual(
+            target_list,
+            list(reformed_dataf.columns)
+        )
+
+    def test_add_removable_elements_to_rename_dict(self):
+
+        data = [self.reformatted_issue_attributes]
+
+        dataf = pd.DataFrame(data=data, columns=self.reformatted_columns)
+
+        rename_dict = {}
+
+        for attribute in self.deconstr_attrs:
+            CSVTool.add_removable_elements_to_rename_dict(
+                rename_dict, dataf, attribute
+            )
+
+        target_dict = {
+            'Comments1': 'Comments',
+            'Labels1': 'Labels',
+            'Labels2': 'Labels',
+            'Watchers1': 'Watchers',
+            'Watchers2': 'Watchers'
+        }
+
+        self.assertDictEqual = (
+            target_dict,
+            rename_dict
+        )
