@@ -17,12 +17,14 @@ Ohjelma siirtää tällä hetkellä GitLabin issueista seuraavat kentät:
 - Created At
 - Closed At
 - Milestone
-- Labels
 - Time Estimate
 - Time Spent
 - Issue ID
+- Participants
 
-Lisäksi issueen liittyvät kommentit liitetään mukaan listana. Mukana tuelvat kentät ja niiden mäppäykset löytyvät [mapping.json](src/resources/mapping.json)-tiedostosta.
+Lisäksi ohjelma tuo mukana jokaisen issuen koko 
+
+Lisäksi issueen liittyvät kommentit (**poislukien liitetiedostot**) liitetään mukaan. Mukana tuelvat kentät ja niiden mäppäykset löytyvät [mapping.json](src/resources/mapping.json)-tiedostosta.
 
 ## Huomioita Toteutuksestsa ##
 
