@@ -97,6 +97,89 @@ Lopuksi ohjelma kirjoittaa pandas-kirjastoa hyödyntäen Issue-olioiden attribuu
         }
 ```
 
+## Ohjelman sekvenssikaavio ##
+
+```mermaid
+sequenceDiagram
+	autonumber
+	participant main
+	main ->> DataFetcher: init
+	DataFetcher ->> Paginator: init
+	main ->> SettingsGetter: get http request settings
+	activate SettingsGetter
+	SettingsGetter ->> ConfigParser: parse configs
+	activate ConfigParser
+	ConfigParser ->> SettingsGetter: return configs
+	deactivate ConfigParser
+	SettingsGetter ->> SettingsValidator: validate/invalidate settings
+	activate SettingsValidator
+	SettingsValidator ->> settingsGetter: validate / raise exception
+	deactivate SettingsValidator
+	SettingsGetter ->> main: return http settings
+	deactivate SettingsGetter
+    main ->> SettingsGetter: get header mappings
+	activate SettingsGetter
+	SettingsGetter ->> JSONReader: get header mappings
+	activate JSONReader
+	JSONReader ->> SettingsGetter: header mappings (dict)
+	SettingsGetter ->> main: header mappings
+	deactivate SettingsGetter
+	main ->> SettingsGetter: get deconst attributes
+	activate SettingsGetter
+	SettingsGetter ->> ConfigParser: parse configs
+	activate ConfigParser
+	ConfigParser ->> SettingsGetter: return configs
+	deactivate ConfigParser
+	SettingsGetter ->> SettingsValidator: validate/invalidate settings
+	activate SettingsValidator
+	SettingsValidator ->> settingsGetter: validate / raise exception
+	deactivate SettingsValidator
+	SettingsGetter ->> main: return deconstruction attributes (list)
+	deactivate SettingsGetter
+	main ->> DataFetcher: fetch data
+	activate DataFetcher
+	DataFetcher ->> Paginator: get paginated results
+	activate Paginator
+	Paginator ->> DataFetcher: return collected results
+	deactivate Paginator
+	DataFetcher ->> main: return fetched issue data
+	deactivate DataFetcher
+	main ->> Formatter: format fetched issues
+	activate Formatter
+	Formatter ->> main: return formatted issues
+	Formatter ->> Issue: turn dicts into Issue objects
+	activate Issue
+	Issue ->> Formatter: return Issue object
+	deactivate Issue
+	Formatter ->> Comment: fetch comment data
+	activate Comment
+	Comment ->> DataFetcher: get comment data
+	activate DataFetcher
+	DataFetcher ->> Paginator: get paginated results
+    activate Paginator
+    Paginator ->> DataFetcher: return collected results
+    deactivate Paginator
+    DataFetcher ->> Comment: return collected comment data
+    deactivate DataFetcher
+    Comment ->> Formatter: 
+    Formatter ->> Issue: append Comments to issue
+    Formatter ->> DataFetcher: get participant info
+    activate DataFetcher
+    DataFetcher ->> Paginator: get participant information
+    activate Paginator
+    Paginator ->> DataFetcher: return participant information
+    deactivate Paginator
+    DataFetcher ->> Formatter: return participant information
+    deactivate DataFetcher
+    Formatter ->> Issue: append participant data to issue
+	deactivate Formatter
+	main ->> Reconstructor: reconstruct all issues
+	activate Reconstructor
+	Reconstructor ->> main: return reconstructed issues
+	deactivate Reconstructor
+	main ->> CSVTool: write issues into CSV
+```
+
 ## Tietojen pysyväistallennus ##
 Ohjelma hakee alkuun GitLabin REST API:sta halutun skoopin mukaisen datan ja ohjelman päätteeksi tuottaa artefaktina CSV-tiedoston, joka voidaan importoida Jiraan.
 

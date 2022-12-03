@@ -86,3 +86,7 @@
 - 2.12.
     - CSV_reader.py testit loppuun
     - Asetusten validaatio
+
+- 3.12.
+    - Dokumentaation päivitykset: README.md, tuntikirjanpidon tarkistus, changelogin tarkistus
+    - Sekvenssikaavion raakaveersio arkkitehtuuri.md -tiedostoon
