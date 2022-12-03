@@ -22,8 +22,6 @@ Ohjelma siirtää tällä hetkellä GitLabin issueista seuraavat kentät:
 - Issue ID
 - Participants
 
-Lisäksi ohjelma tuo mukana jokaisen issuen koko 
-
 Lisäksi issueen liittyvät kommentit (**poislukien liitetiedostot**) liitetään mukaan. Mukana tuelvat kentät ja niiden mäppäykset löytyvät [mapping.json](src/resources/mapping.json)-tiedostosta.
 
 ## Huomioita Toteutuksestsa ##
