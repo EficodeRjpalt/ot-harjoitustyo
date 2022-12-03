@@ -1,5 +1,5 @@
-from typing import TypedDict
 import re
+from typing import TypedDict
 from strongtyping.strong_typing import match_class_typing
 
 
@@ -30,6 +30,7 @@ class Comment(TypedDict):
 class SettingsValidator():
 
     valid_scope_types = ['group', 'project']
+    valid_deconst_attributes = ['Comment']
 
     @classmethod
     def validate_http_settings(cls, settings: dict):
@@ -76,10 +77,10 @@ class SettingsValidator():
     @classmethod
     def validate_domain_name(cls, domain_name: str):
 
-        validation_re = r"^[a-z]+\.[a-z]+$"
+        validation_re = r"^[a-z0-9]+\.[a-z0-9]+$"
 
         pattern = re.compile(validation_re)
-        return pattern.match(domain_name)
+        return pattern.match(domain_name.lower())
 
     @classmethod
     def validate_gl_pat(cls, gl_pat: str):

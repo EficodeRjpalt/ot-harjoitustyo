@@ -11,13 +11,21 @@ Sovellus toteutetaan pääosin Pythonilla, joskin markdown-formaattia Jiran mark
 - [x] Ohjelma pystyy hakemaan repositorio-kohtaisesti kaikki issuet halutusta GitLab-instanssista. Issuet voidaan noutaa joko kutsumalla instanssin REST APIa tai vaihtoehtoisesti ottamalla ohjelmasta CSV-eksportti.
 
 - [x] Ohjelma pystyy täydentämään haettua dataa hakemalla jokaiseen issueen liittyvät kommentit.
-- [ ] Kommentit siirretään Jira-instanssiin ja sidotaan siellä vastaavaan käyttäjään. 
-- [ ] Issueiden description-kentän ja kommenttien teksti-kentän tulee olla muutettu markdown-formaatista Jiran omaan markup-syntaksiin.
-- [ ] Ohjelman tulee tuoda mukana kaikki GitLabin skoopissa käytetyt labelit Jiraan
-- [ ] Ohjelman tulee tuoda mukana myös tieto kaikista GitLabin issuessa mukana olleista participanteista Jiran Watcher-kenttään
+- [x] Ohjelmaan on mahdollista konfiguroida confif.cfg -tiedostoon jokaisen ajon aikaiset konfiguraatiot.
+- [x] Ohjelman tulee tuoda mukana kaikki GitLabin skoopissa käytetyt labelit Jiraan
+- [x] Ohjelman tulee tuoda mukana myös tieto kaikista GitLabin issuessa mukana olleista participanteista Jiran Watcher-kenttään
+- [x] Ohjelman tuottama CSV-tiedosto on formatoitu niin, että se on mahdollisimman helppoa ajaa sisään Jira-instanssiin.
+    - [x] Kentät, joilla on useampi arvo Jirassa, on oltava purettu CSV'hen muodossa, jossa jokaisen uniikin arvon kolumnin nimi on sama. (Watcher, Watcher, Watcher eikä Watcher1, Watcher2, Watcher3)
+- [ ] Ohjelman tulee antaa mielekkäät virheilmoitukset sille tuleien syötteiden suhteen.
+    - [x] Suoritukselle annettavat konfiguraatiot tulee validoida.
+    - [ ] GitLabin rajapinnan vastaukset tulee käsitellä ja tarkastaa. Minimissään ohjelman tulee antaa mielekästä palautetta, jos HTTP-pyyntöön vastataan jollain muulla kuin koodilla 200.
+- [ ] Kommentit siirretään Jira-instanssiin ja sidotaan siellä vastaavaan käyttäjään. Tämä tapahtuu muuttamalla käyttäjän nimi haluttuun sähköpostiosoitteeseen (käyttäjien uniikki nimi Jira Cloudissa on sähköposti)
+    - [ ] Käyttäjällä tulee olla mahdollisuus antaa ohjelmalle lista, jossa on mäppäykset nimien ja sähköpostien välillä. Jos nimi ei löydy listalta, ohjelma rakentaa käyttäjäniemestä sähköpostiosoitteen, joka voidaan vielä validoida importatessa.
+    - [ ] gitLabista poistettujen käyttäjien kommentit ja toiminnot täytyy pystyä käsittelemään mielekkäällä tavalla. Tällä hetkellä ne ovat nimellä 'Ghost User.
+- [ ] Käyttäjän tulee pystyä antamaan ohjelmalle konfiguraatio siitä kuinka labeleissa oleva tieto tulee purkaa. Esimerkiksi label 'In Progress' pitää voida purkaa niin, että kun issue siirretään Jiraan, sille asetetaan kenttään Status arvo 'In Progress'. Mäppäys tapahtuu luomalla konfiguraatiot ennen ajoa määrättyy nkonfiguraatiotiedostoon.
 - [ ] Ohjelma tarjoaa suorituksen aikaisen informatiivisen loggauksen ja sen lisäksi kirjoittaa jokaisesta suorituksesta login, josta löytyvät tiedot soritusaikana siirretystä datasta jne.
 - [ ] Kun ohjelma on suorittanut eksportaation/importaation, ohjelma luo Google Sheetsiin raportin siirretystä datasta. Raportin tarkoitus on toimia projektin lokina, josta voidaan nopeasti tarkastaa mitä dataa kullakin operaatiolla on siirretty.
-- [ ] gitLabista poistettujen käyttäjien kommentit ja toiminnot täytyy pystyä käsittelemään mielekkäällä tavalla. Tällä hetkellä ne ovat nimellä 'Ghost User.
+- [ ] Issueiden description-kentän ja kommenttien teksti-kentän tulee olla muutettu markdown-formaatista Jiran omaan markup-syntaksiin.
 
 ## Siirrettävä data ##
 
