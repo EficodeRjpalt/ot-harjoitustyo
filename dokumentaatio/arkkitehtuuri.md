@@ -46,8 +46,8 @@ Lopuksi ohjelma kirjoittaa pandas-kirjastoa hyödyntäen Issue-olioiden attribuu
 ```mermaid
  classDiagram
         JSONReader "1" -- "1" main
-				SettignsGetter "1" -- main
-				SettingsValidator "1" -- SettingsGetter
+	SettignsGetter "1" -- "1" main
+	SettingsValidator "1" -- "1" SettingsGetter
         CSVServices "1" -- "1" main
         DataFetcher "1" ..> "1" Paginator
         DataFetcher "1" -- "1" main
