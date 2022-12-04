@@ -90,3 +90,7 @@
 - 3.12.
     - Dokumentaation päivitykset: README.md, tuntikirjanpidon tarkistus, changelogin tarkistus
     - Sekvenssikaavion raakaveersio arkkitehtuuri.md -tiedostoon
+
+- 4.12.
+    - Päivitetty luokkakaavio arkkitehtuuri.md'hen
+    - SettingsValidatorin validointi lopuille ominaisuuksille, refaktorointi, testit

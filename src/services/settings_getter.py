@@ -2,6 +2,7 @@ import configparser
 from os import getenv
 from dotenv import load_dotenv
 from services.json_reader import JSONReader as jreader
+from typesets.settings import SettingsValidator
 
 
 class SettingsGetter():
@@ -21,6 +22,12 @@ class SettingsGetter():
         settings['endpoint'] = {}
         settings['endpoint']['project'] = self.create_endpoint('project')
         settings['endpoint']['group'] = self.create_endpoint('group')
+
+        try:
+            SettingsValidator.validate_http_settings(settings)
+        except (TypeError, ValueError) as err:
+            print('Please check out the error message and re-check your settings.')
+            print(err)
 
         return settings
 
@@ -45,3 +52,6 @@ class SettingsGetter():
         deconst_attrs = self.config['DECONSTRUCT']['allowed'].split(',')
 
         return deconst_attrs
+
+    def trim_and_lower_settings_input(self, settings: dict) -> None:
+        pass

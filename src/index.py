@@ -6,6 +6,7 @@ from services.formatter import Formatter
 from services.reconstructor import Reconstructor
 from services.settings_getter import SettingsGetter
 
+
 def main():
 
     datafetch = DataFetcher(

@@ -6,14 +6,14 @@ from strongtyping.strong_typing import match_class_typing
 @match_class_typing
 class Settings(TypedDict):
     baseurl: str
-    comment: dict #
+    comment: dict
     domain_name: str
     endpoint: dict
-    issue: dict #
+    issue: dict
     pat: str
     scope_id: str
     scope_type: str
-    watcher: dict #
+    watcher: dict
 
 
 @match_class_typing
@@ -35,6 +35,15 @@ class SettingsValidator():
     @classmethod
     def validate_http_settings(cls, settings: dict):
 
+        cls.settings_type_validation(settings)
+
+        cls.settings_input_validation(settings)
+
+        return True
+
+    @classmethod
+    def settings_type_validation(cls, settings: dict):
+
         try:
             Settings(settings)
         except Exception as exc:
@@ -49,6 +58,11 @@ class SettingsValidator():
             Comment(settings['comment'])
         except Exception as exc:
             raise TypeError('Comment settings mistyped!') from exc
+
+        return True
+
+    @classmethod
+    def settings_input_validation(cls, settings: dict):
 
         if not cls.validate_url(settings['baseurl']):
             raise ValueError('Invalid baseURL provided!')
@@ -66,10 +80,15 @@ class SettingsValidator():
         if not cls.validate_scope_id(settings['scope_id']):
             raise ValueError('Incorrect scope ID. Must be an integer!')
 
+        if not cls.validate_issue_state(settings['issue']['state']):
+            raise ValueError('Incorrect issue state parameter given!')
+
+        return True
+
     @classmethod
     def validate_url(cls, url: str):
 
-        validation_re = r"""(?i)\b((?:https?://|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:'\".,<>?«»“”‘’]))"""
+        validation_re = r"""(https?:\/\/|www\.)(([a-z0-9]+\.[a-z0-9]+/$)|([a-z0-9]+)\.[a-z0-9]+\.[a-z0-9]+/$)"""
 
         pattern = re.compile(validation_re)
         return pattern.match(url)
@@ -80,12 +99,12 @@ class SettingsValidator():
         validation_re = r"^[a-z0-9]+\.[a-z0-9]+$"
 
         pattern = re.compile(validation_re)
-        return pattern.match(domain_name.lower())
+        return pattern.match(domain_name.strip().lower())
 
     @classmethod
     def validate_gl_pat(cls, gl_pat: str):
 
-        validation_re = r"glpat-[0-9a-zA-Z\-]{20}"
+        validation_re = r"glpat-[0-9a-zA-Z\-_]{20,40}$"
 
         pattern = re.compile(validation_re)
 
@@ -100,7 +119,7 @@ class SettingsValidator():
     def validate_scope_id(cls, scope_id: str) -> bool:
 
         try:
-            test_scope_id = int(scope_id)
+            test_scope_id = int(scope_id.strip())
         except ValueError:
             test_scope_id = scope_id
 
@@ -109,19 +128,16 @@ class SettingsValidator():
 
         return False
 
+    @classmethod
+    def validate_issue_state(cls, state: str):
 
-test_settings = {
-    'baseurl': 'https://gitlab.com/',
-    'comment': {'per_page': '20'},
-    'domain_name': 'eficode.com',
-    'endpoint': {'group': 'https://gitlab.com/api/v4/groups/55156717/issues',
-                 'project': 'https://gitlab.com/api/v4/projects/55156717/issues'},
-    'issue': {'per_page': '100', 'state': 'all'},
-    'pat': 'glpat--9sdj-GWwGvAeSFXxWDP',
-    'scope_id': '55156717',
-    'scope_type': 'project',
-    'watcher': {'per_page': '20'}
-}
+        allowed_states = [
+            'opened',
+            'closed',
+            'all'
+        ]
 
+        if state not in allowed_states:
+            return False
 
-SettingsValidator.validate_http_settings(test_settings)
+        return True

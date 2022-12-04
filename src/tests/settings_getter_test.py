@@ -4,6 +4,7 @@ import os
 from unittest import mock
 from services.settings_getter import SettingsGetter
 
+
 class TestComment(unittest.TestCase):
 
     def setUp(self):
