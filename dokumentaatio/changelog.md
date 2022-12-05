@@ -94,3 +94,7 @@
 - 4.12.
     - Päivitetty luokkakaavio arkkitehtuuri.md'hen
     - SettingsValidatorin validointi lopuille ominaisuuksille, refaktorointi, testit
+
+- 5.12.
+    - Docstringit lisätty: settings.py, settings_getter.py, comment.py
+    - GitHub Release viikolle 5
