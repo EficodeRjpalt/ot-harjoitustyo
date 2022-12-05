@@ -57,5 +57,8 @@ class Issue():
 
         return None
 
+    def copy(self):
+        return self
+
     def __repr__(self):
         return str(self.attributes)

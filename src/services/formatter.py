@@ -43,6 +43,7 @@ class Formatter():
                     "Time Estimate": issue['time_stats']['time_estimate'],
                     "Time Spent": issue['time_stats']['total_time_spent'],
                     "Milestone": milestone,
+                    "Participant EP": issue['_links']['self'] + '/participants',
                     "Comment Link": issue['_links']['notes']
                 }
             )
@@ -79,3 +80,49 @@ class Formatter():
 
             issue.attributes['Comments'] = comment_list
             issue.attributes.pop('Comment Link')
+
+    def add_participants_to_all_issues(self, issue_dict_list: list, settings: dict):
+
+        for issue in issue_dict_list:
+            participant_list = [
+                participant['name']
+                for participant in
+                self.datafetch.fetch_data(
+                    settings,
+                    issue.attributes['Participant EP'],
+                    data_type='watcher')
+            ]
+
+            issue.attributes['Participants'] = participant_list
+
+    @classmethod
+    def fix_issue_attribute_names(cls, list_of_issues: list, header_mappings: dict):
+
+        for issue in list_of_issues:
+            new_attributes = {
+                jira_fieldname: issue.attributes[gl_fieldname]
+                for (gl_fieldname, jira_fieldname)
+                in header_mappings.items()
+            }
+
+            issue.attributes = new_attributes
+
+    def format_fetched_issue_data(
+            self,
+            retrieved_json_data: list,
+            http_settings: dict,
+            header_mappings: dict) -> list:
+
+        # This needs refactoring. Why should some be classmethods and soem instance?
+
+        issue_dict_list = Formatter.transform_dict_items_into_issues(
+            self.format_response_data_to_dict(
+                retrieved_json_data
+            )
+        )
+
+        self.add_comments_to_all_issues(issue_dict_list, http_settings)
+        self.add_participants_to_all_issues(issue_dict_list, http_settings)
+        Formatter.fix_issue_attribute_names(issue_dict_list, header_mappings)
+
+        return issue_dict_list

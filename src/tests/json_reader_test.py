@@ -25,6 +25,7 @@ class TestCSVReader(unittest.TestCase):
             "Created At (UTC)": "Created",
             "Closed At (UTC)": "Closed",
             "Milestone": "Epic Link",
+            "Participants": "Watchers",
             "Labels": "Labels",
             "Time Estimate": "Estimate",
             "Time Spent": "Time Spent",

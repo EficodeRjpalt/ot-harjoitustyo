@@ -1,3 +1,4 @@
+from copy import deepcopy
 import requests
 
 
@@ -15,7 +16,7 @@ class Paginator():
 
         # Take a copy of original parameters and add key-value
         # pair to indicate which page is paginated
-        pagination_params = params.copy()
+        pagination_params = deepcopy(params)
         pagination_params['page'] = '1'
 
         while next_page:

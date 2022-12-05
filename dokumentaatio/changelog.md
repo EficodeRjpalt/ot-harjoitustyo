@@ -59,3 +59,42 @@
     - Arkkitehtuuri.md
     - Vaatimusmäärittelyn päivitys
     - README.md:n päivitys
+
+- 27.11.
+    - Refactor: created reconstructor.py to deconstruct label data and write each label into a separate colun in a csv
+
+- 28.11.
+    - Täydennetty ja korjattu CSVServicesin testit vastaamaan uusia toiminnallisuuksia
+    - Refaktoroitu ja täydennetty luokkaa Comment ja päivitetty testit luokalle
+
+- 29.11.
+    - Refaaktoroitu reconstructor.py
+    - Test coverage reconstructor.py ->s 75%
+
+- 30.11.
+    - Test coverage for reconstructor.py to 100%
+    - Refaktoroituy reconstructor.py
+    - Korvatty .copy() metodit deepcopylla
+    - Refaktoroitu asetusten noutaminen: delegoitu settings_getter.py -moduulille
+
+- 1.12.
+    - Lisätty tuki sille, että issuet voidaan hakea joko groupin tai projektin tasolla. Aiemmin ohjelmassa oli puute: pystyi hakemaan vain groupille.
+    - settings_getter.py -luokan testit
+    - Refaktoroitu testit
+    - CSV:n siistintä: Numeroidut kentät (Comments1, Comments2 jne.) muutetaan muotoon 'Comments'. Nopeuttaa CSV-tiedoston importtausta Jiraan huomattavasti.
+
+- 2.12.
+    - CSV_reader.py testit loppuun
+    - Asetusten validaatio
+
+- 3.12.
+    - Dokumentaation päivitykset: README.md, tuntikirjanpidon tarkistus, changelogin tarkistus
+    - Sekvenssikaavion raakaveersio arkkitehtuuri.md -tiedostoon
+
+- 4.12.
+    - Päivitetty luokkakaavio arkkitehtuuri.md'hen
+    - SettingsValidatorin validointi lopuille ominaisuuksille, refaktorointi, testit
+
+- 5.12.
+    - Docstringit lisätty: settings.py, settings_getter.py, comment.py
+    - GitHub Release viikolle 5

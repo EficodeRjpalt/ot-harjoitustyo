@@ -2,17 +2,20 @@ import json
 
 
 class JSONReader():
-
-    def __init__(self):
-        pass
+    """Class to provide JSON reading services.
+    """
 
     @classmethod
     def read_json_to_dict(cls, filepath: str) -> dict:
-        """Reads a JSON file located in the filepath passed as an argument
-        nd returns it as a python dict.
+        """Function that reads a JSON file located at the location provided
+        in the arguments.
+
+        Args:
+            filepath (str): The relative path to a JSON file that is to be
+            read.
 
         Returns:
-           _type_: dict
+            dict: Returns read data as a Python dict.
         """
 
         data = {}

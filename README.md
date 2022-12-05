@@ -17,12 +17,12 @@ Ohjelma siirtää tällä hetkellä GitLabin issueista seuraavat kentät:
 - Created At
 - Closed At
 - Milestone
-- Labels
 - Time Estimate
 - Time Spent
 - Issue ID
+- Participants
 
-Lisäksi issueen liittyvät kommentit liitetään mukaan listana. Mukana tuelvat kentät ja niiden mäppäykset löytyvät [mapping.json](src/resources/mapping.json)-tiedostosta.
+Lisäksi issueen liittyvät kommentit (**poislukien liitetiedostot**) liitetään mukaan. Mukana tuelvat kentät ja niiden mäppäykset löytyvät [mapping.json](src/resources/mapping.json)-tiedostosta.
 
 ## Huomioita Toteutuksestsa ##
 
@@ -70,14 +70,26 @@ mapping=src/resources/mapping.json
 
 [COMMON]
 baseURL=https://gitlab.com/
+domain_name=eficode.com
+scope_id=55156717
+scope_type=group
+
+[ENDPOINTS]
+group=api/v4/groups/
+project=api/v4/projects/
 
 [ISSUE]
 state=all
 per_page=100
-scope_id=55156717
 
 [COMMENT]
 per_page=20
+
+[WATCHER]
+per_page=20
+
+[DECONSTRUCT]
+allowed=Comments,Labels,Watchers
 ```
 **FILEPATHS**
 
@@ -90,14 +102,31 @@ per_page=20
 
 Sektiot COMMON, ISSUE ja COMMENT määrittävät issueiden ja kommenttien hakemiseen liittyvät HTTP-kyselyn parametrit.
 `baseURL`: Määrittää GitLab-instanssin baseURL:n. Esim. https://gitlab.com/
+`domain_name`: Sähköpostien perään laitettava domain name. Esimerkiksi test.com.
+`scope_id`: GitLabin groupille tai projektille annettava uniikki ID, jolla ohjelma osaa hakea oikeaan skooppiin kuuluvat issuet. Tarkempaa tietoa [täällä](https://docs.gitlab.com/ee/api/issues.html#list-project-issues). Huomaa, että käyttämällä id:tä haetaan aina _kaikki_ groupin alla olevat issuet jokaisesta sen alle sijoitetusta groupista ja projektista.
+`scope_type`: määrittelee onko yllä annetty ID groupin vai projektin ID. Mahdolliset arvot: "group" ja "project". Riippuen onko kyseessä group vai project, endpoint datan hakemiselle on eri.
+
+**Huom!** Helpoin tapa löytää ym. ID on suoraan GUI:n kautta menemällä projektin/groupin sivulle ja ottamalla ID projektin/groupin nimen alta. Esim: <img width="342" alt="image" src="https://user-images.githubusercontent.com/91126255/204075906-757a465d-8397-4fc4-a4dc-edf4714eae5c.png">
+
+**ENDPOINTS**
+Etukäteen määritellyt API:n endpointit group-tason ja project-tason issueiden hakemiselle.
 
 **ISSUE**
 
 `state`: Määrittää missä tilassa olevat issuet otetaan haun skooppiin. Vaihtoehdot ovat `opened`, `closed` tai `all`.
 `per_page`: Kuinka monta tulosta yhdelle kyselylle halutaan palautettavan. Rajapinnan maksimiarvo on 100 issueta kerrallaan ja oletusarvo 20.
-`scope_id`: Määrittää minkä skoopin sisältä issuet haetaan. Tarkempaa tietoa [täällä](https://docs.gitlab.com/ee/api/issues.html#list-project-issues). Huomaa, että käyttämällä id:tä haetaan aina _kaikki_ groupin alla olevat issuet jokaisesta sen alle sijoitetusta groupista ja projektista.
 
-**Huom!** Helpoin tapa löytää ym. ID on suoraan GUI:n kautta menemällä projektin/groupin sivulle ja ottamalla ID projektin/groupin nimen alta. Esim: <img width="342" alt="image" src="https://user-images.githubusercontent.com/91126255/204075906-757a465d-8397-4fc4-a4dc-edf4714eae5c.png">
+**COMMENT**
+
+`per_page`: Kuinka monta tulosta yhdelle kyselylle halutaan palautettavan. Rajapinnan maksimiarvo on 100 issueta kerrallaan ja oletusarvo 20.
+
+**WATCHER**
+
+`per_page`: Kuinka monta tulosta yhdelle kyselylle halutaan palautettavan. Rajapinnan maksimiarvo on 100 issueta kerrallaan ja oletusarvo 20.
+
+**DECONSTRUCT**
+
+`allowed`: Määrittää mitkä kentät halutaan "purkaa" useampaan sarakkeeseen CSV-tiedotoon. Jos Jiraan importoidaan CSV:llä issueita, täytyy sellaiset kentät, joissa on useampi arvo (esim. yli 1 label) purkaa useampaan sarakkeeseen. Ks. [täältä](https://support.atlassian.com/jira-cloud-administration/docs/import-data-from-a-csv-file/) lisää tietoa.
 
 ### Salaisuudet ###
 Suoritusaikaiset salaisuudet löytyvät `.env`-tiedostosta. Tiedoston skeema löytyy repositorion juuressa olevasta tiedostosta sample.env.
