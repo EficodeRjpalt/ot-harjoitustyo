@@ -2,6 +2,7 @@ import unittest
 from copy import deepcopy
 from typesets.settings import SettingsValidator
 
+
 class TestSettignsValidator(unittest.TestCase):
 
     def setUp(self):
@@ -303,7 +304,7 @@ class TestSettignsValidator(unittest.TestCase):
         with self.assertRaises(ValueError):
             self.validator.settings_input_validation(
                 tmp_settings
-        )
+            )
 
     def test_settings_type_validation(self):
 
@@ -319,7 +320,7 @@ class TestSettignsValidator(unittest.TestCase):
         with self.assertRaises(TypeError):
             self.validator.settings_type_validation(
                 tmp_settings
-        )
+            )
 
     def test_settings_type_validation_missing_issue(self):
 
@@ -329,7 +330,7 @@ class TestSettignsValidator(unittest.TestCase):
         with self.assertRaises(TypeError):
             self.validator.settings_type_validation(
                 tmp_settings
-        )
+            )
 
     def test_settings_type_validation_missing_comment(self):
 
@@ -339,7 +340,7 @@ class TestSettignsValidator(unittest.TestCase):
         with self.assertRaises(TypeError):
             self.validator.settings_type_validation(
                 tmp_settings
-        )
+            )
 
     def test_settings_type_validation_missing_watcer(self):
 
@@ -349,7 +350,7 @@ class TestSettignsValidator(unittest.TestCase):
         with self.assertRaises(TypeError):
             self.validator.settings_type_validation(
                 tmp_settings
-        )
+            )
 
     def test_settigs_type_validation_malformatted_issue(self):
 
@@ -359,8 +360,7 @@ class TestSettignsValidator(unittest.TestCase):
         with self.assertRaises(TypeError):
             self.validator.settings_type_validation(
                 tmp_settings
-        )
-
+            )
 
     def test_settigs_type_validation_malformatted_issue_no_state(self):
 
@@ -370,7 +370,7 @@ class TestSettignsValidator(unittest.TestCase):
         with self.assertRaises(TypeError):
             self.validator.settings_type_validation(
                 tmp_settings
-        )
+            )
 
     def test_settigs_type_validation_malformatted_comment(self):
 
@@ -380,7 +380,7 @@ class TestSettignsValidator(unittest.TestCase):
         with self.assertRaises(TypeError):
             self.validator.settings_type_validation(
                 tmp_settings
-        )
+            )
 
     def test_settigs_type_validation_malformatted_comment_no_per_page(self):
 
@@ -390,7 +390,7 @@ class TestSettignsValidator(unittest.TestCase):
         with self.assertRaises(TypeError):
             self.validator.settings_type_validation(
                 tmp_settings
-        )
+            )
 
     def test_validate_issue_state_correct_values(self):
 
@@ -444,7 +444,7 @@ class TestSettignsValidator(unittest.TestCase):
         with self.assertRaises(TypeError):
             self.validator.validate_http_settings(
                 tmp_settings
-        )
+            )
 
     def test_validate_http_settings_validation_incorrect_values(self):
 
@@ -454,4 +454,4 @@ class TestSettignsValidator(unittest.TestCase):
         with self.assertRaises(ValueError):
             self.validator.validate_http_settings(
                 tmp_settings
-        )
+            )
