@@ -120,3 +120,18 @@ class TestComment(unittest.TestCase):
             target_dict,
             self.sett_get.get_csv_settings()
         )
+
+    def test_get_user_mappings(self):
+
+        target_mappings = {
+            'Pormestari Kontiainen': 'pormestari.kontiainen@kontiala.kon',
+            'Rasmus Paltschik': 'rasmus.paltschik@eficode.com',
+            'Herra Sitti-Sonniainen': 'herra.sitti-sonniainen@kontiala.kon'
+        }
+
+        user_mappings = self.sett_get.get_user_mappings()
+
+        self.assertDictEqual(
+            target_mappings,
+            user_mappings
+        )

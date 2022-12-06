@@ -1,3 +1,4 @@
+import csv
 import configparser
 from os import getenv
 from dotenv import load_dotenv
@@ -114,3 +115,28 @@ class SettingsGetter():
         """
 
         return dict(self.config['JIRA'])
+
+    def get_user_mappings(self) -> dict:
+        """Function to fetch user mappings from a defined CSV file. The users
+        are read into a flat dict of key-value pairs.
+
+        Args:
+            filepath (str): Filepath to the location of the user mapping
+            CSV file.
+
+        Returns:
+            dict: Dict containing the key-value pairings of the defined
+            users with user's full name as the key and email address as
+            the value.
+        """
+
+        return_dict = {}
+
+        filepath = self.config['FILEPATHS']['user_mappings']
+
+        with open(filepath, 'r', encoding='UTF-8') as csvfile:
+            reader = csv.DictReader(csvfile)
+            for row in reader:
+                return_dict[row['username']] = row['email']
+
+        return return_dict
