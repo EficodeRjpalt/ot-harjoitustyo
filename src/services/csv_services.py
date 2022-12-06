@@ -35,10 +35,14 @@ class CSVTool():
         reformatted_df = cls.reformat_deconstructed_headers(
             deconstr_attrs, dataf)
 
+        filename = cls.construct_filename(csv_setting)
+
         reformatted_df.to_csv(
-            cls.construct_filename(csv_setting),
+            filename,
             index=False
         )
+
+        return filename
 
     @classmethod
     def reformat_deconstructed_headers(cls, deconst_attrs, dataf: DataFrame):

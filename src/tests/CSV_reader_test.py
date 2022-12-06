@@ -1,6 +1,7 @@
 import unittest
 import os
 import csv
+from pathlib import Path
 import pandas as pd
 from entities.issue import Issue
 from services.csv_services import CSVTool
@@ -12,7 +13,8 @@ class TestCSVReader(unittest.TestCase):
 
         # Remove possible test_output.csv if left from failed tests
         try:
-            os.remove('./src/tests/test_output.csv')
+            for path in Path('./').glob("TEST_CSV*.csv"):
+                os.remove(path)
         except FileNotFoundError:
             pass
 
@@ -153,33 +155,38 @@ class TestCSVReader(unittest.TestCase):
             'Watchers2'
         ]
 
+        self.test_settings = {
+            'project_key': 'TEST_CSV'
+        }
+
     def test_write_issues_to_csv(self):
 
         # Check that the temp file does not exist already
-        self.assertFalse(os.path.isfile('./src/tests/test_output.csv'))
+        for path in Path('./').glob("TEST_CSV*.csv"):
+            self.assertIsNone(path)
 
         # Test the method
-        self.csv.write_issues_to_csv(
+        return_filename = self.csv.write_issues_to_csv(
             self.issue_list,
-            self.tmp_output_filepath,
             self.header_mappings,
-            self.deconstr_attrs
+            self.deconstr_attrs,
+            self.test_settings
         )
 
         # Ascertain that the expectedfile was created
-        self.assertTrue(os.path.isfile('./src/tests/test_output.csv'))
+        self.assertTrue(os.path.isfile('./' + return_filename))
 
         # Test CSV output line-by-line
-        with open('./src/tests/test_output.csv', 'r', encoding='UTF-8', newline='') as test_csv:
+        with open('./' + return_filename, 'r', encoding='UTF-8', newline='') as test_csv:
             reader = csv.reader(test_csv, dialect='excel')
             self.assertEqual(next(reader), self.target_rows[0])
             self.assertEqual(next(reader), self.target_rows[1])
 
         # Remove the temp csv
-        os.remove('./src/tests/test_output.csv')
+        os.remove('./' + return_filename)
 
         # Ascertain the file was removed
-        self.assertFalse(os.path.isfile('./src/tests/test_output.csv'))
+        self.assertFalse(os.path.isfile('./' + return_filename))
 
     def test_issue_with_false_attributes(self):
 
@@ -188,14 +195,15 @@ class TestCSVReader(unittest.TestCase):
         ]
 
         # Check that the temp file does not exist already
-        self.assertFalse(os.path.isfile('./src/tests/test_output.csv'))
+        for path in Path('./').glob("TEST_CSV*.csv"):
+            self.assertIsNone(path)
 
         with self.assertRaises(KeyError):
             self.csv.write_issues_to_csv(
                 self.issue_list,
-                self.tmp_output_filepath,
                 self.header_mappings,
-                fake_deconstr_attrs
+                fake_deconstr_attrs,
+                self.test_settings
             )
 
     def test_reformat_deconstructed_headers(self):
