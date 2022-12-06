@@ -1,6 +1,6 @@
+import os
 import unittest
 import configparser
-import os
 from unittest import mock
 from services.settings_getter import SettingsGetter
 
