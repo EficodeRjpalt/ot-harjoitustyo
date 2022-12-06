@@ -116,7 +116,7 @@ class CSVTool():
 
         now = datetime.now()
 
-        date = str(now.strftime("%m-%d-%Y"))
-        time = str(now.strftime("%H:%M:%S"))
+        date = str(now.strftime('%m-%d-%Y'))
+        time = str(now.strftime('%H:%M:%S'))
 
         return date + '-' + time

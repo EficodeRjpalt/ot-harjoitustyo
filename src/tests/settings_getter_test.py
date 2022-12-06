@@ -109,3 +109,14 @@ class TestComment(unittest.TestCase):
             target_list,
             returned_attrs
         )
+
+    def test_get_csv_settings(self):
+
+        target_dict = {
+            'project_key': 'TEST_CSV'
+        }
+
+        self.assertEqual(
+            target_dict,
+            self.sett_get.get_csv_settings()
+        )

@@ -2,6 +2,7 @@ import unittest
 import os
 import csv
 from pathlib import Path
+from datetime import datetime
 import pandas as pd
 from entities.issue import Issue
 from services.csv_services import CSVTool
@@ -268,4 +269,37 @@ class TestCSVReader(unittest.TestCase):
         self.assertDictEqual = (
             target_dict,
             rename_dict
+        )
+
+    def test_construct_filename(self):
+
+        return_filename = CSVTool.construct_filename(self.test_settings)
+
+        now = datetime.now()
+
+        date = str(now.strftime('%m-%d-%Y'))
+        time = str(now.strftime('%H:%M'))
+
+        target_name = 'TEST_CSV_' + date + '-' + time
+
+        self.assertTrue(
+            target_name in return_filename
+        )
+
+        self.assertTrue(
+            '.csv' in return_filename
+        )
+
+    def test_get_timestamp_str(self):
+
+        now = datetime.now()
+
+        date = str(now.strftime('%m-%d-%Y'))
+        time = str(now.strftime('%H:%M:%S'))
+
+        target_stamp = date + '-' + time
+
+        self.assertEqual(
+            target_stamp,
+            CSVTool.get_timestamp_str()
         )
