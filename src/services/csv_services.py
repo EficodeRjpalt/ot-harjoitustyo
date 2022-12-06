@@ -1,3 +1,4 @@
+from datetime import datetime
 import pandas as pd
 from pandas import DataFrame
 
@@ -11,9 +12,9 @@ class CSVTool():
     def write_issues_to_csv(
         cls,
         issue_list: list,
-        out_filepath: str,
         head_mappings: dict,
-        deconstr_attrs: list
+        deconstr_attrs: list,
+        csv_setting: dict
     ):
         """_summary_
 
@@ -34,7 +35,10 @@ class CSVTool():
         reformatted_df = cls.reformat_deconstructed_headers(
             deconstr_attrs, dataf)
 
-        reformatted_df.to_csv(out_filepath, index=False)
+        reformatted_df.to_csv(
+            cls.construct_filename(csv_setting),
+            index=False
+        )
 
     @classmethod
     def reformat_deconstructed_headers(cls, deconst_attrs, dataf: DataFrame):
@@ -77,3 +81,38 @@ class CSVTool():
 
         for header in fixable_headers:
             rename_dict[header] = deconst_attr
+
+    @classmethod
+    def construct_filename(cls, settings: dict) -> str:
+        """Function to construct a correctly formatted filename for
+        the outputted CSV file. Returns a csv filename formatted as
+        <Jira's project_key>_<timestmap>.csv.
+
+        Args:
+            settings (dict): Takes in the settings provided to the config.cfg
+            file that has been read to a settings dictionary.
+
+        Returns:
+            str: Returns the filename as a string.
+        """
+        project_key = settings['project_key']
+        timestamp = cls.get_timestamp_str()
+
+        return project_key + '_' + timestamp + '.csv'
+
+    @classmethod
+    def get_timestamp_str(cls) -> str:
+        """Helper function that returns in string format the current date
+        and time.
+
+        Returns:
+            str: Returns date and time foramtted in the following way:
+            mm-dd-YYYY-HH:MM:SS.
+        """
+
+        now = datetime.now()
+
+        date = str(now.strftime("%m-%d-%Y"))
+        time = str(now.strftime("%H:%M:%S"))
+
+        return date + '-' + time

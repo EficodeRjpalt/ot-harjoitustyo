@@ -103,3 +103,14 @@ class SettingsGetter():
         Args:
             settings (dict): _description_
         """
+
+    def get_csv_settings(self) -> dict:
+        """Function to get settings for the CSVTool.
+
+        Returns:
+            dict: Returns a dict containing the target Jira project's
+            information (project key) and a dictionary that specifies how
+            to turn labels into issue fields and with what values.
+        """
+
+        return dict(self.config['JIRA'])

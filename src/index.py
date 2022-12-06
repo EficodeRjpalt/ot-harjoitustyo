@@ -27,6 +27,7 @@ def main():
     http_settings = settings_getter.get_http_request_settings()
     mappings = settings_getter.get_header_mappings()
     deconst_attrs = settings_getter.get_deconstruction_attributes()
+    csv_settings = settings_getter.get_csv_settings()
 
     # Fetch data from GitLab API
     scope_data = datafetch.fetch_data(http_settings, data_type='issue')
@@ -45,7 +46,10 @@ def main():
     )
 
     csvtool.write_issues_to_csv(
-        reconst_list, 'pandas_output.csv', mappings, deconst_attrs
+        reconst_list,
+        mappings,
+        deconst_attrs,
+        csv_settings
     )
 
 
