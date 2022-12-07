@@ -98,3 +98,11 @@
 - 5.12.
     - Docstringit lisätty: settings.py, settings_getter.py, comment.py
     - GitHub Release viikolle 5
+
+- 6.12.
+    - Käyttäjänimien formatointi sähköposteiksi issuen assignee- ja reporter-kentille.
+    - Käyttäjänimien formatointi sähköposteiksi comment-olioiden käyttäjänimille.
+    - Käyttäjänimien formatointi sähköposteiksi watcher-kentän käyttäjänimille.
+
+- 7.12.
+    - 

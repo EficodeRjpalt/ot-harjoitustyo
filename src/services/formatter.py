@@ -10,10 +10,11 @@ class Formatter():
         self.datafetch = datafetcher
 
     def format_response_data_to_dict(
-        self, response_data: list,
+        self,
+        response_data: list,
         domain_name: str,
         user_mapping: dict
-        ):
+    ):
 
         return_issue_dict_list = []
 
@@ -31,7 +32,7 @@ class Formatter():
                     issue['assignee']['name'],
                     domain_name,
                     user_mapping
-                    )
+                )
             except TypeError:
                 assignee = None
 
@@ -81,10 +82,10 @@ class Formatter():
         return issue_list
 
     def add_comments_to_all_issues(
-        self,
-        issue_dict_list: list,
-        settings: dict,
-        user_mappings: dict) -> None:
+            self,
+            issue_dict_list: list,
+            settings: dict,
+            user_mappings: dict) -> None:
 
         for issue in issue_dict_list:
             comment_list = [
@@ -112,7 +113,7 @@ class Formatter():
         issue_dict_list: list,
         settings: dict,
         user_mappings: dict
-        ) -> None:
+    ) -> None:
 
         for issue in issue_dict_list:
             participant_list = [
@@ -155,8 +156,9 @@ class Formatter():
     def format_username_to_email(cls, username: str, domain_name: str) -> str:
 
         if len(username) > 0:
-            ## Remove umlauts etc. from the name and return it to UTF-8 format
-            normalized_name = unicodedata.normalize('NFKD', username).encode('ASCII','ignore').decode('UTF-8')
+            # Remove umlauts etc. from the name and return it to UTF-8 format
+            normalized_name = unicodedata.normalize(
+                'NFKD', username).encode('ASCII', 'ignore').decode('UTF-8')
             name_parts = [part.lower() for part in normalized_name.split(' ')]
             return name_parts[0] + '.' + ''.join(name_parts[1:]) + '@' + domain_name
 
@@ -168,7 +170,7 @@ class Formatter():
             http_settings: dict,
             header_mappings: dict,
             user_mappings
-            ) -> list:
+    ) -> list:
 
         # This needs refactoring. Why should some be classmethods and soem instance?
 
