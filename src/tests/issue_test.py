@@ -74,68 +74,6 @@ class TestIssue(unittest.TestCase):
 
         self.assertDictEqual(self.issue_dict, self.issue.issue_to_dict())
 
-    def test_displaynames_to_emails(self):
-
-        self.issue.displaynames_to_emails('eficode.com')
-
-        self.assertEqual(
-            self.issue.attributes['Reporter'],
-            'herra.sitti-sonniainen@eficode.com'
-        )
-
-        self.assertEqual(
-            self.issue.attributes['Assignee'],
-            'pormestari.kontiainen@eficode.com'
-        )
-
-    def test_displaynames_to_emails_no_names(self):
-
-        self.no_names_issue.displaynames_to_emails('eficode.com')
-
-        self.assertIsNone(
-            self.no_names_issue.attributes['Reporter']
-        )
-
-        self.assertIsNone(
-            self.no_names_issue.attributes['Assignee']
-        )
-
-    def test_timestamps_to_jira(self):
-
-        self.issue.timestamps_to_jira()
-
-        self.assertEqual(
-            self.issue.attributes['Created'],
-            '20/07/2022 03:45'
-        )
-
-        self.assertEqual(
-            self.issue.attributes['Closed'],
-            '25/07/2022 05:23'
-        )
-
-        self.assertEqual(
-            self.issue.attributes['Due Date'],
-            '26/07/2022 12:00'
-        )
-
-    def test_timestamps_to_jira_empty_fields(self):
-
-        self.no_names_issue.timestamps_to_jira()
-
-        self.assertEqual(
-            self.no_names_issue.attributes['Created'],
-            '20/07/2022 03:45'
-        )
-
-        self.assertIsNone(
-            self.no_names_issue.attributes['Closed']
-        )
-
-        self.assertIsNone(
-            self.no_names_issue.attributes['Due Date']
-        )
-
     def test_repr(self):
 
         self.assertEqual(

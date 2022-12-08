@@ -105,4 +105,9 @@
     - Käyttäjänimien formatointi sähköposteiksi watcher-kentän käyttäjänimille.
 
 - 7.12.
-    - 
+    - Formatter.py refaktorointi ja yksikkötestit
+
+- 8.12.
+    - Formatter.py refaktorointi ja yksikkötestit
+    - Issue.py refaktorointi ja yksikkötestien korjaus
+    - SettingsValidator.py refaktorointi, päivitys ja testien päivitys

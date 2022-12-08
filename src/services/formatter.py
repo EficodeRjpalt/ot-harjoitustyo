@@ -1,3 +1,4 @@
+import re
 import unicodedata
 from entities.issue import Issue
 from entities.comment import Comment
@@ -55,9 +56,15 @@ class Formatter():
                     "State": issue['state'],
                     "Author": author,
                     "Assignee": assignee,
-                    "Due Date": issue['due_date'],
-                    "Created At (UTC)": issue['created_at'],
-                    "Closed At (UTC)": issue['closed_at'],
+                    "Due Date": Formatter.transform_timestamp_to_jira(
+                        issue['due_date']
+                    ),
+                    "Created At (UTC)": Formatter.transform_timestamp_to_jira(
+                        issue['created_at']
+                    ),
+                    "Closed At (UTC)": Formatter.transform_timestamp_to_jira(
+                        issue['closed_at']
+                    ),
                     "Labels": issue['labels'],
                     "Time Estimate": issue['time_stats']['time_estimate'],
                     "Time Spent": issue['time_stats']['total_time_spent'],
@@ -90,7 +97,9 @@ class Formatter():
         for issue in issue_dict_list:
             comment_list = [
                 Comment(
-                    comment['created_at'],
+                    Formatter.transform_timestamp_to_jira(
+                        comment['created_at']
+                    ),
                     Formatter.map_username_to_email(
                         comment['author']['name'],
                         settings['domain_name'],
@@ -166,6 +175,36 @@ class Formatter():
             return name_parts[0] + '.' + ''.join(name_parts[1:]) + '@' + domain_name
 
         return username
+
+    @classmethod
+    def transform_timestamp_to_jira(cls, timestamp: str) -> str:
+
+        if timestamp is None:
+            return None
+
+        validation_re = (r"([0-9]{4}-[0-9]{2}-[0-9]{2})(T[0-9]{2}:[0-9]{2}:[0-9]{2}.[0-9]{3}Z)?")
+
+        pattern = re.compile(validation_re)
+
+        match = pattern.match(timestamp)
+
+        if match:
+
+            timestamp_parts = timestamp.split('T')
+            date_parts = timestamp_parts[0].split('-')
+
+            if None in match.groups():
+                jira_time = '00:00'
+            else:
+                time_parts = timestamp_parts[1].split(':')
+                jira_time = time_parts[0] + ':' + time_parts[1]
+
+            jira_date = date_parts[2] + '/' + \
+                date_parts[1] + '/' + date_parts[0]
+
+            return jira_date + ' ' + jira_time
+
+        return None
 
     def format_fetched_issue_data(
             self,

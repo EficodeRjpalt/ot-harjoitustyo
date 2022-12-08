@@ -67,7 +67,7 @@ class TestFormatter(unittest.TestCase):
                 'Author': 'ilkka.vaisanen@test.com',
                 'Closed At (UTC)': None,
                 'Comment Link': 'https://gitlab.com/api/v4/projects/41272516/issues/1/notes',
-                'Created At (UTC)': '2022-11-22T13:27:56.554Z',
+                'Created At (UTC)': '22/11/2022 13:27',
                 'Description': 'issue numero yksi sisältö ja liite '
                                 '[liite8.txt](/uploads/05a314ad019c8b3592733a5802f6c36a/liite8.txt)',
                 'Due Date': None,
@@ -110,7 +110,7 @@ class TestFormatter(unittest.TestCase):
         )
 
         self.assertEqual(
-            '2022-07-11T09:40:48.906Z; rasmus.paltschik@eficode.com; MAGNIFICENT TEST COMMENT',
+            '11/07/2022 09:40; rasmus.paltschik@eficode.com; MAGNIFICENT TEST COMMENT',
             str(test_issue_list[0].attributes['Comments'][-1])
         )
 
@@ -200,3 +200,54 @@ class TestFormatter(unittest.TestCase):
                 user[1],
                 formatted_usern
             )
+    def test_timestamps_to_jira(self):
+
+        return_date = Formatter.transform_timestamp_to_jira(
+            '2022-06-25T13:37:13.345Z'
+        )
+
+        self.assertEqual(
+            '25/06/2022 13:37',
+            return_date
+        )
+
+        return_date = Formatter.transform_timestamp_to_jira(
+            '2022-06-25'
+        )
+
+        self.assertEqual(
+            '25/06/2022 00:00',
+            return_date
+        )
+
+
+    def test_timestamps_to_jira_empty_fields(self):
+
+        return_date_empty_str = Formatter.transform_timestamp_to_jira(
+            ''
+        )
+
+        self.assertEqual(
+            None,
+            return_date_empty_str
+        )
+
+    def test_timestamp_to_jira_invalid_values(self):
+
+        return_date_invalid = Formatter.transform_timestamp_to_jira(
+            '1998-6-13T13:37:45.456Z'
+        )
+
+        self.assertEqual(
+            None,
+            return_date_invalid
+        )
+
+        return_date_invalid = Formatter.transform_timestamp_to_jira(
+            '1998-06-13T13:37:45:456'
+        )
+
+        self.assertEqual(
+            '13/06/1998 00:00',
+            return_date_invalid
+        )
