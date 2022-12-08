@@ -148,7 +148,7 @@ class Formatter():
         if username in user_mappings.keys():
             return user_mappings[username]
 
-        print(username + ' is not in the user mappings!')
+        #print(username + ' is not in the user mappings!')
 
         return cls.format_username_to_email(username, domain_name)
 
@@ -158,8 +158,11 @@ class Formatter():
         if len(username) > 0:
             # Remove umlauts etc. from the name and return it to UTF-8 format
             normalized_name = unicodedata.normalize(
-                'NFKD', username).encode('ASCII', 'ignore').decode('UTF-8')
-            name_parts = [part.lower() for part in normalized_name.split(' ')]
+                'NFKD', username).encode('ASCII', 'ignore').decode('UTF-8').strip().lower()
+            name_parts = list(normalized_name.split(' '))
+            if len(name_parts) == 1:
+                return name_parts[0] + '@' + domain_name
+
             return name_parts[0] + '.' + ''.join(name_parts[1:]) + '@' + domain_name
 
         return username
@@ -193,6 +196,7 @@ class Formatter():
             http_settings,
             user_mappings
         )
+
         Formatter.fix_issue_attribute_names(issue_dict_list, header_mappings)
 
         return issue_dict_list

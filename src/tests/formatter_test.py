@@ -10,6 +10,7 @@ from resources.sample_responses import sample_response
 from resources.sample_responses import target_dict
 from resources.sample_responses import comment_sample_response
 from resources.sample_responses import participants_sample_response
+from resources.sample_responses import sample_issue_before_header_formatting
 
 
 class TestFormatter(unittest.TestCase):
@@ -34,6 +35,8 @@ class TestFormatter(unittest.TestCase):
             'test.com',
             self.user_mappings
         )
+
+        self.header_mappings = self.sett_gett.get_header_mappings()
 
     def test_format_response_data_to_dict(self):
 
@@ -131,7 +134,6 @@ class TestFormatter(unittest.TestCase):
             self.user_mappings
         )
 
-
         self.assertEqual(
             1,
             len(test_issue_list[0].attributes['Participants']),
@@ -141,3 +143,60 @@ class TestFormatter(unittest.TestCase):
             'testy.testersson@test.com',
             test_issue_list[0].attributes['Participants'][-1],
         )
+
+    def test_fix_issue_attribute_names(self):
+
+        test_issue_list = [
+            Issue(sample_issue_before_header_formatting)
+        ]
+
+        self.formatter.fix_issue_attribute_names(
+            test_issue_list,
+            self.header_mappings
+        )
+
+        self.assertListEqual(
+            list(test_issue_list[0].attributes.keys()),
+            list(self.header_mappings.values())
+        )
+
+    def test_format_username_to_email_valids(self):
+
+        testable_usernames = [
+            ('Källe Kökkö', 'kalle.kokko@test.com'),
+            ('Åke Öylätti', 'ake.oylatti@test.com'),
+            ('Kelju K. Kojootti', 'kelju.k.kojootti@test.com'),
+            ('Pekka-Liisa Kahlander', 'pekka-liisa.kahlander@test.com'),
+            ('Wunder van der Wahlen', 'wunder.vanderwahlen@test.com'),
+            ('Un  Lucky', 'un.lucky@test.com'),
+            (' Miss Typed', 'miss.typed@test.com'),
+            ('Peppeli', 'peppeli@test.com')
+        ]
+
+        for user in testable_usernames:
+            formatted_usern = Formatter.format_username_to_email(
+                user[0],
+                'test.com'
+            )
+
+            self.assertEqual(
+                user[1],
+                formatted_usern
+            )
+
+    def test_format_invalid_usernames(self):
+
+        testable_usernames = [
+            ('', '')
+        ]
+
+        for user in testable_usernames:
+            formatted_usern = Formatter.format_username_to_email(
+                user[0],
+                'test.com'
+            )
+
+            self.assertEqual(
+                user[1],
+                formatted_usern
+            )

@@ -75,7 +75,6 @@ class TestCSVReader(unittest.TestCase):
             [
                 'Summary',
                 'Description',
-                'GitLab Issue URL',
                 'Status',
                 'Reporter',
                 'Assignee',
@@ -91,7 +90,6 @@ class TestCSVReader(unittest.TestCase):
             [
                 '',
                 'Pipeline should be in three stages.',
-                'https://gitlab.com/rasse-posse/helmet-lainojen-uusija/-/issues/30',
                 '',
                 '',
                 'Rasmus Paltschik',
@@ -137,7 +135,6 @@ class TestCSVReader(unittest.TestCase):
         self.reformatted_columns = [
             'Summary',
             'Description',
-            'GitLab Issue URL',
             'Status',
             'Reporter',
             'Assignee',
@@ -221,7 +218,6 @@ class TestCSVReader(unittest.TestCase):
         target_list = [
             'Summary',
             'Description',
-            'GitLab Issue URL',
             'Status',
             'Reporter',
             'Assignee',

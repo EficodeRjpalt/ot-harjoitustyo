@@ -65,7 +65,6 @@ class TestComment(unittest.TestCase):
             'Time Estimate': 'Estimate',
             'Time Spent': 'Time Spent',
             'Title': 'Summary',
-            'URL': 'GitLab Issue URL'
         }
 
         self.assertDictEqual(

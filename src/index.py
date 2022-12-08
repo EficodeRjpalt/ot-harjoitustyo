@@ -5,7 +5,6 @@ from services.paginator import Paginator
 from services.formatter import Formatter
 from services.reconstructor import Reconstructor
 from services.settings_getter import SettingsGetter
-from pprint import pprint
 
 
 def main():
@@ -33,8 +32,6 @@ def main():
 
     # Fetch data from GitLab API
     scope_data = datafetch.fetch_data(http_settings, data_type='issue')
-
-    pprint(scope_data[0:5])
 
     # Format the fetched data
     issue_dict_list = formatter.format_fetched_issue_data(

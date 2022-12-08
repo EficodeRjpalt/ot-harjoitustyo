@@ -17,7 +17,6 @@ class TestCSVReader(unittest.TestCase):
         target_dict = {
             "Title": "Summary",
             "Description": "Description",
-            "URL": "GitLab Issue URL",
             "State": "Status",
             "Author": "Reporter",
             "Assignee": "Assignee",
