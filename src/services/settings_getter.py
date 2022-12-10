@@ -97,6 +97,9 @@ class SettingsGetter():
         sanitized_attrs = [self.sanitize_input(
             attribute) for attribute in deconst_attrs]
 
+        if not SettingsValidator.validate_deconstruction_attributes(sanitized_attrs):
+            raise ValueError('Invalid deconstruction attribute provided!')
+
         return sanitized_attrs
 
     def get_csv_settings(self) -> dict:

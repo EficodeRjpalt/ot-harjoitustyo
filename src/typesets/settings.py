@@ -70,7 +70,7 @@ class SettingsValidator():
     """
 
     valid_scope_types = ['group', 'project']
-    valid_deconst_attributes = ['Comment']
+    valid_deconst_attributes = ['Comments', 'Labels', 'Watchers']
     allowed_states = [
         'opened',
         'closed',
@@ -295,3 +295,14 @@ class SettingsValidator():
             return False
 
         return True
+
+    @classmethod
+    def validate_deconstruction_attributes(cls, attribut_list: list) -> bool:
+
+        attributes_ok = True
+
+        for attribute in attribut_list:
+            if attribute not in cls.valid_deconst_attributes:
+                attributes_ok = False
+
+        return attributes_ok

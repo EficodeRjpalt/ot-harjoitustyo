@@ -455,3 +455,31 @@ class TestSettignsValidator(unittest.TestCase):
             self.validator.validate_http_settings(
                 tmp_settings
             )
+
+    def test_validate_deconstruction_attributes(self):
+
+        test_lists = [
+            ['Comments'],
+            ['Labels', 'Watchers'],
+            ['Watchers', 'Comments'],
+            ['Watchers', 'Labels', 'Comments'],
+            []
+        ]
+
+        for test_list in test_lists:
+            self.assertTrue(
+                SettingsValidator.validate_deconstruction_attributes(test_list)
+            )
+
+    def test_validate_deconstruction_attributes_invalid(self):
+
+        test_lists = [
+            ['Labels', 'Badgers'],
+            ['Comments', 'Watchers', 'Foxes'],
+            ['Foxes', 'Badgers'],
+        ]
+
+        for test_list in test_lists:
+            self.assertFalse(
+                SettingsValidator.validate_deconstruction_attributes(test_list)
+            )

@@ -1,9 +1,9 @@
 import os
 import unittest
 import configparser
+from copy import deepcopy
 from unittest import mock
 from services.settings_getter import SettingsGetter
-from pprint import pprint
 
 
 class TestComment(unittest.TestCase):
@@ -182,9 +182,14 @@ class TestComment(unittest.TestCase):
 
         label_configs = self.sett_get.get_label_configs()
 
-        pprint(label_configs)
-
         self.assertDictEqual(
             target_dict,
             label_configs
         )
+
+    def test_get_deconstruction_attributes_wrong_attribute(self):
+
+        self.sett_get.config['DECONSTRUCT']['allowed'] += ',Badgers'
+
+        with self.assertRaises(ValueError):
+            self.sett_get.get_deconstruction_attributes()
