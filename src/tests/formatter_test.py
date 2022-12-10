@@ -200,6 +200,7 @@ class TestFormatter(unittest.TestCase):
                 user[1],
                 formatted_usern
             )
+
     def test_timestamps_to_jira(self):
 
         return_date = Formatter.transform_timestamp_to_jira(
@@ -219,7 +220,6 @@ class TestFormatter(unittest.TestCase):
             '25/06/2022 00:00',
             return_date
         )
-
 
     def test_timestamps_to_jira_empty_fields(self):
 

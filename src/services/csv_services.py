@@ -14,16 +14,9 @@ class CSVTool():
         issue_list: list,
         head_mappings: dict,
         deconstr_attrs: list,
-        csv_setting: dict
+        csv_setting: dict,
+        label_mappings: dict
     ):
-        """_summary_
-
-        Args:
-            issue_list (list): _description_
-            out_filepath (str): _description_
-            head_mappings (dict): _description_
-            deconstr_attrs (list): _description_
-        """
 
         # Turns all the issue objects into dicts
         fixed_issues = [issue.attributes for issue in issue_list]
@@ -32,12 +25,16 @@ class CSVTool():
 
         dataf.drop(labels=deconstr_attrs, axis=1, inplace=True)
 
-        reformatted_df = cls.reformat_deconstructed_headers(
+        cls.reformat_labels_to_fields(
+            dataf, label_mappings
+        )
+
+        deconstr_df = cls.reformat_deconstructed_headers(
             deconstr_attrs, dataf)
 
         filename = cls.construct_filename(csv_setting)
 
-        reformatted_df.to_csv(
+        deconstr_df.to_csv(
             filename,
             index=False
         )
@@ -120,3 +117,50 @@ class CSVTool():
         time = str(now.strftime('%H:%M:%S'))
 
         return date + '-' + time
+
+    @classmethod
+    def reformat_labels_to_fields(cls, dataf: DataFrame, label_mappings: dict) -> DataFrame:
+
+        column_list = dataf.columns
+
+        label_columns = []
+
+        for value in column_list:
+            if 'Label' in str(value):
+                label_columns.append(str(value))
+
+        for index, row in dataf.iterrows():
+            for label_column in label_columns:
+                if row[label_column] in list(label_mappings['labels'].keys()):
+                    return_info = cls.get_df_field_value(
+                        label_mappings, row[label_column])
+                    cls.remap_field_value(
+                        return_info,
+                        row['Status'],
+                        dataf,
+                        index
+                    )
+
+    @classmethod
+    def get_df_field_value(cls, label_mappings: dict, label_value: str):
+        for field, label_values in label_mappings['labels'].items():
+            if field == label_value:
+                return (label_values['field'], label_values['value'])
+            return None
+
+    @classmethod
+    def remap_field_value(
+            cls,
+            field_info: tuple,
+            status_row_value: str,
+            dataf: DataFrame,
+            current_index: int):
+
+        if field_info is None:
+            return
+
+        if not (field_info[0] == 'Status' and status_row_value == 'closed'):
+            if field_info[0] == 'Status':
+                dataf['Status'][current_index] = field_info[1]
+            else:
+                dataf.at[current_index, field_info[0]] = field_info[1]

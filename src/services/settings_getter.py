@@ -140,3 +140,7 @@ class SettingsGetter():
                 return_dict[row['username']] = row['email']
 
         return return_dict
+
+    def get_label_configs(self) -> dict:
+
+        return jreader.read_json_to_dict(self.config['FILEPATHS']['label_configs'])

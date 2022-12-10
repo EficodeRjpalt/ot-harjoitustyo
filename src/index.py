@@ -29,6 +29,7 @@ def main():
     deconst_attrs = settings_getter.get_deconstruction_attributes()
     csv_settings = settings_getter.get_csv_settings()
     user_mappings = settings_getter.get_user_mappings()
+    label_configs = settings_getter.get_label_configs()
 
     # Fetch data from GitLab API
     scope_data = datafetch.fetch_data(http_settings, data_type='issue')
@@ -51,7 +52,8 @@ def main():
         reconst_list,
         header_mappings,
         deconst_attrs,
-        csv_settings
+        csv_settings,
+        label_configs
     )
 
 
