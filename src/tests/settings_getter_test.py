@@ -3,6 +3,7 @@ import unittest
 import configparser
 from unittest import mock
 from services.settings_getter import SettingsGetter
+from pprint import pprint
 
 
 class TestComment(unittest.TestCase):
@@ -133,4 +134,57 @@ class TestComment(unittest.TestCase):
         self.assertDictEqual(
             target_mappings,
             user_mappings
+        )
+
+    def test_sanitize_input(self):
+
+        inputs = [
+            (' faulty string', 'faulty string'),
+            ('another faulty string    ', 'another faulty string'),
+            ('correct string', 'correct string')
+        ]
+
+        for input in inputs:
+            self.assertEqual(
+                input[1],
+                self.sett_get.sanitize_input(input[0])
+            )
+
+    def test_get_label_configs(self):
+
+        target_dict = {
+            'headers': {
+                'Issue Type': 'Task', 'Priority': 'Normal', 'Status': ''
+            },
+            'labels': {
+                'Prio_1': {
+                    'field': 'Priority',
+                    'value': 'Highest'
+                },
+                'Prio_3': {
+                    'field': 'Priority',
+                    'value': 'Medium'
+                },
+                'status::in_progress': {
+                    'field': 'Status',
+                    'value': 'In Progress'
+                },
+                'status::needs_review': {
+                    'field': 'Status',
+                    'value': 'Review'
+                },
+                'unittest': {
+                    'field': 'Issue Type',
+                    'value': 'Test'
+                }
+            }
+        }
+
+        label_configs = self.sett_get.get_label_configs()
+
+        pprint(label_configs)
+
+        self.assertDictEqual(
+            target_dict,
+            label_configs
         )

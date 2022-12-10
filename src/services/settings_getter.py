@@ -75,8 +75,8 @@ class SettingsGetter():
             str: returns the constructed issue fetching entrypoint as a string.
         """
 
-        base = self.config['COMMON']['baseURL']
-        scope_id = self.config['COMMON']['scope_id']
+        base = self.sanitize_input(self.config['COMMON']['baseURL'])
+        scope_id = self.sanitize_input(self.config['COMMON']['scope_id'])
 
         if scope_type == 'project':
 
@@ -94,16 +94,10 @@ class SettingsGetter():
         """
         deconst_attrs = self.config['DECONSTRUCT']['allowed'].split(',')
 
-        return deconst_attrs
+        sanitized_attrs = [self.sanitize_input(
+            attribute) for attribute in deconst_attrs]
 
-    def trim_and_lower_settings_input(self, settings: dict) -> None:
-        """Fucntion to trim and lower provided input in the configuration
-        file to make inputs case insensitive and immune to trailing
-        whitespaces.
-
-        Args:
-            settings (dict): _description_
-        """
+        return sanitized_attrs
 
     def get_csv_settings(self) -> dict:
         """Function to get settings for the CSVTool.
@@ -144,3 +138,17 @@ class SettingsGetter():
     def get_label_configs(self) -> dict:
 
         return jreader.read_json_to_dict(self.config['FILEPATHS']['label_configs'])
+
+    def sanitize_input(self, input_string: str) -> str:
+        """Fucntion to trim and lower provided input in the configuration
+        file to make inputs case insensitive and immune to trailing
+        whitespaces.
+
+        Args:
+            input_string (str): String literal to sanitize.
+
+        Returns:
+            str: returns the sanitized string literal.
+        """
+
+        return input_string.strip()

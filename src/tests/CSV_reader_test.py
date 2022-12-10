@@ -23,6 +23,10 @@ class TestCSVReader(unittest.TestCase):
 
         self.tmp_output_filepath = './src/tests/test_output.csv'
 
+        self.label_mappings = JSONReader.read_json_to_dict(
+            'src/resources/test_label_configs.json'
+        )
+
         self.header_mappings = JSONReader.read_json_to_dict(
             'src/resources/mapping.json')
 
@@ -168,7 +172,8 @@ class TestCSVReader(unittest.TestCase):
             self.issue_list,
             self.header_mappings,
             self.deconstr_attrs,
-            self.test_settings
+            self.test_settings,
+            self.label_mappings
         )
 
         # Ascertain that the expectedfile was created
@@ -201,7 +206,8 @@ class TestCSVReader(unittest.TestCase):
                 self.issue_list,
                 self.header_mappings,
                 fake_deconstr_attrs,
-                self.test_settings
+                self.test_settings,
+                self.label_mappings
             )
 
     def test_reformat_deconstructed_headers(self):
