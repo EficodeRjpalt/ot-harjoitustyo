@@ -171,7 +171,7 @@ Avaimen "labels" alle sijoitetaan kaikki labelit, jotka halutaan tulkata arvolli
 ## Käyttäjätietojen mäppäys GitLabin ja Jiran välillä ##
 Ohjelmalle voi antaa myös listauksen käyttäjistä ja heidän sähköposteistaan Jirassa. Mäppäyksen tekemistä suositellaan kaikissa tapauksissa, jos suinkin mäppäys on saatavilla. Jirassa käyttäjätunnukset on sidottu käyttäjien sähköpostiosotteisiin, joten jos ei ole takeita, että käyttäjillä on käytössä samat sähköpostiosoitteet GitLabissa kuin Jirassa, täytyy suorittaa nimistä erikseen mäppäys. Tällä hetkellä ohjelmalle voi antaa edellä mainitun tiedoston, joka sisältää mäppäyksen. Jos käyttäjä ei löydy tiedostosta, ohjelma generoi käyttäjän sähköpostin muotoon `etunimi.muutnimetjasukunimi@domain.com`.
 
-**Huom!** Tällä hetkellä ohjelma oletusarvoisesti suorittaa käyttäjänimien mäppäyksen. Taustalla on asiakastapauksesta johtuva priorisointi, jossa _EI_ voida käyttää asiakkaan GitLabissa olevia sähköposteja. Projektin backlogilla on lisättynä [feature](#63), jossa mahdollistetaan asetus, jolla voidaan määritellä että kyätetäänkö käyttäjien mäppäystä ja sähköpostin "arvausta" vai haetaanko suoraan käyttäjän sähköposti GitLabista.
+**Huom!** Tällä hetkellä ohjelma oletusarvoisesti suorittaa käyttäjänimien mäppäyksen. Taustalla on asiakastapauksesta johtuva priorisointi, jossa _EI_ voida käyttää asiakkaan GitLabissa olevia sähköposteja. Projektin backlogilla on lisättynä [feature](https://github.com/EficodeRjpalt/ot-harjoitustyo/issues/60), jossa mahdollistetaan asetus, jolla voidaan määritellä että kyätetäänkö käyttäjien mäppäystä ja sähköpostin "arvausta" vai haetaanko suoraan käyttäjän sähköposti GitLabista.
 
 # Komentorivitoiminnot #
 
