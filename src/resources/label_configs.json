@@ -1,0 +1,30 @@
+{
+    "headers": {
+        "Priority": "Normal",
+        "Issue Type": "Task",
+        "Status": ""
+    },
+    "labels": {
+        "unittest": {
+            "field": "Issue Type",
+            "value": "Test"
+        },
+        "status::in_progress": {
+            "field": "Status",
+            "value": "In Progress"
+        },
+        "status::needs_review": {
+            "field": "Status",
+            "value": "Review"
+        },
+        "Prio_1": {
+            "field": "Priority",
+            "value": "Highest"
+        },
+        "Prio_3": {
+            "field": "Priority",
+            "value": "Medium"
+        }
+    }
+}
+

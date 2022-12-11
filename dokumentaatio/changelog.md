@@ -111,3 +111,8 @@
     - Formatter.py refaktorointi ja yksikkötestit
     - Issue.py refaktorointi ja yksikkötestien korjaus
     - SettingsValidator.py refaktorointi, päivitys ja testien päivitys
+
+10.12.
+    - Lisätty toiminnallisuus ,jossa etukäteen määritellyn konfiguraation mukaan voidaan purkaa projektissa käytetyt labelit omaan sarakkeeseensa tulkatulla arvolla. Esim. Prio 1 -label, voidaan tulkata olemaan Jiran kentän 'Priority' ja arvo 'Highest'
+    - Lisätty validaatiota annettaville syötteille
+    - Päivitetty asetuksien testejä.
