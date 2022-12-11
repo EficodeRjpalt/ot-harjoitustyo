@@ -21,8 +21,12 @@ Ohjelma siirtää tällä hetkellä GitLabin issueista seuraavat kentät:
 - Time Spent
 - Issue ID
 - Participants
+- Labels
 
 Lisäksi issueen liittyvät kommentit (**poislukien liitetiedostot**) liitetään mukaan. Mukana tuelvat kentät ja niiden mäppäykset löytyvät [mapping.json](src/resources/mapping.json)-tiedostosta.
+
+### Labelsien tulkkaus Jiran kentiksi ###
+Viikon 6 releasesta lähtien ohjelma osaa tulkata GitLabissa käytetyt labelit Jiran kentiksi ja antaa niille arvon. Esimerkiksi jos projektissa on käytössä label 'Priority 1', ohjelman voi konfiguroida tulkitsemaan kyseisen labelin olevan Jiran kenttä 'Priority', jolle annetaan arvo 'Highest'. Konfiguraation luomisesta lisää alempana.
 
 ## Huomioita Toteutuksestsa ##
 
@@ -55,9 +59,11 @@ Projekti on testattu Python-versiolla 3.10. Tukea vanhempien versioiden kanssa e
 # Asennus #
 
 1. Riippuvuudet asenetaan komennolla `poetry install`
-2. Ohjelma suoritetaan komennolla `poetry run invoke start`
 
 # Käyttöohjeet #
+
+1. Ohjelma suoritetaan komennolla `poetry run invoke start`
+2. Suorituksen jälkeen ohjelma tuottaa juurihakemistoonsa CSV-tiedoston, jonka nimi on formaatissa `<jira_project_key>_dd-MM-yyyy-hh:mm:ss.csv`. Eli sisältää kohdeprojektin avaimen ja aikaleiman.
 
 ## Asetukset ##
 Ohjelman asetukset löytyvät osoitteesta `/src/config.cfg`:
@@ -67,6 +73,8 @@ input=src/resources/sample.csv
 input_short=src/resources/sample_short.csv
 output=src/resources/
 mapping=src/resources/mapping.json
+user_mappings=src/resources/user_mapping.csv
+label_configs=src/resources/label_configs.json
 
 [COMMON]
 baseURL=https://gitlab.com/
@@ -90,6 +98,9 @@ per_page=20
 
 [DECONSTRUCT]
 allowed=Comments,Labels,Watchers
+
+[JIRA]
+project_key=XYZ
 ```
 **FILEPATHS**
 
@@ -128,11 +139,39 @@ Etukäteen määritellyt API:n endpointit group-tason ja project-tason issueiden
 
 `allowed`: Määrittää mitkä kentät halutaan "purkaa" useampaan sarakkeeseen CSV-tiedotoon. Jos Jiraan importoidaan CSV:llä issueita, täytyy sellaiset kentät, joissa on useampi arvo (esim. yli 1 label) purkaa useampaan sarakkeeseen. Ks. [täältä](https://support.atlassian.com/jira-cloud-administration/docs/import-data-from-a-csv-file/) lisää tietoa.
 
+**JIRA**
+
+`project_key`: Projektin avain Jirassa. Tietoa käytetään ohjelman tuottaman CSV-tiedoston nimessä: se laitetaan tiedoston etuliitteeksi, jotta käyttäjän on helpompi paikantaa luomansa tiedosto.
+
 ### Salaisuudet ###
 Suoritusaikaiset salaisuudet löytyvät `.env`-tiedostosta. Tiedoston skeema löytyy repositorion juuressa olevasta tiedostosta sample.env.
 
 `GL_PAT`: sisältää käyttäjän Personal Access Tokenin. Ks. ennakkovaatimukset kys. tokenin hankkimiseksi.
 
+## Asetukset labelien tulkkaamista varten ##
+Labelien dekoodaamisen asetukset luodaan kohteeseen [src/resources/label_configs.json](src/resources/label_configs.json). Tiedoston skeema on seuraava:
+```
+{
+    "headers": {
+        "Priority": "Normal",
+        "Issue Type": "Task",
+        "Status": ""
+    },
+    "labels": {
+        "labelname": {
+            "field": "Jira Field Name",
+            "value": "Jira Field Value"
+        }
+        
+        ...
+}
+```
+Avaimen "labels" alle sijoitetaan kaikki labelit, jotka halutaan tulkata arvollisiksi kentiksi Jirassa. Jokainen label on avain objektille joka sisältää "field" kentässä tiedon siitä minkä kentän nimen labelin arvo saa Jirassa ja "value" kentän, joka sisältää tiedon mikä arvo tuolle kentäle annetaan. Ajon päätteeksi ohjelma käy läpi tuotetun pandas dataframen läpi parsien label-tiedot ja luoden vaadittavat sarakkeet ja niiden tiedot lopulliseen CSV'hen.
+
+## Käyttäjätietojen mäppäys GitLabin ja Jiran välillä ##
+Ohjelmalle voi antaa myös listauksen käyttäjistä ja heidän sähköposteistaan Jirassa. Mäppäyksen tekemistä suositellaan kaikissa tapauksissa, jos suinkin mäppäys on saatavilla. Jirassa käyttäjätunnukset on sidottu käyttäjien sähköpostiosotteisiin, joten jos ei ole takeita, että käyttäjillä on käytössä samat sähköpostiosoitteet GitLabissa kuin Jirassa, täytyy suorittaa nimistä erikseen mäppäys. Tällä hetkellä ohjelmalle voi antaa edellä mainitun tiedoston, joka sisältää mäppäyksen. Jos käyttäjä ei löydy tiedostosta, ohjelma generoi käyttäjän sähköpostin muotoon `etunimi.muutnimetjasukunimi@domain.com`.
+
+**Huom!** Tällä hetkellä ohjelma oletusarvoisesti suorittaa käyttäjänimien mäppäyksen. Taustalla on asiakastapauksesta johtuva priorisointi, jossa _EI_ voida käyttää asiakkaan GitLabissa olevia sähköposteja. Projektin backlogilla on lisättynä feature, jossa mahdollistetaan asetus, jolla voidaan määritellä että kyätetäänkö käyttäjien mäppäystä ja sähköpostin "arvausta" vai haetaanko suoraan käyttäjän sähköposti GitLabista.
 
 # Komentorivitoiminnot #
 
