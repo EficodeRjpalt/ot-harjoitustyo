@@ -44,6 +44,10 @@ Projekti on testattu Python-versiolla 3.10. Tukea vanhempien versioiden kanssa e
 2. Käyttäjällä tarvitsee olla luotu vaaditun groupin sisällä voimassa oleva Personal Access Token (ohjeet [täällä](https://docs.gitlab.com/ee/user/profile/personal_access_tokens.html)).
 3. Tokenilla tarvitsee olla skooppina `api` ja `read_api`.
 
+## Konfiguraatiotiedost ja niiden sijainnit ##
+
+(Testaa chubbli-koneella)
+
 # Dokumentaatio #
 
 - Käyttöohje
