@@ -194,8 +194,8 @@ class SettingsValidator():
 
         """
 
-        validation_re = (r"""(https?:\/\/|www\.)(([a-z0-9]+\.[a-z0-9]+/$)|"""
-                         r"""([a-z0-9]+)\.[a-z0-9]+\.[a-z0-9]+/$)""")
+        validation_re = (r"""(https?:\/\/|www\.)(([a-z0-9-]+\.[a-z0-9]+/$)|"""
+                         r"""([a-z0-9-]+)\.[a-z0-9-]+\.[a-z0-9]+/$)""")
 
         pattern = re.compile(validation_re)
         return pattern.match(url)

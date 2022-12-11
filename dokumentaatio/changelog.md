@@ -116,3 +116,6 @@
     - Lisätty toiminnallisuus ,jossa etukäteen määritellyn konfiguraation mukaan voidaan purkaa projektissa käytetyt labelit omaan sarakkeeseensa tulkatulla arvolla. Esim. Prio 1 -label, voidaan tulkata olemaan Jiran kentän 'Priority' ja arvo 'Highest'
     - Lisätty validaatiota annettaville syötteille
     - Päivitetty asetuksien testejä.
+
+11.12.
+    - Lisätty validaatio tuki domaineille: doaminin nimessä voi esiintyä myös '-' merkki. Luotu testit.

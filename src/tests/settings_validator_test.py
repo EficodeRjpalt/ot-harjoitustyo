@@ -212,6 +212,31 @@ class TestSettignsValidator(unittest.TestCase):
             )
         )
 
+        self.assertTrue(
+            self.validator.validate_url(
+                'https://test-test.domain.com/'
+            )
+        )
+
+        self.assertTrue(
+            self.validator.validate_url(
+                'https://my.test-domain.com/'
+            )
+        )
+
+        self.assertTrue(
+            self.validator.validate_url(
+                'www.my.test-domain-test.com/'
+            )
+        )
+
+        self.assertTrue(
+            self.validator.validate_url(
+                'www.my.portal.com/'
+            )
+        )
+
+
     def test_validate_url_incorrect_input(self):
 
         self.assertFalse(
