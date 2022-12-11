@@ -119,3 +119,5 @@
 
 11.12.
     - Lisätty validaatio tuki domaineille: doaminin nimessä voi esiintyä myös '-' merkki. Luotu testit.
+    - README.md -päivitys
+    - Vaatimusmäärittelyn päivitys
