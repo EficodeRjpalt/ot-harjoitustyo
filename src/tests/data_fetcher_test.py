@@ -112,7 +112,7 @@ class TestDataFetcher(unittest.TestCase):
 
     # Yllä oleva testi, mutta projekteilla
 
-    def test_paginator_called_with_correct_values_group(self):
+    def test_paginator_called_with_correct_values_project(self):
 
         project_settings = deepcopy(self.settings)
 

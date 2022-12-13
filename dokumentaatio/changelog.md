@@ -98,3 +98,26 @@
 - 5.12.
     - Docstringit lisätty: settings.py, settings_getter.py, comment.py
     - GitHub Release viikolle 5
+
+- 6.12.
+    - Käyttäjänimien formatointi sähköposteiksi issuen assignee- ja reporter-kentille.
+    - Käyttäjänimien formatointi sähköposteiksi comment-olioiden käyttäjänimille.
+    - Käyttäjänimien formatointi sähköposteiksi watcher-kentän käyttäjänimille.
+
+- 7.12.
+    - Formatter.py refaktorointi ja yksikkötestit
+
+- 8.12.
+    - Formatter.py refaktorointi ja yksikkötestit
+    - Issue.py refaktorointi ja yksikkötestien korjaus
+    - SettingsValidator.py refaktorointi, päivitys ja testien päivitys
+
+10.12.
+    - Lisätty toiminnallisuus ,jossa etukäteen määritellyn konfiguraation mukaan voidaan purkaa projektissa käytetyt labelit omaan sarakkeeseensa tulkatulla arvolla. Esim. Prio 1 -label, voidaan tulkata olemaan Jiran kentän 'Priority' ja arvo 'Highest'
+    - Lisätty validaatiota annettaville syötteille
+    - Päivitetty asetuksien testejä.
+
+11.12.
+    - Lisätty validaatio tuki domaineille: doaminin nimessä voi esiintyä myös '-' merkki. Luotu testit.
+    - README.md -päivitys
+    - Vaatimusmäärittelyn päivitys

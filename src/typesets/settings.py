@@ -70,7 +70,7 @@ class SettingsValidator():
     """
 
     valid_scope_types = ['group', 'project']
-    valid_deconst_attributes = ['Comment']
+    valid_deconst_attributes = ['Comments', 'Labels', 'Watchers']
     allowed_states = [
         'opened',
         'closed',
@@ -194,8 +194,8 @@ class SettingsValidator():
 
         """
 
-        validation_re = (r"""(https?:\/\/|www\.)(([a-z0-9]+\.[a-z0-9]+/$)|"""
-                         r"""([a-z0-9]+)\.[a-z0-9]+\.[a-z0-9]+/$)""")
+        validation_re = (r"""(https?:\/\/|www\.)(([a-z0-9-]+\.[a-z0-9]+/$)|"""
+                         r"""([a-z0-9-]+)\.[a-z0-9-]+\.[a-z0-9]+/$)""")
 
         pattern = re.compile(validation_re)
         return pattern.match(url)
@@ -295,3 +295,14 @@ class SettingsValidator():
             return False
 
         return True
+
+    @classmethod
+    def validate_deconstruction_attributes(cls, attribut_list: list) -> bool:
+
+        attributes_ok = True
+
+        for attribute in attribut_list:
+            if attribute not in cls.valid_deconst_attributes:
+                attributes_ok = False
+
+        return attributes_ok

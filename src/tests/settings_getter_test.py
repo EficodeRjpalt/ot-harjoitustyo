@@ -1,6 +1,7 @@
+import os
 import unittest
 import configparser
-import os
+from copy import deepcopy
 from unittest import mock
 from services.settings_getter import SettingsGetter
 
@@ -65,7 +66,6 @@ class TestComment(unittest.TestCase):
             'Time Estimate': 'Estimate',
             'Time Spent': 'Time Spent',
             'Title': 'Summary',
-            'URL': 'GitLab Issue URL'
         }
 
         self.assertDictEqual(
@@ -109,3 +109,87 @@ class TestComment(unittest.TestCase):
             target_list,
             returned_attrs
         )
+
+    def test_get_csv_settings(self):
+
+        target_dict = {
+            'project_key': 'TEST_CSV'
+        }
+
+        self.assertEqual(
+            target_dict,
+            self.sett_get.get_csv_settings()
+        )
+
+    def test_get_user_mappings(self):
+
+        target_mappings = {
+            'Pormestari Kontiainen': 'pormestari.kontiainen@kontiala.kon',
+            'Rasmus Paltschik': 'rasmus.paltschik@eficode.com',
+            'Herra Sitti-Sonniainen': 'herra.sitti-sonniainen@kontiala.kon'
+        }
+
+        user_mappings = self.sett_get.get_user_mappings()
+
+        self.assertDictEqual(
+            target_mappings,
+            user_mappings
+        )
+
+    def test_sanitize_input(self):
+
+        inputs = [
+            (' faulty string', 'faulty string'),
+            ('another faulty string    ', 'another faulty string'),
+            ('correct string', 'correct string')
+        ]
+
+        for input in inputs:
+            self.assertEqual(
+                input[1],
+                self.sett_get.sanitize_input(input[0])
+            )
+
+    def test_get_label_configs(self):
+
+        target_dict = {
+            'headers': {
+                'Issue Type': 'Task', 'Priority': 'Normal', 'Status': ''
+            },
+            'labels': {
+                'Prio_1': {
+                    'field': 'Priority',
+                    'value': 'Highest'
+                },
+                'Prio_3': {
+                    'field': 'Priority',
+                    'value': 'Medium'
+                },
+                'status::in_progress': {
+                    'field': 'Status',
+                    'value': 'In Progress'
+                },
+                'status::needs_review': {
+                    'field': 'Status',
+                    'value': 'Review'
+                },
+                'unittest': {
+                    'field': 'Issue Type',
+                    'value': 'Test'
+                }
+            }
+        }
+
+        label_configs = self.sett_get.get_label_configs()
+
+        self.assertDictEqual(
+            target_dict,
+            label_configs
+        )
+
+    def test_get_deconstruction_attributes_wrong_attribute(self):
+
+        self.sett_get.config['DECONSTRUCT']['allowed'] += ',Badgers'
+
+        with self.assertRaises(ValueError):
+            self.sett_get.get_deconstruction_attributes()

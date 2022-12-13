@@ -1,3 +1,4 @@
+import csv
 import configparser
 from os import getenv
 from dotenv import load_dotenv
@@ -74,8 +75,8 @@ class SettingsGetter():
             str: returns the constructed issue fetching entrypoint as a string.
         """
 
-        base = self.config['COMMON']['baseURL']
-        scope_id = self.config['COMMON']['scope_id']
+        base = self.sanitize_input(self.config['COMMON']['baseURL'])
+        scope_id = self.sanitize_input(self.config['COMMON']['scope_id'])
 
         if scope_type == 'project':
 
@@ -93,13 +94,64 @@ class SettingsGetter():
         """
         deconst_attrs = self.config['DECONSTRUCT']['allowed'].split(',')
 
-        return deconst_attrs
+        sanitized_attrs = [self.sanitize_input(
+            attribute) for attribute in deconst_attrs]
 
-    def trim_and_lower_settings_input(self, settings: dict) -> None:
+        if not SettingsValidator.validate_deconstruction_attributes(sanitized_attrs):
+            raise ValueError('Invalid deconstruction attribute provided!')
+
+        return sanitized_attrs
+
+    def get_csv_settings(self) -> dict:
+        """Function to get settings for the CSVTool.
+
+        Returns:
+            dict: Returns a dict containing the target Jira project's
+            information (project key) and a dictionary that specifies how
+            to turn labels into issue fields and with what values.
+        """
+
+        return dict(self.config['JIRA'])
+
+    def get_user_mappings(self) -> dict:
+        """Function to fetch user mappings from a defined CSV file. The users
+        are read into a flat dict of key-value pairs.
+
+        Args:
+            filepath (str): Filepath to the location of the user mapping
+            CSV file.
+
+        Returns:
+            dict: Dict containing the key-value pairings of the defined
+            users with user's full name as the key and email address as
+            the value.
+        """
+
+        return_dict = {}
+
+        filepath = self.config['FILEPATHS']['user_mappings']
+
+        with open(filepath, 'r', encoding='UTF-8') as csvfile:
+            reader = csv.DictReader(csvfile)
+            for row in reader:
+                return_dict[row['username']] = row['email']
+
+        return return_dict
+
+    def get_label_configs(self) -> dict:
+
+        return jreader.read_json_to_dict(self.config['FILEPATHS']['label_configs'])
+
+    def sanitize_input(self, input_string: str) -> str:
         """Fucntion to trim and lower provided input in the configuration
         file to make inputs case insensitive and immune to trailing
         whitespaces.
 
         Args:
-            settings (dict): _description_
+            input_string (str): String literal to sanitize.
+
+        Returns:
+            str: returns the sanitized string literal.
         """
+
+        return input_string.strip()

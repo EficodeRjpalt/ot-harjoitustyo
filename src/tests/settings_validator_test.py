@@ -212,6 +212,30 @@ class TestSettignsValidator(unittest.TestCase):
             )
         )
 
+        self.assertTrue(
+            self.validator.validate_url(
+                'https://test-test.domain.com/'
+            )
+        )
+
+        self.assertTrue(
+            self.validator.validate_url(
+                'https://my.test-domain.com/'
+            )
+        )
+
+        self.assertTrue(
+            self.validator.validate_url(
+                'www.my.test-domain-test.com/'
+            )
+        )
+
+        self.assertTrue(
+            self.validator.validate_url(
+                'www.my.portal.com/'
+            )
+        )
+
     def test_validate_url_incorrect_input(self):
 
         self.assertFalse(
@@ -454,4 +478,32 @@ class TestSettignsValidator(unittest.TestCase):
         with self.assertRaises(ValueError):
             self.validator.validate_http_settings(
                 tmp_settings
+            )
+
+    def test_validate_deconstruction_attributes(self):
+
+        test_lists = [
+            ['Comments'],
+            ['Labels', 'Watchers'],
+            ['Watchers', 'Comments'],
+            ['Watchers', 'Labels', 'Comments'],
+            []
+        ]
+
+        for test_list in test_lists:
+            self.assertTrue(
+                SettingsValidator.validate_deconstruction_attributes(test_list)
+            )
+
+    def test_validate_deconstruction_attributes_invalid(self):
+
+        test_lists = [
+            ['Labels', 'Badgers'],
+            ['Comments', 'Watchers', 'Foxes'],
+            ['Foxes', 'Badgers'],
+        ]
+
+        for test_list in test_lists:
+            self.assertFalse(
+                SettingsValidator.validate_deconstruction_attributes(test_list)
             )
