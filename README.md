@@ -47,8 +47,9 @@ Projekti on testattu Python-versiolla 3.10. Tukea vanhempien versioiden kanssa e
 ## Konfiguraatiotiedost ja niiden sijainnit ##
 
 Ennen ohjelman ajamista seuraavat konfiguraatiot täytyy asettaa paikoilleen:
-1. Ohjelman root-kansiossa tulee olla `.env` -tiedosto, josta löytyy GitLab API token muuttujasta `GL_PAT=`.
-
+1. Ohjelman root-kansiossa tulee olla `.env` -tiedosto, josta löytyy GitLab API token muuttujasta `GL_PAT=`. Voi poistaa ohjelman mukana tulevan env.samplen tai uudelleen nimetä kyseisen tiedoston.
+2. Jos haluat antaa ohjelmalle omat käyttäjät mäpättäväksi, tulee tieto antaa csv-tiedostoon src/resources/user_mapping.csv. CSV:n skeema on `username,email` ja tämän jälkeen jokaiselle riville käyttäjänimi ja käyttäjän sähköpostiosoite.
+3. Jos haluat antaa ohjelmalle tiedot siitä kuinka tulkita GitLabissa käytettyjä labeleita, tulee tieto niistä antaa tiedostoon /src/resources/label_configs.json. Ks. tiedoston skeemasta alempaa.
 
 # Dokumentaatio #
 
@@ -65,6 +66,8 @@ Ennen ohjelman ajamista seuraavat konfiguraatiot täytyy asettaa paikoilleen:
 # Asennus #
 
 1. Riippuvuudet asenetaan komennolla `poetry install`
+
+**HUOM!** Tarkasta ennen asetusta, että poetryn asetus `virtualenvs.in-project` on `true`. Tarkastuksen voi tehdä komennolla `poetry config --list`ja jos arvo ei ole true, niin `poetry config virtualenvs.in-project true`. Muuten poetry ei osaa asentaa projektikohtaista .venviä tätä projektia varten.
 
 # Käyttöohjeet #
 
