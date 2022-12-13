@@ -46,7 +46,9 @@ Projekti on testattu Python-versiolla 3.10. Tukea vanhempien versioiden kanssa e
 
 ## Konfiguraatiotiedost ja niiden sijainnit ##
 
-(Testaa chubbli-koneella)
+Ennen ohjelman ajamista seuraavat konfiguraatiot täytyy asettaa paikoilleen:
+1. Ohjelman root-kansiossa tulee olla `.env` -tiedosto, josta löytyy GitLab API token muuttujasta `GL_PAT=`.
+
 
 # Dokumentaatio #
 
