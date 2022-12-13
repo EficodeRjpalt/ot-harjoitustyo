@@ -2,8 +2,6 @@ from datetime import datetime
 import pandas as pd
 from pandas import DataFrame
 
-pd.options.mode.chained_assignment = None
-
 
 class CSVTool():
     """A helper too to write issues in Python's dict format into
@@ -246,6 +244,6 @@ class CSVTool():
 
         if not (field_info[0] == 'Status' and status_row_value == 'closed'):
             if field_info[0] == 'Status':
-                dataf['Status'][current_index] = field_info[1]
+                dataf.loc[[current_index], ['Status']] = field_info[1]
             else:
                 dataf.at[current_index, field_info[0]] = field_info[1]
