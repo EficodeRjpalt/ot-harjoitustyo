@@ -28,6 +28,14 @@
         "In_Progress": {
             "field": "Status",
             "value": "In Progress"
+        },
+        "To_Do": {
+            "field": "Status",
+            "value": "To Do"
+        },
+        "To_do": {
+            "field": "Status",
+            "value": "To Do"
         }
     }
 }

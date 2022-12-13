@@ -2,6 +2,8 @@ from datetime import datetime
 import pandas as pd
 from pandas import DataFrame
 
+pd.options.mode.chained_assignment = None
+
 
 class CSVTool():
     """A helper too to write issues in Python's dict format into
@@ -186,29 +188,38 @@ class CSVTool():
                 # and the cell value for the field.
                 if row[label_column] in list(label_mappings['labels'].keys()):
                     return_info = cls.get_df_field_value(
-                        label_mappings, row[label_column])
-                    if not (return_info[0] == 'Status' and row['Status'] == 'closed'):
-                        if return_info[0] == 'Status':
-                            dataf['Status'][index] = return_info[1]
-                        else:
-                            dataf.at[index, return_info[0]] = return_info[1]
+                        label_mappings, row[label_column]
+                    )
+                    cls.remap_field_value(
+                        return_info,
+                        row['Status'],
+                        dataf,
+                        index
+                    )
 
     @classmethod
-    def get_df_field_value(cls, label_mappings: dict, cell_value: str):
+    def get_df_field_value(cls, label_mappings: dict, cell_value: str) -> tuple:
         """A helper function to fetch the column header information and
         cell value information from label mapping configurations.
 
         Args:
-            label_mappings (dict): _description_
-            label_value (str): _description_
+            label_mappings (dict): A dictionary containing the label mapping
+            configurations.
+            cell_value (str): the value in a cell currently inspected.
 
         Returns:
-            _type_: _description_
+            tuple: returns information containing firstly the name of the field
+            which the cell value should have in the updated dataframe and secondly
+            the value that should be placed into the given row's cell for that column.
         """
 
+        return_tuple = None
         for field, label_values in label_mappings['labels'].items():
             if field == cell_value:
-                return (label_values['field'], label_values['value'])
+                return_tuple = (label_values['field'], label_values['value'])
+                break
+
+        return return_tuple
 
     @classmethod
     def remap_field_value(
@@ -217,6 +228,18 @@ class CSVTool():
             status_row_value: str,
             dataf: DataFrame,
             current_index: int):
+        """Helper function to place the remapped value into the manipulated
+        dataframe.
+
+        Args:
+            field_info (tuple): Tuple containing information in which column
+            and what value should be written to the currently manipulated row.
+            status_row_value (str): The value for the Status column of the
+            currently manipulated row.
+            dataf (DataFrame): Takes the currently manipulated dataframe
+            as an argument.
+            current_index (int): The index of currently manipulated row.
+        """
 
         if field_info is None:
             return
