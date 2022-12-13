@@ -38,6 +38,8 @@ Ideaalitapauksessa ohjelma lukisi datan GitLabin rajapinnasta ja kirjottaisi tie
 
 Projekti on testattu Python-versiolla 3.10. Tukea vanhempien versioiden kanssa ei taata.
 
+Invokella saattaa olla yhteensopivuusongelmia Python 3.11 kanssa, lisää [täällä](https://github.com/pyinvoke/invoke/issues/833). (Hat tip @ismomehdi).
+
 # Ennakkovaatimukset #
 
 1. Jotta ohjelmaa voi käyttää/testata, tarvitsee käyttäjällä olla pääsy johonkin GitLabin projektiin tai groupiin ja oikeudet katsoa kys. groupin tai projektin issueita.
