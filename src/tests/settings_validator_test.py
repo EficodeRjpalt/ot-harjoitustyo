@@ -236,7 +236,6 @@ class TestSettignsValidator(unittest.TestCase):
             )
         )
 
-
     def test_validate_url_incorrect_input(self):
 
         self.assertFalse(
