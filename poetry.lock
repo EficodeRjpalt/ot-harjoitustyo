@@ -320,7 +320,7 @@ python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*"
 
 [[package]]
 name = "strongtyping"
-version = "3.10.4"
+version = "3.10.5"
 description = "Decorator which checks whether the function is called with the correct type of parameters"
 category = "main"
 optional = false
@@ -374,7 +374,7 @@ python-versions = "!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*,!=3.4.*,>=2.7"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.10"
-content-hash = "a68e92bee6695e63d4c6d2ef4e94f74dec035ea64be6c352726facfcc8659dc7"
+content-hash = "40381113c05668b0d9a1d12012b3fc0f04ecbd7a68633590eb990b122b612042"
 
 [metadata.files]
 astroid = [
@@ -606,8 +606,8 @@ six = [
     {file = "six-1.16.0.tar.gz", hash = "sha256:1e61c37477a1626458e36f7b1d82aa5c9b094fa4802892072e49de9c60c4c926"},
 ]
 strongtyping = [
-    {file = "strongtyping-3.10.4-py3-none-any.whl", hash = "sha256:f883d8df14a921d9df88a36fc309e14f43ffd28b6e4bc4ac18e348bab0990792"},
-    {file = "strongtyping-3.10.4.tar.gz", hash = "sha256:e8fc1e112c867c7773fa38c18124c91aa3cf4960097af10b077c8036827afd88"},
+    {file = "strongtyping-3.10.5-py3-none-any.whl", hash = "sha256:ac803ac34a0d8e1801b5b6cb4ab7f49a451deb7c785013ec7175eab744799ab9"},
+    {file = "strongtyping-3.10.5.tar.gz", hash = "sha256:734643fcf8bdf72f4030d0f9a074ba9e7ef40e5839e502cdc99fd64b226d6fea"},
 ]
 tomli = [
     {file = "tomli-2.0.1-py3-none-any.whl", hash = "sha256:939de3e7a6161af0c887ef91b7d41a53e7c5a1ca976325f429cb46ea9bc30ecc"},
