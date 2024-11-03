@@ -1,0 +1,19 @@
+name: Vulns to Jira
+
+on:
+  workflow_dispatch:  # Allows manual triggering of the workflow
+
+jobs:
+  create_jira_issues:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Run Vulns to Jira Action
+        uses: EficodeRjpalt/vulns2jira@v0.1.0
+        with:
+          jira_project_key: GIDP  # Set to the specific Jira project key
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          # Add additional inputs as defined in your action.yml
