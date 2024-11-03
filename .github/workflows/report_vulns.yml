@@ -12,7 +12,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Run Vulns to Jira Action
-        uses: EficodeRjpalt/vulns2jira@v0.1.0
+        uses: EficodeRjpalt/vulns2jira@v0.1.1
         with:
           jira_project_key: GIDP  # Set to the specific Jira project key
           github_token: ${{ secrets.GITHUB_TOKEN }}
