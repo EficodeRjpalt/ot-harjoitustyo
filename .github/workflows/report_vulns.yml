@@ -14,5 +14,5 @@ jobs:
       - name: Run Vulns to Jira Action
         uses: EficodeRjpalt/vulns2jira@v0.1.4
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          github_token: ${{ secrets.ADMIN_PAT }}  # Use the PAT instead of GITHUB_TOKEN
           repo: ${{ github.repository }}  # or specify a different repo if needed
