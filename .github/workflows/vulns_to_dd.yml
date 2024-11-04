@@ -18,6 +18,30 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Set Time Range Based on Frequency
+        id: time_range
+        run: |
+          case "${{ env.FREQUENCY }}" in
+            daily)
+              since=$(date -u -d '24 hours ago' +"%Y-%m-%dT%H:%M:%SZ")
+              ;;
+            weekly)
+              since=$(date -u -d '7 days ago' +"%Y-%m-%dT%H:%M:%SZ")
+              ;;
+            monthly)
+              since=$(date -u -d '1 month ago' +"%Y-%m-%dT%H:%M:%SZ")
+              ;;
+            yearly)
+              since=$(date -u -d '1 year ago' +"%Y-%m-%dT%H:%M:%SZ")
+              ;;
+            *)
+              echo "Invalid FREQUENCY specified. Choose from daily, weekly, monthly, or yearly."
+              exit 1
+              ;;
+          esac
+          echo "Filtering vulnerabilities created since: $since"
+          echo "since=$since" >> $GITHUB_ENV  # Save 'since' to the environment file
+
       - name: Fetch Full GitHub Vulnerabilities Data (GraphQL)
         env:
           GITHUB_TOKEN: ${{ secrets.DEPENDABOT_TOKEN }}
