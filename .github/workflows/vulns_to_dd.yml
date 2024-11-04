@@ -54,7 +54,24 @@ jobs:
           curl -X POST -H "Authorization: Bearer $GITHUB_TOKEN" \
                -H "Content-Type: application/json" \
                -d "$json_data" https://api.github.com/graphql \
-               -o github_vulnerabilities.json
+               -o raw_github_vulnerabilities.json
+
+      - name: Filter Vulnerabilities by Creation Date
+        run: |
+          since="${{ env.since }}"
+          since_unix=$(date -d "$since" +"%s")
+          jq --arg since_unix "$since_unix" '
+            [
+              .data.repository.vulnerabilityAlerts.nodes[]
+              | select((.createdAt | fromdateiso8601) > ($since_unix | tonumber))
+            ]
+          ' raw_github_vulnerabilities.json > github_vulnerabilities.json
+
+      - name: Display Vulnerabilities
+        if: success()
+        run: |
+          echo "GitHub Vulnerabilities:"
+          cat github_vulnerabilities.json
   
       - name: Upload Vulnerabilities to Defect Dojo
         env:
@@ -77,9 +94,4 @@ jobs:
             -F "environment=$environment" \
             -F "file=@$report;type=application/$ext" \
             -F "branch_tag=$DEFECTDOJO_ENGAGEMENT"
-  
-      - name: Display Vulnerabilities
-        if: success()
-        run: |
-          echo "GitHub Vulnerabilities:"
-          cat github_vulnerabilities.json
+
