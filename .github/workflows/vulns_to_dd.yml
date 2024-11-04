@@ -17,8 +17,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.DEPENDABOT_TOKEN }}
         run: |
-          owner="EficodeRjpalt"
-          name="ot-harjoitustyo"
+          owner="${{ github.repository_owner }}"
+          name="${{ github.event.repository.name }}"
           query='query ($owner: String!, $name: String!) { repository(owner: $owner, name: $name) { vulnerabilityAlerts(first: 100) { nodes { id createdAt dismissedAt dismisser { login } dismissReason vulnerableManifestFilename vulnerableManifestPath vulnerableRequirements state securityVulnerability { severity updatedAt package { name ecosystem } advisory { description summary identifiers { value type } references { url } cvss { score vectorString } origin publishedAt updatedAt withdrawnAt } firstPatchedVersion { identifier } } } } } }'
           
           json_data="{\"query\": \"$query\", \"variables\": {\"owner\": \"$owner\", \"name\": \"$name\"}}"
@@ -26,6 +26,7 @@ jobs:
                -H "Content-Type: application/json" \
                -d "$json_data" https://api.github.com/graphql \
                -o github_vulnerabilities.json
+  
       - name: Upload Vulnerabilities to Defect Dojo
         env:
           DEFECTDOJO_API_KEY: ${{ secrets.DD_API_KEY }}
@@ -49,6 +50,7 @@ jobs:
             -F "environment=$environment" \
             -F "file=@$report;type=application/$ext" \
             -F "branch_tag=$DEFECTDOJO_ENGAGEMENT"
+  
       - name: Display Vulnerabilities
         if: success()
         run: |
