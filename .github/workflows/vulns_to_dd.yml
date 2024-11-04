@@ -6,6 +6,11 @@ on:
 permissions:
   contents: read
 
+env:
+  FREQUENCY: "yearly"  # Set to "daily", "weekly", "monthly", or "yearly"
+  scanType: "Github Vulnerability Scan"
+  environment: "Production"
+
 jobs:
   github-vulnerability-fetch:
     runs-on: ubuntu-latest
@@ -32,8 +37,6 @@ jobs:
           DEFECTDOJO_API_KEY: ${{ secrets.DD_API_KEY }}
           DEFECTDOJO_URL: ${{ secrets.DD_URL }}
           DEFECTDOJO_ENGAGEMENT: ${{ secrets.DD_ENGAGEMENT }}
-          environment: "Production"
-          scanType: "Github Vulnerability Scan"
         run: |
           report="github_vulnerabilities.json"
           ext="json"
