@@ -1,25 +1,48 @@
+# Description: Fetches full GitHub vulnerabilities data and uploads it to Defect Dojo
+# Additional features: Filters vulnerabilities by creation date
 name: "Fetch and Upload Full GitHub Vulnerabilities Data to DD"
 
+# Scheduled runs, by default every day at 8 am UTC
+# For adjusting the schedule, see https://crontab.guru/
 on:
   workflow_dispatch:
 
+# Permissions for the workflow: read access to the repository contents
 permissions:
   contents: read
 
+# Environment variables
+# FREQUENCY: Set to "daily", "weekly", "monthly", or "yearly" to define the time range for filtering fetched vulnerabilities
+# 'daily' stting will fetch vulnerabilities created in the last 24 hours. Similarly, 'weekly', 'monthly', and 'yearly' will fetch vulnerabilities created in the last 7 days, 1 month, and 1 year, respectively.
+# scanType: The type of scan to be uploaded to Defect Dojo. The default setting "Github Vulnerability Scan" is the only one supported by Defect Dojo import_scan endpoint for GitHub vulnerabilities.
+# environment: The environment in which the vulnerabilities were found.
 env:
   FREQUENCY: "yearly"  # Set to "daily", "weekly", "monthly", or "yearly"
   scanType: "Github Vulnerability Scan"
   environment: "Production"
 
 jobs:
+  # Fetch full GitHub vulnerabilities data
   github-vulnerability-fetch:
     runs-on: ubuntu-latest
     steps:
+      # Checkout the repository
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      # Set time range based on frequency
       - name: Set Time Range Based on Frequency
         id: time_range
+          # This script sets the 'since' variable based on the value of the 'FREQUENCY' environment variable.
+          # The 'since' variable is used to filter vulnerabilities created since a specific time.
+          # The 'FREQUENCY' environment variable can have one of the following values: daily, weekly, monthly, or yearly.
+          # Depending on the value of 'FREQUENCY', the 'since' variable is set to a date string representing:
+          # - 24 hours ago for 'daily'
+          # - 7 days ago for 'weekly'
+          # - 1 month ago for 'monthly'
+          # - 1 year ago for 'yearly'
+          # If an invalid 'FREQUENCY' value is provided, an error message is displayed and the script exits with a status of 1.
+          # The 'since' variable is then echoed and saved to the GitHub environment file for use in subsequent steps.
         run: |
           case "${{ env.FREQUENCY }}" in
             daily)
@@ -42,9 +65,13 @@ jobs:
           echo "Filtering vulnerabilities created since: $since"
           echo "since=$since" >> $GITHUB_ENV  # Save 'since' to the environment file
 
+      # Fetch full GitHub vulnerabilities data using GraphQL
       - name: Fetch Full GitHub Vulnerabilities Data (GraphQL)
         env:
           GITHUB_TOKEN: ${{ secrets.DEPENDABOT_TOKEN }}
+        # Fetches full GitHub vulnerabilities data using the GitHub GraphQL API
+        # Note that it fetches only 100 vulnerabilities at a time
+        # The data is saved to a JSON file named 'raw_github_vulnerabilities.json'
         run: |
           owner="${{ github.repository_owner }}"
           name="${{ github.event.repository.name }}"
@@ -56,7 +83,16 @@ jobs:
                -d "$json_data" https://api.github.com/graphql \
                -o raw_github_vulnerabilities.json
 
+      # Filter and upload GitHub vulnerabilities data to Defect Dojo
       - name: Filter Vulnerabilities by Creation Date
+          # Environment Variables:
+          # - since: The date from which to filter vulnerability alerts.
+          #
+          # Steps:
+          # 1. Convert the 'since' date to Unix timestamp format.
+          # 2. Use 'jq' to filter the 'raw_github_vulnerabilities.json' file, selecting only the alerts
+          #    that were created after the specified 'since' date.
+          # 3. Output the filtered results to 'github_vulnerabilities.json'.
         run: |
           since="${{ env.since }}"
           since_unix=$(date -d "$since" +"%s")
@@ -75,17 +111,39 @@ jobs:
             }
           ' raw_github_vulnerabilities.json > github_vulnerabilities.json
 
+      # Display and upload the filtered GitHub vulnerabilities data to Defect Dojo
       - name: Display Vulnerabilities
         if: success()
         run: |
           echo "GitHub Vulnerabilities:"
           cat github_vulnerabilities.json
-  
+
+      # Upload the filtered GitHub vulnerabilities data to Defect Dojo
       - name: Upload Vulnerabilities to Defect Dojo
         env:
+          # Defect Dojo API key and URL
           DEFECTDOJO_API_KEY: ${{ secrets.DD_API_KEY }}
+          # Defect Dojo URL
           DEFECTDOJO_URL: ${{ secrets.DD_URL }}
+          # Defect Dojo engagement ID
           DEFECTDOJO_ENGAGEMENT: ${{ secrets.DD_ENGAGEMENT }}
+          # This script sends a POST request to the DefectDojo API to import a scan report.
+          # The following parameters are used in the request:
+          #
+          # - $report: The path to the scan report file.
+          # - $ext: The file extension of the scan report (e.g., json).
+          # 
+          # The following form data is included in the request:
+          # 
+          # - engagement: The ID of the engagement.
+          # - scan_type: The type of scan.
+          # - test_title: The title of the test, which is the same as the scan type. Can be changed.
+          # - close_old_findings: A boolean flag indicating whether to close old findings.
+          # - deduplication_on_engagement: A boolean flag indicating whether to deduplicate findings within the engagement.
+          # - create_finding_groups_for_all_findings: A boolean flag indicating whether to create finding groups for all findings.
+          # - environment: The environment in which the scan was performed.
+          # - file: The scan report file, with its MIME type set based on the file extension.
+          # - branch_tag: The branch tag associated with the engagement.
         run: |
           report="github_vulnerabilities.json"
           ext="json"
@@ -102,4 +160,3 @@ jobs:
             -F "environment=$environment" \
             -F "file=@$report;type=application/$ext" \
             -F "branch_tag=$DEFECTDOJO_ENGAGEMENT"
-
