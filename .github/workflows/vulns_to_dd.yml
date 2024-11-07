@@ -110,18 +110,10 @@ jobs:
           since="${{ env.since }}"
           since_unix=$(date -d "$since" +"%s")
           jq --arg since_unix "$since_unix" '
-            {
-              data: {
-                repository: {
-                  vulnerabilityAlerts: {
-                    nodes: [
-                      .data.repository.vulnerabilityAlerts.nodes[]
-                      | select((.createdAt | fromdateiso8601) > ($since_unix | tonumber))
-                    ]
-                  }
-                }
-              }
-            }
+            [
+              .[] 
+              | select((.createdAt | fromdateiso8601) > ($since_unix | tonumber))
+            ]
           ' raw_github_vulnerabilities.json > github_vulnerabilities.json
 
       # Display and upload the filtered GitHub vulnerabilities data to Defect Dojo
