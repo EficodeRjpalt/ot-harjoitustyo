@@ -65,23 +65,32 @@ jobs:
           echo "Filtering vulnerabilities created since: $since"
           echo "since=$since" >> $GITHUB_ENV  # Save 'since' to the environment file
 
-      # Fetch full GitHub vulnerabilities data using GraphQL
       - name: Fetch Full GitHub Vulnerabilities Data (GraphQL)
         env:
           GITHUB_TOKEN: ${{ secrets.DEPENDABOT_TOKEN }}
         # Fetches full GitHub vulnerabilities data using the GitHub GraphQL API
-        # Note that it fetches only 100 vulnerabilities at a time
+        # Handles pagination to fetch more than 100 vulnerabilities
         # The data is saved to a JSON file named 'raw_github_vulnerabilities.json'
         run: |
           owner="${{ github.repository_owner }}"
           name="${{ github.event.repository.name }}"
-          query='query ($owner: String!, $name: String!) { repository(owner: $owner, name: $name) { vulnerabilityAlerts(first: 100) { nodes { id createdAt dismissedAt dismisser { login } dismissReason vulnerableManifestFilename vulnerableManifestPath vulnerableRequirements state securityVulnerability { severity updatedAt package { name ecosystem } advisory { description summary identifiers { value type } references { url } cvss { score vectorString } origin publishedAt updatedAt withdrawnAt } firstPatchedVersion { identifier } } } } } }'
+          query='query ($owner: String!, $name: String!, $cursor: String) { repository(owner: $owner, name: $name) { vulnerabilityAlerts(first: 100, after: $cursor) { pageInfo { endCursor hasNextPage } nodes { id createdAt dismissedAt dismisser { login } dismissReason vulnerableManifestFilename vulnerableManifestPath vulnerableRequirements state securityVulnerability { severity updatedAt package { name ecosystem } advisory { description summary identifiers { value type } references { url } cvss { score vectorString } origin publishedAt updatedAt withdrawnAt } firstPatchedVersion { identifier } } } } } }'
           
-          json_data="{\"query\": \"$query\", \"variables\": {\"owner\": \"$owner\", \"name\": \"$name\"}}"
-          curl -X POST -H "Authorization: Bearer $GITHUB_TOKEN" \
-               -H "Content-Type: application/json" \
-               -d "$json_data" https://api.github.com/graphql \
-               -o raw_github_vulnerabilities.json
+          vulnerabilities="[]"
+          cursor="null"
+          hasNextPage="true"
+          
+          while [ "$hasNextPage" = "true" ]; do
+            json_data="{\"query\": \"$query\", \"variables\": {\"owner\": \"$owner\", \"name\": \"$name\", \"cursor\": $cursor}}"
+            response=$(curl -s -X POST -H "Authorization: Bearer $GITHUB_TOKEN" \
+                     -H "Content-Type: application/json" \
+                     -d "$json_data" https://api.github.com/graphql)
+            vulnerabilities=$(echo "$vulnerabilities" | jq --argjson newNodes "$(echo "$response" | jq '.data.repository.vulnerabilityAlerts.nodes')" '. + $newNodes')
+            cursor=$(echo "$response" | jq -r '.data.repository.vulnerabilityAlerts.pageInfo.endCursor')
+            hasNextPage=$(echo "$response" | jq -r '.data.repository.vulnerabilityAlerts.pageInfo.hasNextPage')
+          done
+          
+          echo "$vulnerabilities" > raw_github_vulnerabilities.json
 
       # Filter and upload GitHub vulnerabilities data to Defect Dojo
       - name: Filter Vulnerabilities by Creation Date
