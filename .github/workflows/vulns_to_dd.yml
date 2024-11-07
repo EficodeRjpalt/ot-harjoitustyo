@@ -85,6 +85,9 @@ jobs:
             response=$(curl -s -X POST -H "Authorization: Bearer $GITHUB_TOKEN" \
                      -H "Content-Type: application/json" \
                      -d "$json_data" https://api.github.com/graphql)
+
+            echo "Response: $response"
+            
             vulnerabilities=$(echo "$vulnerabilities" | jq --argjson newNodes "$(echo "$response" | jq '.data.repository.vulnerabilityAlerts.nodes')" '. + $newNodes')
             cursor=$(echo "$response" | jq -r '.data.repository.vulnerabilityAlerts.pageInfo.endCursor')
             hasNextPage=$(echo "$response" | jq -r '.data.repository.vulnerabilityAlerts.pageInfo.hasNextPage')
