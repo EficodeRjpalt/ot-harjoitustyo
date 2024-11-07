@@ -94,6 +94,7 @@ jobs:
           done
           
           echo "$vulnerabilities" > raw_github_vulnerabilities.json
+          cat raw_github_vulnerabilities.json
 
       # Filter and upload GitHub vulnerabilities data to Defect Dojo
       - name: Filter Vulnerabilities by Creation Date
