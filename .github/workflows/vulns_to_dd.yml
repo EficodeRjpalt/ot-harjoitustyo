@@ -172,3 +172,12 @@ jobs:
             -F 'minimum_severity=Info' \
             -F 'active=true' \
             -F 'verified=false' \
+
+            # Check if the response is 201 (Created)
+          if [ "$response" -ne 201 ]; then
+            echo "Failed to upload vulnerabilities to Defect Dojo. HTTP Status: $response"
+            cat response.json # Optional: Print the response for debugging
+            exit 1
+          else
+            echo "Successfully uploaded vulnerabilities to Defect Dojo."
+          fi
