@@ -160,7 +160,7 @@ jobs:
         run: |
           report="github_vulnerabilities.json"
           ext="json"
-          curl -X POST "$DEFECTDOJO_URL/api/v2/import-scan/" \
+          response_status=$(curl -s -o response.json -w "%{http_code}" -X POST "$DEFECTDOJO_URL/api/v2/import-scan/" \
             -H "Authorization: Token $DEFECTDOJO_API_KEY" \
             -H "accept: application/json" \
             -H "Content-Type: multipart/form-data" \
@@ -171,10 +171,10 @@ jobs:
             -F "file=@$report;type=application/$ext" \
             -F 'minimum_severity=Info' \
             -F 'active=true' \
-            -F 'verified=false' \
+            -F 'verified=false')
 
             # Check if the response is 201 (Created)
-          if [ "$response" -ne 201 ]; then
+          if [ "$response_status" -ne 201 ]; then
             echo "Failed to upload vulnerabilities to Defect Dojo. HTTP Status: $response"
             cat response.json # Optional: Print the response for debugging
             exit 1
