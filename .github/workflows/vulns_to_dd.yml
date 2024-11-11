@@ -17,7 +17,7 @@ permissions:
 # scanType: The type of scan to be uploaded to Defect Dojo. The default setting "Github Vulnerability Scan" is the only one supported by Defect Dojo import_scan endpoint for GitHub vulnerabilities.
 # environment: The environment in which the vulnerabilities were found.
 env:
-  FREQUENCY: "daily"  # Set to "daily", "weekly", "monthly", or "yearly"
+  FREQUENCY: "yearly"  # Set to "daily", "weekly", "monthly", or "yearly"
   scanType: "Github Vulnerability Scan"
   environment: "Production"
 
